@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ICONS}}
+<title>ThinkUI — UI references for your coding agent, over MCP</title>
+<meta name="description" content="ThinkUI is an MCP server that gives your coding agent real interface references: screens, flows, ready-made components, fonts and animated icons.">
+<link rel="canonical" href="{{CANONICAL}}">
+<meta name="robots" content="{{ROBOTS}}">
+<meta name="author" content="ThinkUI">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="ThinkUI — UI references for your coding agent, over MCP">
+<meta property="og:description" content="Real screens, flows, components, fonts and icons for your agent to build with. Every result traceable to its source.">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="{{SITE_URL}}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ThinkUI — UI references for your coding agent">
+<meta name="twitter:description" content="An MCP server that answers design questions with evidence: the screen, the flow, the component, the source.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "{{SITE_URL}}/#org",
+      "name": "ThinkUI",
+      "url": "{{SITE_URL}}/",
+      "description": "An MCP server that provides interface references to coding agents."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "{{SITE_URL}}/#site",
+      "url": "{{SITE_URL}}/",
+      "name": "ThinkUI",
+      "publisher": { "@id": "{{SITE_URL}}/#org" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "{{SITE_URL}}/#app",
+      "name": "ThinkUI MCP server",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "macOS, Windows, Linux",
+      "description": "An MCP server that returns real interface references — screens, flows, UI components, fonts and animated icons — for coding agents to design and build with.",
+      "url": "{{SITE_URL}}/",
+      "offers": [
+        { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD",
+          "description": "200 tool calls a month for personal use." },
+        { "@type": "Offer", "name": "Pro", "price": "19", "priceCurrency": "USD",
+          "description": "Unlimited tool calls and commercial use." },
+        { "@type": "Offer", "name": "Team", "price": "49", "priceCurrency": "USD",
+          "description": "Five seats, shared queries, priority sources." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is MCP?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The Model Context Protocol is the standard way an AI coding agent connects to an outside tool. You add a server to your agent's config once and its tools become available in every conversation." } },
+        { "@type": "Question", "name": "Which clients does ThinkUI work with?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Any client that speaks MCP over stdio: Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed and any agent framework with an MCP client." } },
+        { "@type": "Question", "name": "Does my code or my project leave my machine?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The server runs as a local process your agent starts, and it answers from its own reference corpus. Nothing about your project is sent anywhere to produce a result." } },
+        { "@type": "Question", "name": "What happens when it does not know something?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It returns no result and names what it does hold. Asking for a navigation bar or a page footer, for example, returns nothing rather than the nearest component that happens to share a word." } },
+        { "@type": "Question", "name": "Can I use what it returns in commercial work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes on a paid plan. Every result the server returns identifies where it came from so you can keep your own records in order." } },
+        { "@type": "Question", "name": "How do I cancel?",
+          "acceptedAnswer": { "@type": "Answer", "text": "From your account page, in one click. Cancelling stops the next charge and your key stops working at the end of the period you already paid for." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body class="dark-top">
+<a class="skip" href="#main">Skip to content</a>
+
+{{>nav}}
+
+<main id="main">
+
+  <!-- ============================================================ hero -->
+  <section class="canvas hero">
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="beam" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="hero__inner">
+        <span class="hero__badge" data-rise><i class="dot"></i> MCP server · runs locally over stdio</span>
+        <h1 class="display" data-rise style="--i:1">Interface references your agent can <span class="grad">actually use.</span></h1>
+        <p class="lede" data-rise style="--i:2">
+          ThinkUI plugs into the coding agent you already use and answers design questions with
+          evidence: the screen, the flow it belongs to, the component itself, the typeface. Every
+          result says where it came from, so you can keep building instead of second-guessing.
+        </p>
+        <div class="hero__actions" data-rise style="--i:3">
+          <a class="btn btn--primary btn--lg" href="signup.html">
+            Get access
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="docs.html">Read the quickstart</a>
+        </div>
+        <div class="hero__meta" data-rise style="--i:4">
+          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Works with any MCP client</span>
+          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Five tools, one config block</span>
+          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Nothing about your project leaves your machine</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__row">
+      <span>find_ui_references</span><span>find_ui_elements</span><span>find_animated_icons</span>
+      <span>find_ui_materials</span><span>corpus_stats</span><span>onboarding flows</span>
+      <span>paywall patterns</span><span>empty states</span><span>settings screens</span>
+      <span>pricing tables</span><span>loaders</span><span>toggle switches</span>
+      <span>type scales</span><span>icon sets</span><span>design systems</span>
+    </div>
+  </div>
+
+  <!-- ========================================================== proof -->
+  <section class="section--tight">
+    <div class="wrap">
+      <div class="proof" data-rise>
+        <div><b class="mono">470</b><span>written design references</span></div>
+        <div><b class="mono">3,802</b><span>ready-made components</span></div>
+        <div><b class="mono">1,698</b><span>animated icons</span></div>
+        <div><b class="mono">118</b><span>fonts, icon sets and systems</span></div>
+      </div>
+      <p class="small" style="margin-top:18px">
+        Measured from the library this server serves — not projections. Ask the server for
+        <span class="mono">corpus_stats</span> and it reports the same numbers.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================================================= features -->
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>What it does</span>
+        <h2 data-rise>Design decisions, with the reasoning attached.</h2>
+        <p class="lede" data-rise>An agent that improvises a paywall produces a paywall nobody has ever shipped. ThinkUI gives it
+          something real to work from — and tells you what that something was.</p>
+      </div>
+
+      <div class="grid grid--3">
+        <article class="card card--lift card--glow" data-rise>
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></div>
+          <h3>Answers with evidence</h3>
+          <p>Ask “how does a paywall frame its trial?” and get the screens, the flow they belong to, what components
+            they use and the project each one came from.</p>
+          <div class="card__foot">find_ui_references</div>
+        </article>
+
+        <article class="card card--lift card--glow" data-rise style="--i:1">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h13"/></svg></div>
+          <h3>Components you can paste</h3>
+          <p>Buttons, loaders, cards, forms, inputs, switches, tooltips and patterns — returned as the component's own
+            markup and stylesheet, not a description of one.</p>
+          <div class="card__foot">find_ui_elements</div>
+        </article>
+
+        <article class="card card--lift card--glow" data-rise style="--i:2">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="3.4"/></svg></div>
+          <h3>Motion that actually moves</h3>
+          <p>Animated icons arrive as working SVG — animation included, no JavaScript runtime, no icon font, nothing to
+            install. Paste it and it animates.</p>
+          <div class="card__foot">find_animated_icons</div>
+        </article>
+
+        <article class="card card--lift card--glow" data-rise>
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 4h9l4 4v12H6z"/><path d="M15 4v4h4"/></svg></div>
+          <h3>Type and systems</h3>
+          <p>The right typeface for a brief, an icon set that is still maintained, the design system a product like yours
+            is built on — with the state of each project attached.</p>
+          <div class="card__foot">find_ui_materials</div>
+        </article>
+
+        <article class="card card--lift card--glow" data-rise style="--i:1">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 4 3.5 19h17z"/><path d="M12 10v4M12 16.5v.5"/></svg></div>
+          <h3>It refuses when it should</h3>
+          <p>Asked for a navigation bar or a page footer, it returns nothing and tells you what it does hold. A confident
+            wrong answer costs more than no answer.</p>
+          <div class="card__foot">no invented results</div>
+        </article>
+
+        <article class="card card--lift card--glow" data-rise style="--i:2">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg></div>
+          <h3>Fits your setup</h3>
+          <p>A local process your agent starts. Add one block to its config and the tools appear in every conversation
+            you have in that client.</p>
+          <div class="card__foot">MCP over stdio</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================== how -->
+  <section id="how">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>How it works</span>
+        <h2 data-rise>Three steps, once.</h2>
+      </div>
+
+      <div class="steps" data-rise>
+        <div class="step">
+          <h3>Connect it</h3>
+          <p>Paste one block into your agent's MCP config. No keys to rotate daily, no build step, nothing installed into
+            your project.</p>
+        </div>
+        <div class="step" style="--i:1">
+          <h3>Ask in plain language</h3>
+          <p>“Design the onboarding screen for a budgeting app.” The agent reaches for references instead of inventing
+            them.</p>
+        </div>
+        <div class="step" style="--i:2">
+          <h3>Build from something real</h3>
+          <p>You get screens to follow, components to paste and assets to ship — with a trail back to where each came
+            from.</p>
+        </div>
+      </div>
+
+      <div class="grid grid--2" style="margin-top:52px; align-items:center; gap:34px">
+        <div data-rise>
+          <h3 style="margin-bottom:12px">One block of config.</h3>
+          <p class="small" style="font-size:15px">
+            ThinkUI ships as a standard MCP server. Add it to Claude Desktop, Claude Code, Cursor, VS Code, Windsurf,
+            Zed or any framework with an MCP client — the same block works everywhere, and it is the only setup step.
+          </p>
+          <p class="small" style="margin-top:16px">
+            Your account key goes in one place. Everything else — tools, prompts, transport — is handled by the server.
+          </p>
+          <a class="link-arrow" href="docs.html" style="margin-top:20px">
+            Full quickstart
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+          </a>
+        </div>
+
+        <div class="code" data-rise style="--i:1">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">claude_desktop_config.json</span>
+            <button class="code__copy" type="button" data-copy aria-label="Copy configuration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+<pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"thinkui"</span>: {
+      <span class="k">"command"</span>: <span class="s">"npx"</span>,
+      <span class="k">"args"</span>: [<span class="s">"-y"</span>, <span class="s">"thinkui-mcp"</span>],
+      <span class="k">"env"</span>: { <span class="k">"THINKUI_KEY"</span>: <span class="s">"your-key"</span> }
+    }
+  }
+}</pre>
+          <div class="code__note">Then ask your agent something you would normally answer by opening ten apps.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================= pricing -->
+  <section class="section--soft" id="pricing">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>Pricing</span>
+        <h2 data-rise>Same server, same tools. Pay for the volume you use.</h2>
+        <p class="lede" data-rise>Start free. Move to a paid plan when it is carrying real work — you can change plan or
+          cancel from your account at any time.</p>
+      </div>
+
+      <div class="pricing">
+        <article class="plan" data-rise>
+          <span class="plan__name">Free</span>
+          <p class="plan__price"><b>$0</b><span>personal use</span></p>
+          <p class="plan__note">For trying it on a side project.</p>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>200 tool calls a month</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>All five tools</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Components and icons</li>
+          </ul>
+          <a class="btn btn--block" href="signup.html">Start free</a>
+        </article>
+
+        <article class="plan plan--best" data-rise style="--i:1">
+          <span class="plan__tag">Most popular</span>
+          <span class="plan__name">Pro</span>
+          <p class="plan__price"><b>$19</b><span>per month</span></p>
+          <p class="plan__note">For work you are actually shipping.</p>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Unlimited tool calls</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Commercial use, including client work</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Screens returned as images</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Priority when new sources land</li>
+          </ul>
+          <a class="btn btn--primary btn--block" href="signup.html">Get Pro</a>
+        </article>
+
+        <article class="plan" data-rise style="--i:2">
+          <span class="plan__name">Team</span>
+          <p class="plan__price"><b>$49</b><span>per month</span></p>
+          <p class="plan__note">For a small team on the same design language.</p>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Five seats</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Shared saved queries</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Everything in Pro</li>
+          </ul>
+          <a class="btn btn--block" href="signup.html">Get Team</a>
+        </article>
+      </div>
+      <p class="small" style="margin-top:22px; text-align:center">
+        Prices in USD. <a href="pricing.html" style="color:var(--brand-ink);font-weight:550">Compare plans in detail →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- =========================================================== faq -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>Questions</span>
+        <h2 data-rise>The ones people ask before connecting it.</h2>
+      </div>
+      <div class="faq" data-rise>
+        <details open>
+          <summary>What is MCP?</summary>
+          <div class="answer">
+            <p>The Model Context Protocol is the standard way an AI coding agent connects to an outside tool. You add a
+              server to your agent's config once, and its tools become available in every conversation you have in that
+              client.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Which clients does it work with?</summary>
+          <div class="answer">
+            <p>Any client that speaks MCP over stdio — Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed, and
+              agent frameworks with an MCP client. The config block is the same everywhere.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Does anything about my project get sent anywhere?</summary>
+          <div class="answer">
+            <p>No. The server runs as a local process that your agent starts, and it answers from its own reference
+              library. Nothing about your code, your files or your project is involved in producing a result.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What happens when it does not know something?</summary>
+          <div class="answer">
+            <p>It returns nothing and tells you what it does hold. Ask for a navigation bar or a page footer and you get
+              an empty result with the categories that exist, rather than the nearest component that happens to share a
+              word with your question.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Can I use what it returns in commercial work?</summary>
+          <div class="answer">
+            <p>Yes on a paid plan. Every result the server returns identifies where it came from, so your own records
+              stay in order when you ship.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How do I cancel?</summary>
+          <div class="answer">
+            <p>From your account page, in one click. Cancelling stops the next charge; your key keeps working until the
+              end of the period you already paid for.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================= closing -->
+  <section class="canvas closing">
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="display" data-rise>Stop describing interfaces to your agent. Show it some.</h2>
+      <p class="lede" data-rise>Connect ThinkUI and give it something real to work from.</p>
+      <div class="closing__actions" data-rise>
+        <a class="btn btn--light btn--lg" href="signup.html">Get access</a>
+        <a class="btn btn--ghost btn--lg" href="pricing.html">See pricing</a>
+      </div>
+      <p class="small" style="color:var(--on-ink-mute); margin-top:22px">
+        Free tier available · Cancel any time · Runs locally in your agent
+      </p>
+    </div>
+  </section>
+</main>
+
+{{>footer}}
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

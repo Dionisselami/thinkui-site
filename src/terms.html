@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ICONS}}
+<title>Terms of service — ThinkUI</title>
+<meta name="description" content="The terms that apply when you create an ThinkUI account and use the ThinkUI MCP server.">
+<link rel="canonical" href="{{CANONICAL}}">
+<meta name="robots" content="{{ROBOTS}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="Terms of service — ThinkUI">
+<meta property="og:description" content="The terms that apply when you create an ThinkUI account and use the ThinkUI MCP server.">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="{{SITE_URL}}/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Terms of service — ThinkUI">
+<meta name="twitter:description" content="The terms that apply when you create an ThinkUI account and use the ThinkUI MCP server.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+{{>nav}}
+<main id="main">
+  <section>
+    <div class="wrap">
+      <div class="doc-head">
+        <span class="eyebrow">Legal</span>
+        <h1>Terms of service</h1>
+        <p class="lede">The agreement between you and ThinkUI when you create an account and connect the server.</p>
+        <p class="prose updated" style="padding:0">Last updated {{YEAR}}.</p>
+      </div>
+
+      <div class="prose">
+        <h2>1. The service</h2>
+        <p>ThinkUI is a Model Context Protocol server. Once connected to a compatible client, it answers requests from
+          your agent with interface references drawn from ThinkUI's own reference library — screens, flows, components, fonts,
+          icon sets and animated icons.</p>
+        <p>The server runs as a local process started by your client. ThinkUI does not receive your source code, your
+          prompts or your project files in order to produce a result.</p>
+
+        <h2>2. Accounts and keys</h2>
+        <p>You need an account to use the server. Keep your account key confidential: anyone holding it can consume your
+          plan. Tell us promptly at <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a> if a key is exposed and we
+          will issue a new one.</p>
+        <p>You are responsible for activity under your account, including activity by team members you invite on a Team
+          plan.</p>
+
+        <h2>3. Plans, billing and cancellation</h2>
+        <ul>
+          <li>Plans are billed monthly in US dollars through our payment processor.</li>
+          <li>Usage is metered per tool call. A request that returns no result is not charged.</li>
+          <li>You can change plan or cancel at any time from your account page.</li>
+          <li>Cancelling stops future charges. Your key continues to work until the end of the period you have already
+            paid for.</li>
+          <li>Fees already paid are not refunded for partial periods.</li>
+        </ul>
+
+        <h2>4. Acceptable use</h2>
+        <p>Use the service to help you design and build software. Do not:</p>
+        <ul>
+          <li>attempt to extract, mirror or rebuild the library in bulk in order to resell it or offer it as a competing
+            service;</li>
+          <li>share a single seat between people on a plan that provides one;</li>
+          <li>interfere with the service, probe it beyond your plan's limits, or attempt to bypass metering or
+            authentication;</li>
+          <li>use the service to break the law or to infringe anyone's rights.</li>
+        </ul>
+        <p>Where the service returns a component, image or asset, your use of that item in your own work is your
+          responsibility. Every result identifies where it came from so you can keep your records in order.</p>
+
+        <h2>5. Availability</h2>
+        <p>We aim to keep the service available and may change, add to or retire parts of the library. We may suspend an
+          account that is being used in breach of these terms.</p>
+
+        <h2>6. Intellectual property</h2>
+        <p>ThinkUI, its name, its site and its server software remain ours. Your own work — the code and designs you
+          produce — remains yours.</p>
+
+        <h2>7. Liability</h2>
+        <p>The service is provided as is. To the extent the law allows, our total liability for any claim relating to
+          the service is limited to the amount you paid us in the twelve months before the claim.</p>
+
+        <h2>8. Changes to these terms</h2>
+        <p>If these terms change materially we will tell account holders by email before the change takes effect.
+          Continuing to use the service after that date means you accept the new terms.</p>
+
+        <h2>9. Contact</h2>
+        <p>Questions about these terms: <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+{{>footer}}
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

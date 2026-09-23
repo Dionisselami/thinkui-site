@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/img/favicon.ico" sizes="any">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#05070c">
+<meta name="apple-mobile-web-app-title" content="ThinkUI">
+<title>Quickstart — connecting the ThinkUI MCP server</title>
+<meta name="description" content="Connect the ThinkUI MCP server to Claude Desktop, Claude Code, Cursor, VS Code or any MCP client in one config block, then use its five tools in any conversation.">
+<link rel="canonical" href="https://thinkui.xyz/docs.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="Quickstart — connecting the ThinkUI MCP server">
+<meta property="og:description" content="Connect the ThinkUI MCP server to Claude Desktop, Claude Code, Cursor, VS Code or any MCP client in one config block, then use its five tools in any conversation.">
+<meta property="og:url" content="https://thinkui.xyz/docs.html">
+<meta property="og:image" content="https://thinkui.xyz/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quickstart — connecting the ThinkUI MCP server">
+<meta name="twitter:description" content="Connect the ThinkUI MCP server to Claude Desktop, Claude Code, Cursor, VS Code or any MCP client in one config block, then use its five tools in any conversation.">
+<meta name="twitter:image" content="https://thinkui.xyz/assets/img/og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Connecting the ThinkUI MCP server",
+  "description": "How to add ThinkUI to Claude Desktop, Claude Code, Cursor, VS Code or any MCP client.",
+  "author": { "@type": "Organization", "name": "ThinkUI" },
+  "publisher": { "@type": "Organization", "name": "ThinkUI" },
+  "about": { "@type": "SoftwareApplication", "name": "ThinkUI MCP server", "applicationCategory": "DeveloperApplication" }
+}
+</script>
+</head>
+<body class="dark-top">
+<a class="skip" href="#main">Skip to content</a>
+<header class="header">
+  <div class="wrap header__inner">
+    <a class="brand" href="index.html"><svg class="brand__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.91 26.00" width="89.91" height="26.00" role="img" aria-label="ThinkUI"><defs><linearGradient id="lg-nav-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d6df0"/><stop offset="1" stop-color="#0f8ea6"/></linearGradient><linearGradient id="lg-nav-s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".2"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><title>ThinkUI</title><g transform="translate(0 0) scale(0.406250)"><rect width="64" height="64" rx="15" fill="url(#lg-nav-g)"/><rect width="64" height="64" rx="15" fill="url(#lg-nav-s)"/><rect x="1" y="1" width="62" height="62" rx="14.2" fill="none" stroke="#ffffff" stroke-opacity=".16" stroke-width="1.2"/><rect x="14.00" y="17.00" width="36.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="28.75" width="26.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="40.50" width="16.00" height="6.50" rx="3.25" fill="#ffffff"/></g><g transform="translate(34.5919 19.0938) scale(0.008090)"><path fill="#05070c" d="M50.452542304992676 -1261.3537532687187V-1490.0H1240.9842415452003V-1261.3537532687187H778.9522233009338V0.0H513.7645898461342V-1261.3537532687187ZM1618.1430175685882 -603.5370345115662V0.0H1364.5554557228088V-1490.0H1617.7431314969062V-793.4212321043015H1566.955774732828Q1617.3648486220836 -935.0345751941204 1709.887117498517 -1009.2676326483488Q1802.4093863749504 -1083.5006901025772 1939.9111327910423 -1083.5006901025772Q2051.337532528639 -1083.5006901025772 2136.259829082489 -1035.4207885712385Q2221.182125636339 -987.3408870398998 2269.1467407131195 -894.22536213696Q2317.1113557899 -801.1098372340202 2317.1113557899 -665.2784798145294V0.0H2063.4526985669136V-625.2262679040432Q2063.4526985669136 -741.2583056688309 2007.550150551796 -801.6474764049053Q1951.6476025366783 -862.0366471409798 1849.869147130251 -862.0366471409798Q1783.375444331169 -862.0366471409798 1730.9639493757486 -834.6521215885878Q1678.552454420328 -807.2675960361958 1648.3477359944582 -750.1316560953856Q1618.1430175685882 -692.9957161545753 1618.1430175685882 -603.5370345115662ZM2505.5954557228088 0.0V-1062.88720703125H2759.183017568588V0.0ZM2632.100346671343 -1220.0535042583942Q2567.8075976538657 -1220.0535042583942 2524.474667968154 -1261.4480558391692Q2481.141738282442 -1302.8426074199442 2481.141738282442 -1363.5469516348203Q2481.141738282442 -1424.4475081562996 2524.474667968154 -1465.5027702003717Q2567.8075976538657 -1506.558032244444 2631.6860945475564 -1506.558032244444Q2696.3613381084374 -1506.558032244444 2739.745694272944 -1465.5413400594678Q2783.1300504374503 -1424.5246478744916 2783.1300504374503 -1363.1347778538864Q2783.1300504374503 -1302.5951090753078 2739.6892551608407 -1261.324306666851Q2696.248459884231 -1220.0535042583942 2632.100346671343 -1220.0535042583942ZM3201.223017568588 -603.5370345115662V0.0H2947.6354557228087V-1062.88720703125H3195.8499739420413L3196.2409781765937 -793.4212321043015H3150.035774732828Q3200.4448486220836 -935.0345751941204 3292.967117498517 -1009.2676326483488Q3385.4893863749503 -1083.5006901025772 3522.991132791042 -1083.5006901025772Q3634.4175325286387 -1083.5006901025772 3719.3042813938855 -1035.4207885712385Q3804.1910302591323 -987.3408870398998 3852.1556453359126 -894.22536213696Q3900.120260412693 -801.1098372340202 3900.120260412693 -665.2784798145294V0.0H3646.5326985669135V-625.2262679040432Q3646.5326985669135 -741.2583056688309 3590.630150551796 -801.6474764049053Q3534.727602536678 -862.0366471409798 3432.949147130251 -862.0366471409798Q3366.455444331169 -862.0366471409798 3314.0439493757485 -834.6521215885878Q3261.632454420328 -807.2675960361958 3231.427735994458 -750.1316560953856Q3201.223017568588 -692.9957161545753 3201.223017568588 -603.5370345115662ZM4320.103471670151 -332.1258756518364V-632.4859358668327H4346.804781887531L4756.683785799742 -1062.88720703125H5060.413673493862L4569.719488922357 -538.6844189465046H4518.796536449194ZM4088.6754557228087 0.0V-1490.0H4342.263017568588V0.0ZM4783.582215163708 0.0 4417.641844067573 -482.4629833996296 4588.048540029526 -659.660400390625 5086.485113922357 0.0ZM5762.6168896377085 23.760068356990814Q5580.646266092648 23.760068356990814 5445.105267644818 -45.01995036005974Q5309.564269196987 -113.79996907711029 5234.8243904531 -235.30847679374327Q5160.084511709213 -356.81698451037624 5160.084511709213 -514.950675457716V-1490.0H5421.432184231281V-536.2214778661728Q5421.432184231281 -441.76526892337483 5463.276885566115 -368.19036313967547Q5505.121586900949 -294.6154573559761 5581.738340412719 -252.47074300050735Q5658.355093924488 -210.3260286450386 5762.959757243735 -210.3260286450386Q5867.604409170151 -210.3260286450386 5943.979781296517 -252.515229110992Q6020.355153422883 -294.7044295769454 6062.047267463471 -368.0537634542346Q6103.739381504059 -441.4030973315239 6103.739381504059 -536.2214778661728V-1490.0H6365.087054026127V-515.070397421088Q6365.087054026127 -356.4709179699421 6290.437339245653 -234.97318107622957Q6215.787624465178 -113.47544418251704 6080.42749709865 -44.85768791276311Q5945.067369732122 23.760068356990814 5762.6168896377085 23.760068356990814ZM6837.863499333858 -1490.0V0.0H6572.675865879059V-1490.0Z"/></g></svg></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#how">How it works</a>
+      <a href="docs.html">Docs</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="btn" href="login.html">Sign in</a>
+      <a class="btn btn--light" href="signup.html">Get access</a>
+    </div>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+<main id="main">
+
+  <section class="canvas band">
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow" data-rise>Quickstart</span>
+      <h1 class="display" data-rise style="--i:1">Connected in one block.</h1>
+      <p class="lede" data-rise style="--i:2">ThinkUI is a standard MCP server over stdio. There is no SDK to install into
+        your project, no build step and no daemon to keep alive — your agent starts it when it needs it.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>Step 1</span>
+        <h2 data-rise>Get your key.</h2>
+        <p class="lede" data-rise>Create an account and copy the key from your dashboard. It is the only credential you need,
+          and it goes in one place: the <span class="mono">THINKUI_KEY</span> environment variable of the server entry.</p>
+      </div>
+
+      <div class="head" style="margin-top:46px">
+        <span class="eyebrow" data-rise>Step 2</span>
+        <h2 data-rise>Add it to your agent.</h2>
+        <p class="lede" data-rise>Pick your client. The block is the same shape everywhere; only the file name and the
+          top-level key differ, and those are noted where they do.</p>
+      </div>
+
+      <div class="grid grid--2" style="gap:26px">
+        <div class="code" data-rise>
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">claude_desktop_config.json</span>
+            <button class="code__copy" type="button" data-copy aria-label="Copy configuration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+<pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"thinkui"</span>: {
+      <span class="k">"command"</span>: <span class="s">"npx"</span>,
+      <span class="k">"args"</span>: [<span class="s">"-y"</span>, <span class="s">"thinkui-mcp"</span>],
+      <span class="k">"env"</span>: { <span class="k">"THINKUI_KEY"</span>: <span class="s">"your-key"</span> }
+    }
+  }
+}</pre>
+          <div class="code__note">Claude Desktop · macOS: <span class="mono">~/Library/Application Support/Claude/</span><br>
+            Windows: <span class="mono">%APPDATA%\Claude\</span>. Restart the app after saving.</div>
+        </div>
+
+        <div class="code" data-rise style="--i:1">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">.cursor/mcp.json · .vscode/mcp.json</span>
+            <button class="code__copy" type="button" data-copy aria-label="Copy configuration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+<pre><span class="c">// Cursor: keep the key as written</span>
+{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"thinkui"</span>: {
+      <span class="k">"command"</span>: <span class="s">"npx"</span>,
+      <span class="k">"args"</span>: [<span class="s">"-y"</span>, <span class="s">"thinkui-mcp"</span>],
+      <span class="k">"env"</span>: { <span class="k">"THINKUI_KEY"</span>: <span class="s">"your-key"</span> }
+    }
+  }
+}</pre>
+          <div class="code__note">VS Code uses the same block under a <span class="mono">"servers"</span> key instead of
+            <span class="mono">"mcpServers"</span>. Claude Code: <span class="mono">claude mcp add thinkui -- npx -y thinkui-mcp</span>.</div>
+        </div>
+      </div>
+
+      <div class="notice" data-rise style="margin-top:26px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <span>Running from a local checkout instead of the published package? Use
+          <span class="mono">"command": "python"</span> with
+          <span class="mono">"args": ["C:/path/to/thinkui-mcp/server.py"]</span> — that is the same server, started directly.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>Reference</span>
+        <h2 data-rise>The five tools.</h2>
+        <p class="lede" data-rise>Your agent chooses these on its own once they are connected. You can also ask for one by name.</p>
+      </div>
+      <div class="cmp__wrap" data-rise>
+        <table class="cmp">
+          <caption>ThinkUI tools. Each returns results that name the project or component they came from.</caption>
+          <thead>
+            <tr><th scope="col">Tool</th><th scope="col">Answers</th><th scope="col">Returns</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row" class="mono">find_ui_references</th>
+                <td>How a screen, a flow or a pattern is actually designed</td>
+                <td>Screens and flows with the app they came from, plus the components they use</td></tr>
+            <tr><th scope="row" class="mono">find_ui_elements</th>
+                <td>What a component should look like</td>
+                <td>The component's own markup and stylesheet, ready to paste</td></tr>
+            <tr><th scope="row" class="mono">find_animated_icons</th>
+                <td>Which animated icon fits an action</td>
+                <td>Working animated SVG — no runtime, no icon font</td></tr>
+            <tr><th scope="row" class="mono">find_ui_materials</th>
+                <td>Which typeface, icon set or design system to use</td>
+                <td>Candidates with their maintenance state and where they come from</td></tr>
+            <tr><th scope="row" class="mono">corpus_stats</th>
+                <td>What the server holds</td>
+                <td>Counts by category, so a refusal is never a mystery</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>Step 3</span>
+        <h2 data-rise>Ask it something.</h2>
+        <p class="lede" data-rise>Talk to your agent normally. When a design decision comes up it reaches for the server
+          instead of inventing an answer.</p>
+      </div>
+
+      <div class="grid grid--2" style="gap:26px; align-items:start">
+        <div class="card" data-rise>
+          <h3 style="margin-bottom:14px">You</h3>
+          <p class="mono" style="font-size:14px; color:var(--text-soft)">"Design the upgrade screen for a note-taking app.
+            I want it to feel calm, not pushy."</p>
+          <p class="small" style="margin-top:16px">Your agent calls <span class="mono">find_ui_references</span> with a
+            query like <span class="mono">"upgrade paywall trial"</span>, then builds from what comes back.</p>
+        </div>
+        <div class="code" data-rise style="--i:1">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">find_ui_references · abridged</span>
+          </div>
+<pre>{
+  <span class="k">"query"</span>: <span class="s">"upgrade paywall trial"</span>,
+  <span class="k">"results"</span>: [
+    {
+      <span class="k">"app"</span>: <span class="s">"Things 3"</span>,
+      <span class="k">"flow"</span>: <span class="s">"upgrade"</span>,
+      <span class="k">"screens"</span>: <span class="f">4</span>,
+      <span class="k">"source"</span>: <span class="s">"spec + screenshots"</span>
+    },
+    {
+      <span class="k">"app"</span>: <span class="s">"Bear"</span>,
+      <span class="k">"flow"</span>: <span class="s">"paywall"</span>,
+      <span class="k">"screens"</span>: <span class="f">2</span>,
+      <span class="k">"source"</span>: <span class="s">"spec"</span>
+    }
+  ],
+  <span class="k">"elements"</span>: [ <span class="s">"pricing table"</span>, <span class="s">"toggle switch"</span> ],
+  <span class="k">"materials"</span>: [ <span class="s">"Inter"</span>, <span class="s">"Lucide"</span> ]
+}</pre>
+          <div class="code__note">Illustrative shape, fields trimmed for readability. Unknown queries come back empty
+            rather than approximate.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>Troubleshooting</span>
+        <h2 data-rise>When it does not show up.</h2>
+      </div>
+      <div class="faq" data-rise>
+        <details open>
+          <summary>The tools are not listed in my agent.</summary>
+          <div class="answer"><p>Clients read their config at start-up: quit and reopen the app after saving the block.
+            In most clients the server list is visible in settings — a red entry there means the command path is wrong
+            rather than the key.</p></div>
+        </details>
+        <details>
+          <summary>It runs but every call fails.</summary>
+          <div class="answer"><p>Check <span class="mono">THINKUI_KEY</span> is present in the server's
+            <span class="mono">env</span> block, and that you are on the plan that includes what you are asking for.
+            A free plan can call every tool, up to its monthly limit.</p></div>
+        </details>
+        <details>
+          <summary>Which Node version is needed?</summary>
+          <div class="answer"><p>The published package runs on any current LTS Node with <span class="mono">npx</span>
+            available. If you are starting the server from a local checkout instead, Python 3.10 or newer is what it
+            needs.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="canvas closing">
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="display" data-rise>Give your agent something to look at.</h2>
+      <p class="lede" data-rise>Create an account, paste one block, and ask a design question you already know the answer to.</p>
+      <div class="closing__actions" data-rise>
+        <a class="btn btn--light btn--lg" href="signup.html">Get access</a>
+        <a class="btn btn--ghost btn--lg" href="pricing.html">See pricing</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="index.html"><svg class="brand__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.91 26.00" width="89.91" height="26.00" role="img" aria-label="ThinkUI"><defs><linearGradient id="lg-foot-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b8bf5"/><stop offset="1" stop-color="#22b8cf"/></linearGradient><linearGradient id="lg-foot-s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".2"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><title>ThinkUI</title><g transform="translate(0 0) scale(0.406250)"><rect width="64" height="64" rx="15" fill="url(#lg-foot-g)"/><rect width="64" height="64" rx="15" fill="url(#lg-foot-s)"/><rect x="1" y="1" width="62" height="62" rx="14.2" fill="none" stroke="#ffffff" stroke-opacity=".16" stroke-width="1.2"/><rect x="14.00" y="17.00" width="36.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="28.75" width="26.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="40.50" width="16.00" height="6.50" rx="3.25" fill="#ffffff"/></g><g transform="translate(34.5919 19.0938) scale(0.008090)"><path fill="#f7f9fc" d="M50.452542304992676 -1261.3537532687187V-1490.0H1240.9842415452003V-1261.3537532687187H778.9522233009338V0.0H513.7645898461342V-1261.3537532687187ZM1618.1430175685882 -603.5370345115662V0.0H1364.5554557228088V-1490.0H1617.7431314969062V-793.4212321043015H1566.955774732828Q1617.3648486220836 -935.0345751941204 1709.887117498517 -1009.2676326483488Q1802.4093863749504 -1083.5006901025772 1939.9111327910423 -1083.5006901025772Q2051.337532528639 -1083.5006901025772 2136.259829082489 -1035.4207885712385Q2221.182125636339 -987.3408870398998 2269.1467407131195 -894.22536213696Q2317.1113557899 -801.1098372340202 2317.1113557899 -665.2784798145294V0.0H2063.4526985669136V-625.2262679040432Q2063.4526985669136 -741.2583056688309 2007.550150551796 -801.6474764049053Q1951.6476025366783 -862.0366471409798 1849.869147130251 -862.0366471409798Q1783.375444331169 -862.0366471409798 1730.9639493757486 -834.6521215885878Q1678.552454420328 -807.2675960361958 1648.3477359944582 -750.1316560953856Q1618.1430175685882 -692.9957161545753 1618.1430175685882 -603.5370345115662ZM2505.5954557228088 0.0V-1062.88720703125H2759.183017568588V0.0ZM2632.100346671343 -1220.0535042583942Q2567.8075976538657 -1220.0535042583942 2524.474667968154 -1261.4480558391692Q2481.141738282442 -1302.8426074199442 2481.141738282442 -1363.5469516348203Q2481.141738282442 -1424.4475081562996 2524.474667968154 -1465.5027702003717Q2567.8075976538657 -1506.558032244444 2631.6860945475564 -1506.558032244444Q2696.3613381084374 -1506.558032244444 2739.745694272944 -1465.5413400594678Q2783.1300504374503 -1424.5246478744916 2783.1300504374503 -1363.1347778538864Q2783.1300504374503 -1302.5951090753078 2739.6892551608407 -1261.324306666851Q2696.248459884231 -1220.0535042583942 2632.100346671343 -1220.0535042583942ZM3201.223017568588 -603.5370345115662V0.0H2947.6354557228087V-1062.88720703125H3195.8499739420413L3196.2409781765937 -793.4212321043015H3150.035774732828Q3200.4448486220836 -935.0345751941204 3292.967117498517 -1009.2676326483488Q3385.4893863749503 -1083.5006901025772 3522.991132791042 -1083.5006901025772Q3634.4175325286387 -1083.5006901025772 3719.3042813938855 -1035.4207885712385Q3804.1910302591323 -987.3408870398998 3852.1556453359126 -894.22536213696Q3900.120260412693 -801.1098372340202 3900.120260412693 -665.2784798145294V0.0H3646.5326985669135V-625.2262679040432Q3646.5326985669135 -741.2583056688309 3590.630150551796 -801.6474764049053Q3534.727602536678 -862.0366471409798 3432.949147130251 -862.0366471409798Q3366.455444331169 -862.0366471409798 3314.0439493757485 -834.6521215885878Q3261.632454420328 -807.2675960361958 3231.427735994458 -750.1316560953856Q3201.223017568588 -692.9957161545753 3201.223017568588 -603.5370345115662ZM4320.103471670151 -332.1258756518364V-632.4859358668327H4346.804781887531L4756.683785799742 -1062.88720703125H5060.413673493862L4569.719488922357 -538.6844189465046H4518.796536449194ZM4088.6754557228087 0.0V-1490.0H4342.263017568588V0.0ZM4783.582215163708 0.0 4417.641844067573 -482.4629833996296 4588.048540029526 -659.660400390625 5086.485113922357 0.0ZM5762.6168896377085 23.760068356990814Q5580.646266092648 23.760068356990814 5445.105267644818 -45.01995036005974Q5309.564269196987 -113.79996907711029 5234.8243904531 -235.30847679374327Q5160.084511709213 -356.81698451037624 5160.084511709213 -514.950675457716V-1490.0H5421.432184231281V-536.2214778661728Q5421.432184231281 -441.76526892337483 5463.276885566115 -368.19036313967547Q5505.121586900949 -294.6154573559761 5581.738340412719 -252.47074300050735Q5658.355093924488 -210.3260286450386 5762.959757243735 -210.3260286450386Q5867.604409170151 -210.3260286450386 5943.979781296517 -252.515229110992Q6020.355153422883 -294.7044295769454 6062.047267463471 -368.0537634542346Q6103.739381504059 -441.4030973315239 6103.739381504059 -536.2214778661728V-1490.0H6365.087054026127V-515.070397421088Q6365.087054026127 -356.4709179699421 6290.437339245653 -234.97318107622957Q6215.787624465178 -113.47544418251704 6080.42749709865 -44.85768791276311Q5945.067369732122 23.760068356990814 5762.6168896377085 23.760068356990814ZM6837.863499333858 -1490.0V0.0H6572.675865879059V-1490.0Z"/></g></svg></a>
+        <p class="footer__about">Interface references for coding agents, over MCP. Screens, flows, components, fonts and
+          icons your agent can build with.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="index.html#how">How it works</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Account</h4>
+        <ul>
+          <li><a href="login.html">Sign in</a></li>
+          <li><a href="signup.html">Create account</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 ThinkUI</span>
+      <span class="sep">Built for agents that would rather cite than guess.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

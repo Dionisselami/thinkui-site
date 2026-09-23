@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/img/favicon.ico" sizes="any">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#05070c">
+<meta name="apple-mobile-web-app-title" content="ThinkUI">
+<title>ThinkUI — UI references for your coding agent, over MCP</title>
+<meta name="description" content="ThinkUI is an MCP server that gives your coding agent real interface references: screens, flows, ready-made components, fonts and animated icons.">
+<link rel="canonical" href="https://thinkui.xyz/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="ThinkUI">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="ThinkUI — UI references for your coding agent, over MCP">
+<meta property="og:description" content="Real screens, flows, components, fonts and icons for your agent to build with. Every result traceable to its source.">
+<meta property="og:url" content="https://thinkui.xyz/">
+<meta property="og:image" content="https://thinkui.xyz/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ThinkUI — UI references for your coding agent">
+<meta name="twitter:description" content="An MCP server that answers design questions with evidence: the screen, the flow, the component, the source.">
+<meta name="twitter:image" content="https://thinkui.xyz/assets/img/og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://thinkui.xyz/#org",
+      "name": "ThinkUI",
+      "url": "https://thinkui.xyz/",
+      "description": "An MCP server that provides interface references to coding agents."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://thinkui.xyz/#site",
+      "url": "https://thinkui.xyz/",
+      "name": "ThinkUI",
+      "publisher": { "@id": "https://thinkui.xyz/#org" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://thinkui.xyz/#app",
+      "name": "ThinkUI MCP server",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "macOS, Windows, Linux",
+      "description": "An MCP server that returns real interface references — screens, flows, UI components, fonts and animated icons — for coding agents to design and build with.",
+      "url": "https://thinkui.xyz/",
+      "offers": [
+        { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD",
+          "description": "200 tool calls a month for personal use." },
+        { "@type": "Offer", "name": "Pro", "price": "19", "priceCurrency": "USD",
+          "description": "Unlimited tool calls and commercial use." },
+        { "@type": "Offer", "name": "Team", "price": "49", "priceCurrency": "USD",
+          "description": "Five seats, shared queries, priority sources." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is MCP?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The Model Context Protocol is the standard way an AI coding agent connects to an outside tool. You add a server to your agent's config once and its tools become available in every conversation." } },
+        { "@type": "Question", "name": "Which clients does ThinkUI work with?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Any client that speaks MCP over stdio: Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed and any agent framework with an MCP client." } },
+        { "@type": "Question", "name": "Does my code or my project leave my machine?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The server runs as a local process your agent starts, and it answers from its own reference corpus. Nothing about your project is sent anywhere to produce a result." } },
+        { "@type": "Question", "name": "What happens when it does not know something?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It returns no result and names what it does hold. Asking for a navigation bar or a page footer, for example, returns nothing rather than the nearest component that happens to share a word." } },
+        { "@type": "Question", "name": "Can I use what it returns in commercial work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes on a paid plan. Every result the server returns identifies where it came from so you can keep your own records in order." } },
+        { "@type": "Question", "name": "How do I cancel?",
+          "acceptedAnswer": { "@type": "Answer", "text": "From your account page, in one click. Cancelling stops the next charge and your key stops working at the end of the period you already paid for." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body class="dark-top">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="header">
+  <div class="wrap header__inner">
+    <a class="brand" href="index.html"><svg class="brand__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.91 26.00" width="89.91" height="26.00" role="img" aria-label="ThinkUI"><defs><linearGradient id="lg-nav-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d6df0"/><stop offset="1" stop-color="#0f8ea6"/></linearGradient><linearGradient id="lg-nav-s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".2"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><title>ThinkUI</title><g transform="translate(0 0) scale(0.406250)"><rect width="64" height="64" rx="15" fill="url(#lg-nav-g)"/><rect width="64" height="64" rx="15" fill="url(#lg-nav-s)"/><rect x="1" y="1" width="62" height="62" rx="14.2" fill="none" stroke="#ffffff" stroke-opacity=".16" stroke-width="1.2"/><rect x="14.00" y="17.00" width="36.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="28.75" width="26.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="40.50" width="16.00" height="6.50" rx="3.25" fill="#ffffff"/></g><g transform="translate(34.5919 19.0938) scale(0.008090)"><path fill="#05070c" d="M50.452542304992676 -1261.3537532687187V-1490.0H1240.9842415452003V-1261.3537532687187H778.9522233009338V0.0H513.7645898461342V-1261.3537532687187ZM1618.1430175685882 -603.5370345115662V0.0H1364.5554557228088V-1490.0H1617.7431314969062V-793.4212321043015H1566.955774732828Q1617.3648486220836 -935.0345751941204 1709.887117498517 -1009.2676326483488Q1802.4093863749504 -1083.5006901025772 1939.9111327910423 -1083.5006901025772Q2051.337532528639 -1083.5006901025772 2136.259829082489 -1035.4207885712385Q2221.182125636339 -987.3408870398998 2269.1467407131195 -894.22536213696Q2317.1113557899 -801.1098372340202 2317.1113557899 -665.2784798145294V0.0H2063.4526985669136V-625.2262679040432Q2063.4526985669136 -741.2583056688309 2007.550150551796 -801.6474764049053Q1951.6476025366783 -862.0366471409798 1849.869147130251 -862.0366471409798Q1783.375444331169 -862.0366471409798 1730.9639493757486 -834.6521215885878Q1678.552454420328 -807.2675960361958 1648.3477359944582 -750.1316560953856Q1618.1430175685882 -692.9957161545753 1618.1430175685882 -603.5370345115662ZM2505.5954557228088 0.0V-1062.88720703125H2759.183017568588V0.0ZM2632.100346671343 -1220.0535042583942Q2567.8075976538657 -1220.0535042583942 2524.474667968154 -1261.4480558391692Q2481.141738282442 -1302.8426074199442 2481.141738282442 -1363.5469516348203Q2481.141738282442 -1424.4475081562996 2524.474667968154 -1465.5027702003717Q2567.8075976538657 -1506.558032244444 2631.6860945475564 -1506.558032244444Q2696.3613381084374 -1506.558032244444 2739.745694272944 -1465.5413400594678Q2783.1300504374503 -1424.5246478744916 2783.1300504374503 -1363.1347778538864Q2783.1300504374503 -1302.5951090753078 2739.6892551608407 -1261.324306666851Q2696.248459884231 -1220.0535042583942 2632.100346671343 -1220.0535042583942ZM3201.223017568588 -603.5370345115662V0.0H2947.6354557228087V-1062.88720703125H3195.8499739420413L3196.2409781765937 -793.4212321043015H3150.035774732828Q3200.4448486220836 -935.0345751941204 3292.967117498517 -1009.2676326483488Q3385.4893863749503 -1083.5006901025772 3522.991132791042 -1083.5006901025772Q3634.4175325286387 -1083.5006901025772 3719.3042813938855 -1035.4207885712385Q3804.1910302591323 -987.3408870398998 3852.1556453359126 -894.22536213696Q3900.120260412693 -801.1098372340202 3900.120260412693 -665.2784798145294V0.0H3646.5326985669135V-625.2262679040432Q3646.5326985669135 -741.2583056688309 3590.630150551796 -801.6474764049053Q3534.727602536678 -862.0366471409798 3432.949147130251 -862.0366471409798Q3366.455444331169 -862.0366471409798 3314.0439493757485 -834.6521215885878Q3261.632454420328 -807.2675960361958 3231.427735994458 -750.1316560953856Q3201.223017568588 -692.9957161545753 3201.223017568588 -603.5370345115662ZM4320.103471670151 -332.1258756518364V-632.4859358668327H4346.804781887531L4756.683785799742 -1062.88720703125H5060.413673493862L4569.719488922357 -538.6844189465046H4518.796536449194ZM4088.6754557228087 0.0V-1490.0H4342.263017568588V0.0ZM4783.582215163708 0.0 4417.641844067573 -482.4629833996296 4588.048540029526 -659.660400390625 5086.485113922357 0.0ZM5762.6168896377085 23.760068356990814Q5580.646266092648 23.760068356990814 5445.105267644818 -45.01995036005974Q5309.564269196987 -113.79996907711029 5234.8243904531 -235.30847679374327Q5160.084511709213 -356.81698451037624 5160.084511709213 -514.950675457716V-1490.0H5421.432184231281V-536.2214778661728Q5421.432184231281 -441.76526892337483 5463.276885566115 -368.19036313967547Q5505.121586900949 -294.6154573559761 5581.738340412719 -252.47074300050735Q5658.355093924488 -210.3260286450386 5762.959757243735 -210.3260286450386Q5867.604409170151 -210.3260286450386 5943.979781296517 -252.515229110992Q6020.355153422883 -294.7044295769454 6062.047267463471 -368.0537634542346Q6103.739381504059 -441.4030973315239 6103.739381504059 -536.2214778661728V-1490.0H6365.087054026127V-515.070397421088Q6365.087054026127 -356.4709179699421 6290.437339245653 -234.97318107622957Q6215.787624465178 -113.47544418251704 6080.42749709865 -44.85768791276311Q5945.067369732122 23.760068356990814 5762.6168896377085 23.760068356990814ZM6837.863499333858 -1490.0V0.0H6572.675865879059V-1490.0Z"/></g></svg></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#how">How it works</a>
+      <a href="docs.html">Docs</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="btn" href="login.html">Sign in</a>
+      <a class="btn btn--light" href="signup.html">Get access</a>
+    </div>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================================================ hero -->
+  <section class="canvas hero">
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="beam" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="hero__inner">
+        <span class="hero__badge" data-rise><i class="dot"></i> MCP server · runs locally over stdio</span>
+        <h1 class="display" data-rise style="--i:1">Interface references your agent can <span class="grad">actually use.</span></h1>
+        <p class="lede" data-rise style="--i:2">
+          ThinkUI plugs into the coding agent you already use and answers design questions with
+          evidence: the screen, the flow it belongs to, the component itself, the typeface. Every
+          result says where it came from, so you can keep building instead of second-guessing.
+        </p>
+        <div class="hero__actions" data-rise style="--i:3">
+          <a class="btn btn--primary btn--lg" href="signup.html">
+            Get access
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="docs.html">Read the quickstart</a>
+        </div>
+        <div class="hero__meta" data-rise style="--i:4">
+          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Works with any MCP client</span>
+          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Five tools, one config block</span>
+          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Nothing about your project leaves your machine</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__row">
+      <span>find_ui_references</span><span>find_ui_elements</span><span>find_animated_icons</span>
+      <span>find_ui_materials</span><span>corpus_stats</span><span>onboarding flows</span>
+      <span>paywall patterns</span><span>empty states</span><span>settings screens</span>
+      <span>pricing tables</span><span>loaders</span><span>toggle switches</span>
+      <span>type scales</span><span>icon sets</span><span>design systems</span>
+    </div>
+  </div>
+
+  <!-- ========================================================== proof -->
+  <section class="section--tight">
+    <div class="wrap">
+      <div class="proof" data-rise>
+        <div><b class="mono">470</b><span>written design references</span></div>
+        <div><b class="mono">3,802</b><span>ready-made components</span></div>
+        <div><b class="mono">1,698</b><span>animated icons</span></div>
+        <div><b class="mono">118</b><span>fonts, icon sets and systems</span></div>
+      </div>
+      <p class="small" style="margin-top:18px">
+        Measured from the library this server serves — not projections. Ask the server for
+        <span class="mono">corpus_stats</span> and it reports the same numbers.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================================================= features -->
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>What it does</span>
+        <h2 data-rise>Design decisions, with the reasoning attached.</h2>
+        <p class="lede" data-rise>An agent that improvises a paywall produces a paywall nobody has ever shipped. ThinkUI gives it
+          something real to work from — and tells you what that something was.</p>
+      </div>
+
+      <div class="grid grid--3">
+        <article class="card card--lift card--glow" data-rise>
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></div>
+          <h3>Answers with evidence</h3>
+          <p>Ask “how does a paywall frame its trial?” and get the screens, the flow they belong to, what components
+            they use and the project each one came from.</p>
+          <div class="card__foot">find_ui_references</div>
+        </article>
+
+        <article class="card card--lift card--glow" data-rise style="--i:1">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h13"/></svg></div>
+          <h3>Components you can paste</h3>
+          <p>Buttons, loaders, cards, forms, inputs, switches, tooltips and patterns — returned as the component's own
+            markup and stylesheet, not a description of one.</p>
+          <div class="card__foot">find_ui_elements</div>
+        </article>
+
+        <article class="card card--lift card--glow" data-rise style="--i:2">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="3.4"/></svg></div>
+          <h3>Motion that actually moves</h3>
+          <p>Animated icons arrive as working SVG — animation included, no JavaScript runtime, no icon font, nothing to
+            install. Paste it and it animates.</p>
+          <div class="card__foot">find_animated_icons</div>
+        </article>
+
+        <article class="card card--lift card--glow" data-rise>
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 4h9l4 4v12H6z"/><path d="M15 4v4h4"/></svg></div>
+          <h3>Type and systems</h3>
+          <p>The right typeface for a brief, an icon set that is still maintained, the design system a product like yours
+            is built on — with the state of each project attached.</p>
+          <div class="card__foot">find_ui_materials</div>
+        </article>
+
+        <article class="card card--lift card--glow" data-rise style="--i:1">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 4 3.5 19h17z"/><path d="M12 10v4M12 16.5v.5"/></svg></div>
+          <h3>It refuses when it should</h3>
+          <p>Asked for a navigation bar or a page footer, it returns nothing and tells you what it does hold. A confident
+            wrong answer costs more than no answer.</p>
+          <div class="card__foot">no invented results</div>
+        </article>
+
+        <article class="card card--lift card--glow" data-rise style="--i:2">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg></div>
+          <h3>Fits your setup</h3>
+          <p>A local process your agent starts. Add one block to its config and the tools appear in every conversation
+            you have in that client.</p>
+          <div class="card__foot">MCP over stdio</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================== how -->
+  <section id="how">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>How it works</span>
+        <h2 data-rise>Three steps, once.</h2>
+      </div>
+
+      <div class="steps" data-rise>
+        <div class="step">
+          <h3>Connect it</h3>
+          <p>Paste one block into your agent's MCP config. No keys to rotate daily, no build step, nothing installed into
+            your project.</p>
+        </div>
+        <div class="step" style="--i:1">
+          <h3>Ask in plain language</h3>
+          <p>“Design the onboarding screen for a budgeting app.” The agent reaches for references instead of inventing
+            them.</p>
+        </div>
+        <div class="step" style="--i:2">
+          <h3>Build from something real</h3>
+          <p>You get screens to follow, components to paste and assets to ship — with a trail back to where each came
+            from.</p>
+        </div>
+      </div>
+
+      <div class="grid grid--2" style="margin-top:52px; align-items:center; gap:34px">
+        <div data-rise>
+          <h3 style="margin-bottom:12px">One block of config.</h3>
+          <p class="small" style="font-size:15px">
+            ThinkUI ships as a standard MCP server. Add it to Claude Desktop, Claude Code, Cursor, VS Code, Windsurf,
+            Zed or any framework with an MCP client — the same block works everywhere, and it is the only setup step.
+          </p>
+          <p class="small" style="margin-top:16px">
+            Your account key goes in one place. Everything else — tools, prompts, transport — is handled by the server.
+          </p>
+          <a class="link-arrow" href="docs.html" style="margin-top:20px">
+            Full quickstart
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+          </a>
+        </div>
+
+        <div class="code" data-rise style="--i:1">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">claude_desktop_config.json</span>
+            <button class="code__copy" type="button" data-copy aria-label="Copy configuration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+<pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"thinkui"</span>: {
+      <span class="k">"command"</span>: <span class="s">"npx"</span>,
+      <span class="k">"args"</span>: [<span class="s">"-y"</span>, <span class="s">"thinkui-mcp"</span>],
+      <span class="k">"env"</span>: { <span class="k">"THINKUI_KEY"</span>: <span class="s">"your-key"</span> }
+    }
+  }
+}</pre>
+          <div class="code__note">Then ask your agent something you would normally answer by opening ten apps.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================= pricing -->
+  <section class="section--soft" id="pricing">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>Pricing</span>
+        <h2 data-rise>Same server, same tools. Pay for the volume you use.</h2>
+        <p class="lede" data-rise>Start free. Move to a paid plan when it is carrying real work — you can change plan or
+          cancel from your account at any time.</p>
+      </div>
+
+      <div class="pricing">
+        <article class="plan" data-rise>
+          <span class="plan__name">Free</span>
+          <p class="plan__price"><b>$0</b><span>personal use</span></p>
+          <p class="plan__note">For trying it on a side project.</p>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>200 tool calls a month</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>All five tools</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Components and icons</li>
+          </ul>
+          <a class="btn btn--block" href="signup.html">Start free</a>
+        </article>
+
+        <article class="plan plan--best" data-rise style="--i:1">
+          <span class="plan__tag">Most popular</span>
+          <span class="plan__name">Pro</span>
+          <p class="plan__price"><b>$19</b><span>per month</span></p>
+          <p class="plan__note">For work you are actually shipping.</p>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Unlimited tool calls</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Commercial use, including client work</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Screens returned as images</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Priority when new sources land</li>
+          </ul>
+          <a class="btn btn--primary btn--block" href="signup.html">Get Pro</a>
+        </article>
+
+        <article class="plan" data-rise style="--i:2">
+          <span class="plan__name">Team</span>
+          <p class="plan__price"><b>$49</b><span>per month</span></p>
+          <p class="plan__note">For a small team on the same design language.</p>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Five seats</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Shared saved queries</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Everything in Pro</li>
+          </ul>
+          <a class="btn btn--block" href="signup.html">Get Team</a>
+        </article>
+      </div>
+      <p class="small" style="margin-top:22px; text-align:center">
+        Prices in USD. <a href="pricing.html" style="color:var(--brand-ink);font-weight:550">Compare plans in detail →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- =========================================================== faq -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" data-rise>Questions</span>
+        <h2 data-rise>The ones people ask before connecting it.</h2>
+      </div>
+      <div class="faq" data-rise>
+        <details open>
+          <summary>What is MCP?</summary>
+          <div class="answer">
+            <p>The Model Context Protocol is the standard way an AI coding agent connects to an outside tool. You add a
+              server to your agent's config once, and its tools become available in every conversation you have in that
+              client.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Which clients does it work with?</summary>
+          <div class="answer">
+            <p>Any client that speaks MCP over stdio — Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed, and
+              agent frameworks with an MCP client. The config block is the same everywhere.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Does anything about my project get sent anywhere?</summary>
+          <div class="answer">
+            <p>No. The server runs as a local process that your agent starts, and it answers from its own reference
+              library. Nothing about your code, your files or your project is involved in producing a result.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What happens when it does not know something?</summary>
+          <div class="answer">
+            <p>It returns nothing and tells you what it does hold. Ask for a navigation bar or a page footer and you get
+              an empty result with the categories that exist, rather than the nearest component that happens to share a
+              word with your question.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Can I use what it returns in commercial work?</summary>
+          <div class="answer">
+            <p>Yes on a paid plan. Every result the server returns identifies where it came from, so your own records
+              stay in order when you ship.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How do I cancel?</summary>
+          <div class="answer">
+            <p>From your account page, in one click. Cancelling stops the next charge; your key keeps working until the
+              end of the period you already paid for.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================= closing -->
+  <section class="canvas closing">
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="display" data-rise>Stop describing interfaces to your agent. Show it some.</h2>
+      <p class="lede" data-rise>Connect ThinkUI and give it something real to work from.</p>
+      <div class="closing__actions" data-rise>
+        <a class="btn btn--light btn--lg" href="signup.html">Get access</a>
+        <a class="btn btn--ghost btn--lg" href="pricing.html">See pricing</a>
+      </div>
+      <p class="small" style="color:var(--on-ink-mute); margin-top:22px">
+        Free tier available · Cancel any time · Runs locally in your agent
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="index.html"><svg class="brand__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.91 26.00" width="89.91" height="26.00" role="img" aria-label="ThinkUI"><defs><linearGradient id="lg-foot-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b8bf5"/><stop offset="1" stop-color="#22b8cf"/></linearGradient><linearGradient id="lg-foot-s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".2"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><title>ThinkUI</title><g transform="translate(0 0) scale(0.406250)"><rect width="64" height="64" rx="15" fill="url(#lg-foot-g)"/><rect width="64" height="64" rx="15" fill="url(#lg-foot-s)"/><rect x="1" y="1" width="62" height="62" rx="14.2" fill="none" stroke="#ffffff" stroke-opacity=".16" stroke-width="1.2"/><rect x="14.00" y="17.00" width="36.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="28.75" width="26.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="40.50" width="16.00" height="6.50" rx="3.25" fill="#ffffff"/></g><g transform="translate(34.5919 19.0938) scale(0.008090)"><path fill="#f7f9fc" d="M50.452542304992676 -1261.3537532687187V-1490.0H1240.9842415452003V-1261.3537532687187H778.9522233009338V0.0H513.7645898461342V-1261.3537532687187ZM1618.1430175685882 -603.5370345115662V0.0H1364.5554557228088V-1490.0H1617.7431314969062V-793.4212321043015H1566.955774732828Q1617.3648486220836 -935.0345751941204 1709.887117498517 -1009.2676326483488Q1802.4093863749504 -1083.5006901025772 1939.9111327910423 -1083.5006901025772Q2051.337532528639 -1083.5006901025772 2136.259829082489 -1035.4207885712385Q2221.182125636339 -987.3408870398998 2269.1467407131195 -894.22536213696Q2317.1113557899 -801.1098372340202 2317.1113557899 -665.2784798145294V0.0H2063.4526985669136V-625.2262679040432Q2063.4526985669136 -741.2583056688309 2007.550150551796 -801.6474764049053Q1951.6476025366783 -862.0366471409798 1849.869147130251 -862.0366471409798Q1783.375444331169 -862.0366471409798 1730.9639493757486 -834.6521215885878Q1678.552454420328 -807.2675960361958 1648.3477359944582 -750.1316560953856Q1618.1430175685882 -692.9957161545753 1618.1430175685882 -603.5370345115662ZM2505.5954557228088 0.0V-1062.88720703125H2759.183017568588V0.0ZM2632.100346671343 -1220.0535042583942Q2567.8075976538657 -1220.0535042583942 2524.474667968154 -1261.4480558391692Q2481.141738282442 -1302.8426074199442 2481.141738282442 -1363.5469516348203Q2481.141738282442 -1424.4475081562996 2524.474667968154 -1465.5027702003717Q2567.8075976538657 -1506.558032244444 2631.6860945475564 -1506.558032244444Q2696.3613381084374 -1506.558032244444 2739.745694272944 -1465.5413400594678Q2783.1300504374503 -1424.5246478744916 2783.1300504374503 -1363.1347778538864Q2783.1300504374503 -1302.5951090753078 2739.6892551608407 -1261.324306666851Q2696.248459884231 -1220.0535042583942 2632.100346671343 -1220.0535042583942ZM3201.223017568588 -603.5370345115662V0.0H2947.6354557228087V-1062.88720703125H3195.8499739420413L3196.2409781765937 -793.4212321043015H3150.035774732828Q3200.4448486220836 -935.0345751941204 3292.967117498517 -1009.2676326483488Q3385.4893863749503 -1083.5006901025772 3522.991132791042 -1083.5006901025772Q3634.4175325286387 -1083.5006901025772 3719.3042813938855 -1035.4207885712385Q3804.1910302591323 -987.3408870398998 3852.1556453359126 -894.22536213696Q3900.120260412693 -801.1098372340202 3900.120260412693 -665.2784798145294V0.0H3646.5326985669135V-625.2262679040432Q3646.5326985669135 -741.2583056688309 3590.630150551796 -801.6474764049053Q3534.727602536678 -862.0366471409798 3432.949147130251 -862.0366471409798Q3366.455444331169 -862.0366471409798 3314.0439493757485 -834.6521215885878Q3261.632454420328 -807.2675960361958 3231.427735994458 -750.1316560953856Q3201.223017568588 -692.9957161545753 3201.223017568588 -603.5370345115662ZM4320.103471670151 -332.1258756518364V-632.4859358668327H4346.804781887531L4756.683785799742 -1062.88720703125H5060.413673493862L4569.719488922357 -538.6844189465046H4518.796536449194ZM4088.6754557228087 0.0V-1490.0H4342.263017568588V0.0ZM4783.582215163708 0.0 4417.641844067573 -482.4629833996296 4588.048540029526 -659.660400390625 5086.485113922357 0.0ZM5762.6168896377085 23.760068356990814Q5580.646266092648 23.760068356990814 5445.105267644818 -45.01995036005974Q5309.564269196987 -113.79996907711029 5234.8243904531 -235.30847679374327Q5160.084511709213 -356.81698451037624 5160.084511709213 -514.950675457716V-1490.0H5421.432184231281V-536.2214778661728Q5421.432184231281 -441.76526892337483 5463.276885566115 -368.19036313967547Q5505.121586900949 -294.6154573559761 5581.738340412719 -252.47074300050735Q5658.355093924488 -210.3260286450386 5762.959757243735 -210.3260286450386Q5867.604409170151 -210.3260286450386 5943.979781296517 -252.515229110992Q6020.355153422883 -294.7044295769454 6062.047267463471 -368.0537634542346Q6103.739381504059 -441.4030973315239 6103.739381504059 -536.2214778661728V-1490.0H6365.087054026127V-515.070397421088Q6365.087054026127 -356.4709179699421 6290.437339245653 -234.97318107622957Q6215.787624465178 -113.47544418251704 6080.42749709865 -44.85768791276311Q5945.067369732122 23.760068356990814 5762.6168896377085 23.760068356990814ZM6837.863499333858 -1490.0V0.0H6572.675865879059V-1490.0Z"/></g></svg></a>
+        <p class="footer__about">Interface references for coding agents, over MCP. Screens, flows, components, fonts and
+          icons your agent can build with.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="index.html#how">How it works</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Account</h4>
+        <ul>
+          <li><a href="login.html">Sign in</a></li>
+          <li><a href="signup.html">Create account</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 ThinkUI</span>
+      <span class="sep">Built for agents that would rather cite than guess.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

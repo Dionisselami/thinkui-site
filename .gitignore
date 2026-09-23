@@ -1,0 +1,15 @@
+# local launchers — machine-specific, not part of the site
+*.bat
+
+# intermediates: renders, probe captures, the measure/sheet templates
+brand/tmp/
+brand/__pycache__/
+__pycache__/
+*.pyc
+
+# editor / OS noise
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ICONS}}
+<title>Privacy — ThinkUI</title>
+<meta name="description" content="What ThinkUI collects when you use the MCP server, what it does not, and how to have your data removed.">
+<link rel="canonical" href="{{CANONICAL}}">
+<meta name="robots" content="{{ROBOTS}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="Privacy — ThinkUI">
+<meta property="og:description" content="What ThinkUI collects when you use the MCP server, what it does not, and how to have your data removed.">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="{{SITE_URL}}/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy — ThinkUI">
+<meta name="twitter:description" content="What ThinkUI collects when you use the MCP server, what it does not, and how to have your data removed.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+{{>nav}}
+<main id="main">
+  <section>
+    <div class="wrap">
+      <div class="doc-head">
+        <span class="eyebrow">Legal</span>
+        <h1>Privacy</h1>
+        <p class="lede">Short version: we collect what is needed to run your account and meter your usage. Your code and
+          your prompts are not part of it.</p>
+        <p class="prose updated" style="padding:0">Last updated {{YEAR}}.</p>
+      </div>
+
+      <div class="prose">
+        <h2>What we collect</h2>
+        <ul>
+          <li><strong>Account details</strong> — the email address you sign up with, your name if you give one, and a
+            hashed password or the identity your OAuth provider returns.</li>
+          <li><strong>Billing details</strong> — handled by our payment processor. We receive the outcome of a payment
+            and the last four digits of a card; we never receive or store the card itself.</li>
+          <li><strong>Usage counts</strong> — how many tool calls your key has made in a period, and which tools were
+            called, so we can meter plans and show you your own usage.</li>
+        </ul>
+
+        <h2>What we do not collect</h2>
+        <ul>
+          <li>Your source code, your files, or the contents of your project.</li>
+          <li>Your prompts or your agent's conversation history. The server runs locally inside your client; the query
+            string that reaches us is what the tool call itself carries.</li>
+          <li>Advertising or cross-site tracking data. There are no ad networks on this site.</li>
+        </ul>
+
+        <h2>Cookies</h2>
+        <p>We use the minimum needed to keep you signed in and to protect forms against abuse. There are no third-party
+          advertising cookies on this site. The fonts used by this site are loaded from Google Fonts, which means your
+          browser makes a request to Google's servers when a page loads.</p>
+
+        <h2>Who we share it with</h2>
+        <p>Our hosting provider and our payment processor, to the extent each needs it to do its job. We do not sell
+          personal data, and we do not share it for advertising.</p>
+
+        <h2>How long we keep it</h2>
+        <p>Account and usage records are kept while your account is open and for a short period afterwards, so that
+          billing and refund questions can be settled. Ask us to delete your account and we will remove what we are not
+          required to retain for tax or accounting purposes.</p>
+
+        <h2>Your choices</h2>
+        <ul>
+          <li>Ask for a copy of the data we hold about you.</li>
+          <li>Ask us to correct it or to delete your account.</li>
+          <li>Cancel a paid plan at any time from your account page.</li>
+        </ul>
+        <p>Write to <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a> and we will act on the request.</p>
+
+        <h2>Changes</h2>
+        <p>If this policy changes in a way that affects what we collect, we will tell account holders by email before
+        the change takes effect.</p>
+      </div>
+    </div>
+  </section>
+</main>
+{{>footer}}
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>
