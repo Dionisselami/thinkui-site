@@ -667,3 +667,15 @@ html.js [data-rise].in {
   .cmp th, .cmp td { padding: 13px 14px; }
 }
 
+
+/* answers from the account service, shown above the form */
+.auth__msg {
+  margin: 0 0 20px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  border: 1px solid transparent;
+}
+.auth__msg--err { background: #fdeeee; border-color: #f3cccc; color: #8a2020; }
+.auth__msg--ok  { background: #eafaf0; border-color: #bfe9d0; color: #12603a; }
