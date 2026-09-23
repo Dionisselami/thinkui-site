@@ -209,6 +209,15 @@ h3 { font-size: 18px; letter-spacing: -0.015em; }
   100% { transform: translate3d(240%, 0, 0) rotate(18deg); opacity: 0; }
 }
 
+/* The reference field: points that fly in, assemble into the brand mark, then come loose.
+   It sits above the aurora and below the copy, and never takes a pointer event - the
+   interaction is tracked on the window so nothing in the hero stops being clickable. */
+.field {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%; display: block; pointer-events: none;
+}
+.canvas > canvas.field { z-index: 1; }        /* outranks .canvas > * { z-index: 2 } */
+
 /* -------------------------------------------------- 05 header / navigation */
 .header {
   position: sticky; top: 0; z-index: 100;
