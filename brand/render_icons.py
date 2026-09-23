@@ -168,12 +168,27 @@ def audit():
             problems.append("%s is %dx%d, not %dx%d" % (os.path.basename(p), w, h, size, size))
         px = im.load()
         opaque = white = 0
+        # Ink is classified against the two colours that are actually in the icon (the white
+        # bars and the tile under them), not by a near-white threshold: the old test only
+        # worked while the tile was dark, and read a bright tile's antialiased bar edges as
+        # background. Nearest-colour is palette-independent, so this check keeps telling the
+        # truth the next time the accent changes.
+        def hx(s):
+            return tuple(int(s[i:i + 2], 16) for i in (1, 3, 5))
+        with open(os.path.join(SITE, "src", "identity.json"), encoding="utf-8") as fh:
+            ident = json.load(fh)
+        ta, tb, glyph = hx(ident["tile_a"]), hx(ident["tile_b"]), (255, 255, 255)
+        def dist2(p, q):
+            return (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2 + (p[2] - q[2]) ** 2
         for y in range(h):
             for x in range(w):
                 r, g, b, a = px[x, y]
                 if a > 200:
                     opaque += 1
-                    if r > 205 and g > 205 and b > 205:
+                    # the tile's gradient runs corner to corner, so lerp it the same way
+                    t = (x + y) / float(w + h - 2 or 1)
+                    tile = tuple(ta[i] + (tb[i] - ta[i]) * t for i in range(3))
+                    if dist2((r, g, b), glyph) < dist2((r, g, b), tile):
                         white += 1
         corners = [px[0, 0], px[w - 1, 0], px[0, h - 1], px[w - 1, h - 1]]
         opaque_pct = 100.0 * opaque / (w * h)

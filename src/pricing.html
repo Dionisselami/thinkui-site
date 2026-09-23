@@ -22,9 +22,8 @@
 <meta name="twitter:description" content="ThinkUI pricing: a free tier for personal projects, Pro at $19 a month for unlimited calls and commercial use, and Team at $49 for five seats. Change or cancel from your account at any time.">
 <meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/public-sans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
 <script type="application/ld+json">
 {
@@ -47,11 +46,9 @@
 <main id="main">
 
   <section class="canvas band">
-    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="veil" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="wrap">
-      <span class="eyebrow" data-rise>Pricing</span>
       <h1 class="display" data-rise style="--i:1">One server. Three levels of use.</h1>
       <p class="lede" data-rise style="--i:2">Every plan runs the same five tools against the same library. What changes is how
         much you can ask and whether you are shipping it commercially.</p>
@@ -143,7 +140,6 @@
   <section>
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow" data-rise>Billing questions</span>
         <h2 data-rise>Asked before paying, usually.</h2>
       </div>
       <div class="faq" data-rise>
@@ -154,7 +150,7 @@
         </details>
         <details>
           <summary>What counts as a tool call?</summary>
-          <div class="answer"><p>One request from your agent to the server — one search, one component fetch, one icon
+          <div class="answer"><p>One request from your agent to the server, one search, one component fetch, one icon
             lookup. Reading the results does not cost anything extra, and a refused query is not billed.</p></div>
         </details>
         <details>
@@ -172,7 +168,6 @@
   </section>
 
   <section class="canvas closing">
-    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="wrap">
       <h2 class="display" data-rise>Start on the free tier.</h2>

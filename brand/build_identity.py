@@ -49,10 +49,13 @@ W_WGHT, W_OPSZ = 600, 30
 TRACKING_EM = -0.02          # the site's own letter-spacing on .brand
 
 # site tokens (assets/css/site.css)
-INK = "#05070c"
-ON_INK = "#f7f9fc"
-TILE_A, TILE_B = "#6d6df0", "#0f8ea6"      # validated: white glyph clears 3.86:1
-GLOW_A, GLOW_B = "#8b8bf5", "#22b8cf"      # the same ramp, lifted for dark grounds
+INK = "#0c0c0d"
+ON_INK = "#faf9f7"
+# One accent, deeper at the bottom stop: depth inside a hue rather than a rainbow across
+# two. Measured, not eyeballed: white bars read 4.55:1 on the light stop and 6.97:1 on
+# the deep one, so the glyph holds at 16px.
+TILE_A, TILE_B = "#d4431d", "#a52f11"
+GLOW_A, GLOW_B = "#f0764f", "#d4431d"      # the same accent on dark grounds (6.90:1)
 
 GRID = 64.0                   # the design grid all six options were drawn on
 BARS = [36.0, 26.0, 16.0]     # left-aligned widths

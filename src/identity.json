@@ -21,12 +21,12 @@
     6837.863499333858,
     23.760068356990814
   ],
-  "tile_a": "#6d6df0",
-  "tile_b": "#0f8ea6",
-  "glow_a": "#8b8bf5",
-  "glow_b": "#22b8cf",
-  "ink": "#05070c",
-  "on_ink": "#f7f9fc",
+  "tile_a": "#d4431d",
+  "tile_b": "#a52f11",
+  "glow_a": "#f0764f",
+  "glow_b": "#d4431d",
+  "ink": "#0c0c0d",
+  "on_ink": "#faf9f7",
   "lockup_block": {
     "w": 89.908,
     "h": 26.0,

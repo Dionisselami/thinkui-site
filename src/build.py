@@ -88,7 +88,7 @@ ICONS = """<link rel="icon" href="assets/img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#05070c">
+<meta name="theme-color" content="__THEME__">
 <meta name="apple-mobile-web-app-title" content="ThinkUI">"""
 
 
@@ -99,7 +99,9 @@ def tokens(page: str) -> dict:
         "CONTACT_EMAIL": CONTACT_EMAIL,
         "CANONICAL": "%s/%s" % (SITE_URL.rstrip("/"), "" if page == "index.html" else page),
         "ROBOTS": "noindex, follow" if page in NOINDEX else "index, follow, max-image-preview:large",
-        "ICONS": ICONS,
+        # the browser-chrome colour is the brand ink, read from the identity rather than
+        # retyped here, so a palette change cannot leave it behind
+        "ICONS": ICONS.replace("__THEME__", identity()["ink"]),
         "LOGO": inline_logo("logo.svg", "lg-nav"),
         "LOGO_INVERSE": inline_logo("logo-inverse.svg", "lg-foot"),
     }
@@ -185,24 +187,16 @@ def build_og():
         return False
 
     W, H = 1200, 630
-    img = Image.new("RGB", (W, H), (5, 7, 12))
-    px = img.load()
-
-    # radial glow, top-centre, indigo -> cyan, painted by hand
-    for y in range(H):
-        for x in range(W):
-            dx = (x - W * 0.5) / (W * 0.62)
-            dy = (y + H * 0.25) / (H * 0.95)
-            d = min(1.0, (dx * dx + dy * dy) ** 0.5)
-            g = max(0.0, 1.0 - d) ** 2.1
-            r = int(5 + 100 * g)
-            gg = int(7 + 70 * g)
-            b = int(12 + 200 * g)
-            px[x, y] = (min(r, 255), min(gg, 255), min(b, 255))
-
-    d = ImageDraw.Draw(img, "RGBA")
-
     ident = identity()
+
+    def hx(s):
+        return tuple(int(s[i:i + 2], 16) for i in (1, 3, 5))
+
+    # One flat ink, no spotlight. The card used to be painted with a hand-rolled indigo to
+    # cyan glow, which is the same atmosphere the site has just dropped, and it dragged the
+    # whole card blue. The colour now comes from the identity.
+    img = Image.new("RGB", (W, H), hx(ident["ink"]))
+    d = ImageDraw.Draw(img, "RGBA")
     inter_path = os.path.join(SITE, "brand", "Inter-var.ttf")
 
     def font(size, weight="R"):
@@ -227,10 +221,15 @@ def build_og():
     # the mark: same geometry as the SVG, scaled from the shared numbers
     tile, tx, ty = 52, 84, 76
     k = tile / ident["grid"]
+    # the tile in the brand's own accent, deeper at the bottom: the same one-hue depth the
+    # logo has, drawn line by line because Pillow has no gradient
+    ta, tb = hx(ident["tile_a"]), hx(ident["tile_b"])
+    for i in range(tile):
+        t = i / float(tile - 1)
+        col = tuple(int(ta[c] + (tb[c] - ta[c]) * t) for c in range(3))
+        d.line([(tx, ty + i), (tx + tile, ty + i)], fill=col)
     d.rounded_rectangle([(tx, ty), (tx + tile, ty + tile)],
-                        radius=ident["tile_radius"] * k, fill=(255, 255, 255, 26))
-    d.rounded_rectangle([(tx, ty), (tx + tile, ty + tile)],
-                        radius=ident["tile_radius"] * k, outline=(255, 255, 255, 64), width=2)
+                        radius=ident["tile_radius"] * k, outline=(255, 255, 255, 70), width=2)
     stack_top = (ident["grid"] - ident["ink_h"]) / 2.0
     gap = (ident["ink_h"] - 3 * ident["tile_t"]) / 2.0
     y = ty + stack_top * k

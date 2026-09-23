@@ -99,8 +99,12 @@ nothing else about it should be styled per page.
 re-run the four commands. Do not hand-edit `assets/img/*.svg` — the next build
 overwrites it.
 
-**Font licence:** Inter is OFL 1.1. Its notice is at `brand/Inter-OFL.txt`, and the
-font itself ships only in `brand/` (never deployed) plus as outlines inside the logo.
+**Typefaces:** Archivo (display) and Public Sans (body), both OFL 1.1, both served from
+our own origin as variable woff2 — `assets/fonts/`, with each notice beside it. Nothing
+on a page loads a font from a third party. Inter is still used to draw the wordmark's
+outlines at build time: it ships only inside `brand/` (never deployed) and as outlines
+inside the logo, with its notice at `brand/Inter-OFL.txt`. Mono is the system stack; we
+ship no mono.
 
 ## 4. What still has to be wired
 

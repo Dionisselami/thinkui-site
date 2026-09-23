@@ -18,9 +18,8 @@
 <meta name="twitter:title" content="Privacy — ThinkUI">
 <meta name="twitter:description" content="What ThinkUI collects when you use the MCP server, what it does not, and how to have your data removed.">
 <meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/public-sans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
@@ -30,7 +29,6 @@
   <section>
     <div class="wrap">
       <div class="doc-head">
-        <span class="eyebrow">Legal</span>
         <h1>Privacy</h1>
         <p class="lede">Short version: we collect what is needed to run your account and meter your usage. Your code and
           your prompts are not part of it.</p>
@@ -40,11 +38,11 @@
       <div class="prose">
         <h2>What we collect</h2>
         <ul>
-          <li><strong>Account details</strong> — the email address you sign up with, your name if you give one, and a
+          <li><strong>Account details</strong>, the email address you sign up with, your name if you give one, and a
             hashed password or the identity your OAuth provider returns.</li>
-          <li><strong>Billing details</strong> — handled by our payment processor. We receive the outcome of a payment
+          <li><strong>Billing details</strong>, handled by our payment processor. We receive the outcome of a payment
             and the last four digits of a card; we never receive or store the card itself.</li>
-          <li><strong>Usage counts</strong> — how many tool calls your key has made in a period, and which tools were
+          <li><strong>Usage counts</strong>, how many tool calls your key has made in a period, and which tools were
             called, so we can meter plans and show you your own usage.</li>
         </ul>
 
@@ -58,8 +56,8 @@
 
         <h2>Cookies</h2>
         <p>We use the minimum needed to keep you signed in and to protect forms against abuse. There are no third-party
-          advertising cookies on this site. The fonts used by this site are loaded from Google Fonts, which means your
-          browser makes a request to Google's servers when a page loads.</p>
+          advertising cookies on this site, and there are no third-party requests on it either: the fonts this site uses
+          are served from our own domain, so loading a page contacts nobody but us.</p>
 
         <h2>Who we share it with</h2>
         <p>Our hosting provider and our payment processor, to the extent each needs it to do its job. We do not sell

@@ -23,9 +23,8 @@
 <meta name="twitter:description" content="An MCP server that answers design questions with evidence: the screen, the flow, the component, the source.">
 <meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/public-sans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
 
 <script type="application/ld+json">
@@ -52,7 +51,7 @@
       "name": "ThinkUI MCP server",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "macOS, Windows, Linux",
-      "description": "An MCP server that returns real interface references — screens, flows, UI components, fonts and animated icons — for coding agents to design and build with.",
+      "description": "An MCP server that returns real interface references, screens, flows, UI components, fonts and animated icons, for coding agents to design and build with.",
       "url": "{{SITE_URL}}/",
       "offers": [
         { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD",
@@ -93,15 +92,14 @@
 
   <!-- ============================================================ hero -->
   <section class="canvas hero">
-    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="veil" aria-hidden="true"></div>
     <div class="beam" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <canvas class="field" aria-hidden="true"></canvas>
     <div class="wrap">
       <div class="hero__inner">
-        <span class="hero__badge" data-rise><i class="dot"></i> MCP server · runs locally over stdio</span>
-        <h1 class="display" data-rise style="--i:1">Interface references your agent can <span class="grad">actually use.</span></h1>
+        <span class="hero__badge" data-rise>MCP server, running on your machine</span>
+        <h1 class="display" data-rise style="--i:1">Interfaces your agent can use.</h1>
         <p class="lede" data-rise style="--i:2">
           ThinkUI plugs into the coding agent you already use and answers design questions with
           evidence: the screen, the flow it belongs to, the component itself, the typeface. Every
@@ -144,7 +142,7 @@
         <div><b class="mono">118</b><span>fonts, icon sets and systems</span></div>
       </div>
       <p class="small" style="margin-top:18px">
-        Measured from the library this server serves — not projections. Ask the server for
+        Measured from the library this server serves, not projections. Ask the server for
         <span class="mono">corpus_stats</span> and it reports the same numbers.
       </p>
     </div>
@@ -154,10 +152,9 @@
   <section class="section--soft">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow" data-rise>What it does</span>
         <h2 data-rise>Design decisions, with the reasoning attached.</h2>
         <p class="lede" data-rise>An agent that improvises a paywall produces a paywall nobody has ever shipped. ThinkUI gives it
-          something real to work from — and tells you what that something was.</p>
+          something real to work from, and tells you what that something was.</p>
       </div>
 
       <div class="grid grid--3">
@@ -172,7 +169,7 @@
         <article class="card card--lift card--glow" data-rise style="--i:1">
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h13"/></svg></div>
           <h3>Components you can paste</h3>
-          <p>Buttons, loaders, cards, forms, inputs, switches, tooltips and patterns — returned as the component's own
+          <p>Buttons, loaders, cards, forms, inputs, switches, tooltips and patterns, returned as the component's own
             markup and stylesheet, not a description of one.</p>
           <div class="card__foot">find_ui_elements</div>
         </article>
@@ -180,7 +177,7 @@
         <article class="card card--lift card--glow" data-rise style="--i:2">
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="3.4"/></svg></div>
           <h3>Motion that actually moves</h3>
-          <p>Animated icons arrive as working SVG — animation included, no JavaScript runtime, no icon font, nothing to
+          <p>Animated icons arrive as working SVG with the animation included, no JavaScript runtime, no icon font, nothing to
             install. Paste it and it animates.</p>
           <div class="card__foot">find_animated_icons</div>
         </article>
@@ -189,7 +186,7 @@
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 4h9l4 4v12H6z"/><path d="M15 4v4h4"/></svg></div>
           <h3>Type and systems</h3>
           <p>The right typeface for a brief, an icon set that is still maintained, the design system a product like yours
-            is built on — with the state of each project attached.</p>
+            is built on, with the state of each project attached.</p>
           <div class="card__foot">find_ui_materials</div>
         </article>
 
@@ -216,7 +213,6 @@
   <section id="how">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow" data-rise>How it works</span>
         <h2 data-rise>Three steps, once.</h2>
       </div>
 
@@ -233,7 +229,7 @@
         </div>
         <div class="step" style="--i:2">
           <h3>Build from something real</h3>
-          <p>You get screens to follow, components to paste and assets to ship — with a trail back to where each came
+          <p>You get screens to follow, components to paste and assets to ship, with a trail back to where each came
             from.</p>
         </div>
       </div>
@@ -243,10 +239,10 @@
           <h3 style="margin-bottom:12px">One block of config.</h3>
           <p class="small" style="font-size:15px">
             ThinkUI ships as a standard MCP server. Add it to Claude Desktop, Claude Code, Cursor, VS Code, Windsurf,
-            Zed or any framework with an MCP client — the same block works everywhere, and it is the only setup step.
+            Zed or any framework with an MCP client: the same block works everywhere, and it is the only setup step.
           </p>
           <p class="small" style="margin-top:16px">
-            Your account key goes in one place. Everything else — tools, prompts, transport — is handled by the server.
+            Your account key goes in one place. Everything else (tools, prompts, transport) is handled by the server.
           </p>
           <a class="link-arrow" href="docs.html" style="margin-top:20px">
             Full quickstart
@@ -282,9 +278,8 @@
   <section class="section--soft" id="pricing">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow" data-rise>Pricing</span>
         <h2 data-rise>Same server, same tools. Pay for the volume you use.</h2>
-        <p class="lede" data-rise>Start free. Move to a paid plan when it is carrying real work — you can change plan or
+        <p class="lede" data-rise>Start free. Move to a paid plan when it is carrying real work, and you can change plan or
           cancel from your account at any time.</p>
       </div>
 
@@ -337,7 +332,6 @@
   <section id="faq">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow" data-rise>Questions</span>
         <h2 data-rise>The ones people ask before connecting it.</h2>
       </div>
       <div class="faq" data-rise>
@@ -352,7 +346,7 @@
         <details>
           <summary>Which clients does it work with?</summary>
           <div class="answer">
-            <p>Any client that speaks MCP over stdio — Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed, and
+            <p>Any client that speaks MCP over stdio: Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed, and
               agent frameworks with an MCP client. The config block is the same everywhere.</p>
           </div>
         </details>
@@ -391,7 +385,6 @@
 
   <!-- ======================================================= closing -->
   <section class="canvas closing">
-    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="veil" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="wrap">
@@ -402,7 +395,7 @@
         <a class="btn btn--ghost btn--lg" href="pricing.html">See pricing</a>
       </div>
       <p class="small" style="color:var(--on-ink-mute); margin-top:22px">
-        Free tier available · Cancel any time · Runs locally in your agent
+        There is a free tier, and no card is needed to start.
       </p>
     </div>
   </section>
