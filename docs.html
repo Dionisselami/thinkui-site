@@ -68,8 +68,8 @@
     <div class="veil" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="wrap">
-      <h1 class="display" data-rise style="--i:1">Connected in one block.</h1>
-      <p class="lede" data-rise style="--i:2">ThinkUI is a standard MCP server over stdio. There is no SDK to install into
+      <h1 class="display">Connected in one block.</h1>
+      <p class="lede">ThinkUI is a standard MCP server over stdio. There is no SDK to install into
         your project, no build step and no daemon to keep alive, your agent starts it when it needs it.</p>
     </div>
   </section>
@@ -77,21 +77,21 @@
   <section>
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow" data-rise>Step 1</span>
-        <h2 data-rise>Get your key.</h2>
-        <p class="lede" data-rise>Create an account and copy the key from your dashboard. It is the only credential you need,
+        <span class="eyebrow">Step 1</span>
+        <h2>Get your key.</h2>
+        <p class="lede">Create an account and copy the key from your dashboard. It is the only credential you need,
           and it goes in one place: the <span class="mono">THINKUI_KEY</span> environment variable of the server entry.</p>
       </div>
 
       <div class="head" style="margin-top:46px">
-        <span class="eyebrow" data-rise>Step 2</span>
-        <h2 data-rise>Add it to your agent.</h2>
-        <p class="lede" data-rise>Pick your client. The block is the same shape everywhere; only the file name and the
+        <span class="eyebrow">Step 2</span>
+        <h2>Add it to your agent.</h2>
+        <p class="lede">Pick your client. The block is the same shape everywhere; only the file name and the
           top-level key differ, and those are noted where they do.</p>
       </div>
 
       <div class="grid grid--2" style="gap:26px">
-        <div class="code" data-rise>
+        <div class="code">
           <div class="code__bar">
             <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="name">claude_desktop_config.json</span>
@@ -113,7 +113,7 @@
             Windows: <span class="mono">%APPDATA%\Claude\</span>. Restart the app after saving.</div>
         </div>
 
-        <div class="code" data-rise style="--i:1">
+        <div class="code">
           <div class="code__bar">
             <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="name">.cursor/mcp.json · .vscode/mcp.json</span>
@@ -137,7 +137,7 @@
         </div>
       </div>
 
-      <div class="notice" data-rise style="margin-top:26px">
+      <div class="notice" style="margin-top:26px">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
         <span>Running from a local checkout instead of the published package? Use
           <span class="mono">"command": "python"</span> with
@@ -149,11 +149,11 @@
   <section class="section--soft">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow" data-rise>Reference</span>
-        <h2 data-rise>The five tools.</h2>
-        <p class="lede" data-rise>Your agent chooses these on its own once they are connected. You can also ask for one by name.</p>
+        <span class="eyebrow">Reference</span>
+        <h2>The five tools.</h2>
+        <p class="lede">Your agent chooses these on its own once they are connected. You can also ask for one by name.</p>
       </div>
-      <div class="cmp__wrap" data-rise>
+      <div class="cmp__wrap">
         <table class="cmp">
           <caption>ThinkUI tools. Each returns results that name the project or component they came from.</caption>
           <thead>
@@ -184,21 +184,21 @@
   <section>
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow" data-rise>Step 3</span>
-        <h2 data-rise>Ask it something.</h2>
-        <p class="lede" data-rise>Talk to your agent normally. When a design decision comes up it reaches for the server
+        <span class="eyebrow">Step 3</span>
+        <h2>Ask it something.</h2>
+        <p class="lede">Talk to your agent normally. When a design decision comes up it reaches for the server
           instead of inventing an answer.</p>
       </div>
 
       <div class="grid grid--2" style="gap:26px; align-items:start">
-        <div class="card" data-rise>
+        <div class="card">
           <h3 style="margin-bottom:14px">You</h3>
           <p class="mono" style="font-size:14px; color:var(--text-soft)">"Design the upgrade screen for a note-taking app.
             I want it to feel calm, not pushy."</p>
           <p class="small" style="margin-top:16px">Your agent calls <span class="mono">find_ui_references</span> with a
             query like <span class="mono">"upgrade paywall trial"</span>, then builds from what comes back.</p>
         </div>
-        <div class="code" data-rise style="--i:1">
+        <div class="code">
           <div class="code__bar">
             <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="name">find_ui_references · abridged</span>
@@ -232,9 +232,9 @@
   <section>
     <div class="wrap">
       <div class="head">
-        <h2 data-rise>When it does not show up.</h2>
+        <h2>When it does not show up.</h2>
       </div>
-      <div class="faq" data-rise>
+      <div class="faq">
         <details open>
           <summary>The tools are not listed in my agent.</summary>
           <div class="answer"><p>Clients read their config at start-up: quit and reopen the app after saving the block.
@@ -260,9 +260,9 @@
   <section class="canvas closing">
     <div class="grain" aria-hidden="true"></div>
     <div class="wrap">
-      <h2 class="display" data-rise>Give your agent something to look at.</h2>
-      <p class="lede" data-rise>Create an account, paste one block, and ask a design question you already know the answer to.</p>
-      <div class="closing__actions" data-rise>
+      <h2 class="display">Give your agent something to look at.</h2>
+      <p class="lede">Create an account, paste one block, and ask a design question you already know the answer to.</p>
+      <div class="closing__actions">
         <a class="btn btn--light btn--lg" href="signup.html">Get access</a>
         <a class="btn btn--ghost btn--lg" href="pricing.html">See pricing</a>
       </div>
@@ -278,7 +278,7 @@
           icons your agent can build with.</p>
       </div>
       <div>
-        <h4>Product</h4>
+        <h4>Start here</h4>
         <ul>
           <li><a href="pricing.html">Pricing</a></li>
           <li><a href="docs.html">Docs</a></li>
@@ -287,14 +287,14 @@
         </ul>
       </div>
       <div>
-        <h4>Account</h4>
+        <h4>Your account</h4>
         <ul>
           <li><a href="login.html">Sign in</a></li>
           <li><a href="signup.html">Create account</a></li>
         </ul>
       </div>
       <div>
-        <h4>Legal</h4>
+        <h4>The fine print</h4>
         <ul>
           <li><a href="terms.html">Terms</a></li>
           <li><a href="privacy.html">Privacy</a></li>

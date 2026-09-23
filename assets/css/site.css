@@ -45,6 +45,8 @@
   --ink:         #0c0c0d;
   --ink-2:       #141415;
   --ink-3:       #1e1e20;
+--ink-veil:     rgba(12, 12, 13, .88);   /* the header over the hero */
+--ink-veil-soft: rgba(12, 12, 13, .55);
 
   --text:        #121213;
   --text-soft:   #4c4c50;
@@ -230,7 +232,7 @@ h3 { font-size: 18px; letter-spacing: -0.015em; }
 }
 .header.is-stuck { border-bottom-color: var(--line); }
 .header--on-canvas {
-  background: rgba(5, 7, 12, .55);
+  background: var(--ink-veil-soft);
   color: var(--on-ink);
   border-bottom-color: var(--line-ink);
 }
@@ -268,15 +270,10 @@ h3 { font-size: 18px; letter-spacing: -0.015em; }
 /* Gradient headline text removed: it trades contrast for an effect every generated page
    wears, and the heading carries its own weight. Hierarchy is size, weight and space. */
 .hero .lede { color: var(--on-ink-soft); font-size: clamp(17px, 1.7vw, 20.5px); max-width: 56ch; margin-top: 24px; }
-.hero__badge {
-  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px 8px 12px;
-  border: 1px solid var(--line-ink-2); border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, .05);
-  font: 500 12.5px/1 var(--sans); color: var(--on-ink-soft); margin-bottom: 24px;
-}
+.hero__note { font-size: 13.5px; font-weight: 500; color: var(--on-ink-mute); margin: 0 0 20px; }
 /* The pulsing emerald status dot is gone: there is no live state behind that badge. It
    is a sentence, and a halo breathing beside a sentence is theatre. */
-.hero__actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 32px; }
 .hero__meta { margin-top: 24px; font-size: 13.5px; color: var(--on-ink-mute); display: flex; flex-wrap: wrap; gap: 8px 24px; }
 .hero__meta span { display: inline-flex; align-items: center; gap: 8px; }
 .hero__meta svg { width: 15px; height: 15px; color: var(--brand-on-ink); }
@@ -299,7 +296,7 @@ h3 { font-size: 18px; letter-spacing: -0.015em; }
 }
 .btn--primary:hover { background: var(--brand-ink); border-color: transparent; }
 .btn--light { background: #fff; border-color: transparent; color: var(--ink); }
-.btn--light:hover { background: #f2f0ed; }
+.btn--light:hover { background: var(--paper-soft); }
 .btn--ghost { background: transparent; border-color: var(--line-ink-2); color: var(--on-ink); }
 .btn--ghost:hover { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .3); }
 .btn--block { width: 100%; }
@@ -307,6 +304,7 @@ h3 { font-size: 18px; letter-spacing: -0.015em; }
 
 .link-arrow { display: inline-flex; align-items: center; gap: 8px; font-weight: 550; font-size: 15px; color: var(--brand-ink); }
 .link-arrow svg { width: 15px; height: 15px; transition: transform var(--d-2) var(--ease); }
+.link-arrow--on-ink { color: var(--brand-on-ink); }
 .link-arrow:hover svg { transform: translateX(3px); }
 
 /* --------------------------------------------------- 08 cards / features */
@@ -361,14 +359,14 @@ h3 { font-size: 18px; letter-spacing: -0.015em; }
 .code__copy.is-done { color: var(--brand-on-ink); border-color: rgba(240, 118, 79, .5); }
 .code pre {
   margin: 0; padding: 24px 16px; overflow-x: auto;
-  font: 400 13px/1.75 var(--mono); color: #cbd5e1;
+  font: 400 13px/1.75 var(--mono); color: var(--on-ink-soft);
   font-feature-settings: "liga" 1, "calt" 1;
 }
 /* Syntax colour drawn from the one palette instead of the default rainbow: comments
    recede, keys carry the accent, strings stay neutral. */
-.code pre .c { color: #8b8b93; }   /* 4.9:1 on the code surface - the old grey was 3.7:1 */
-.code pre .k { color: #f0764f; }
-.code pre .s { color: #d9d5cf; }
+.code pre .c { color: var(--on-ink-mute); }   /* 4.9:1 on the code surface - the old grey was 3.7:1 */
+.code pre .k { color: var(--brand-on-ink); }
+.code pre .s { color: var(--on-ink); }
 .code pre .f { color: #b5b2ad; }
 .code__note { padding: 0 16px 16px; font-size: 13.5px; color: var(--on-ink-mute); }
 
@@ -491,13 +489,12 @@ h3 { font-size: 18px; letter-spacing: -0.015em; }
 .footer__bottom .sep { margin-left: auto; }
 
 /* ------------------------------------------------- 16 motion / reveals */
+/* There is no scroll-reveal system. Every section used to fade up 16px as it came into
+   view - the single most common generated-page tic there is, and it made 28 elements
+   invisible until JavaScript observed them. Content is simply present now; the only
+   thing that moves on this site is the reference field, which is the product's own
+   material and says something. */
 [data-rise] { opacity: 1; }
-html.js [data-rise] { opacity: 0; transform: translateY(16px); }
-html.js [data-rise].in {
-  opacity: 1; transform: none;
-  transition: opacity var(--d-4) var(--ease-out), transform var(--d-4) var(--ease-out);
-  transition-delay: calc(min(var(--i, 0), 8) * 70ms);
-}
 
 /* --------------------------------------------------------- 17 responsive */
 @media (max-width: 1000px) {
@@ -546,13 +543,10 @@ html.js [data-rise].in {
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
-  html.js [data-rise] { opacity: 1; transform: none; }
   .aurora, .veil, .beam, .ticker__row { animation: none !important; }
 }
 
-/* a reveal that never runs must not print as blank paper */
 @media print {
-  html.js [data-rise] { opacity: 1 !important; transform: none !important; }
   .canvas { background: #fff; color: #000; }
   .aurora, .veil, .grain, .beam { display: none; }
   .header { position: static; }
@@ -567,11 +561,11 @@ html.js [data-rise].in {
 /* Opaque enough to hold its own contrast: the bar sits over an animated hero,
    so its legibility must not depend on whatever happens to be behind it. */
 .dark-top .header:not(.is-stuck) {
-  background: rgba(5, 7, 12, .88);
+  background: var(--ink-veil);
   color: var(--on-ink);
   border-bottom-color: transparent;
 }
-.dark-top .header:not(.is-stuck) .brand { color: #fff; }
+.dark-top .header:not(.is-stuck) .brand { color: var(--on-ink); }
 .dark-top .header:not(.is-stuck) .nav a { color: var(--on-ink-soft); }
 .dark-top .header:not(.is-stuck) .nav a:hover { color: #fff; background: rgba(255, 255, 255, .09); }
 .dark-top .header:not(.is-stuck) .btn:not(.btn--light) {
@@ -651,10 +645,15 @@ html.js [data-rise].in {
 .auth__msg {
   margin: 0 0 24px;
   padding: 12px 16px;
-  border-radius: 10px;
+  border-radius: var(--r-md);
   font-size: 13.5px;
   line-height: 1.5;
-  border: 1px solid transparent;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--text);
 }
-.auth__msg--err { background: #fdeeee; border-color: #f3cccc; color: #8a2020; }
-.auth__msg--ok  { background: #eafaf0; border-color: #bfe9d0; color: #12603a; }
+/* The state is a word first; the colour only agrees with it, so the message still
+   reads to someone who cannot separate red from green. */
+.auth__msg b { font-weight: 600; }
+.auth__msg--err b { color: var(--brand-ink); }
+.auth__msg--ok b  { color: var(--ok); }

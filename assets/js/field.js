@@ -32,7 +32,9 @@
       ],
       INK = { x0: BAR_X, x1: BAR_X + 36, y0: 17, y1: 47 };
 
-  var COLOURS = ["#6d6df0", "#6f7ef0", "#5aa0e6", "#3fb4d8", "#22b8cf", "#5ec9dd"];
+  // One hue, deeper at the low end: the field is the same vermilion as everything else.
+  // Six stops of it so the dust has depth instead of reading as a flat tint.
+  var COLOURS = ["#f0764f", "#e8603a", "#d4431d", "#c03a17", "#a52f11", "#8f2810"];
   var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function Field(canvas) {

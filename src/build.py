@@ -19,6 +19,7 @@ import argparse
 import datetime as dt
 import os
 import re
+import subprocess
 import sys
 import urllib.parse
 
@@ -145,9 +146,27 @@ def build_pages():
     return made
 
 
+def last_change(path: str) -> str:
+    """When this page last actually changed.
+
+    The sitemap used to stamp every URL with the build date, so all of them always carried
+    the same value no matter which page had been touched - a generator fingerprint, and
+    useless to a crawler. Git knows the real answer; the file's mtime is the fallback for a
+    checkout without history.
+    """
+    try:
+        out = subprocess.run(["git", "-C", SITE, "log", "-1", "--format=%cs", "--", path],
+                             capture_output=True, text=True, timeout=15)
+        stamp = (out.stdout or "").strip()
+        if out.returncode == 0 and re.fullmatch(r"\d{4}-\d{2}-\d{2}", stamp):
+            return stamp
+    except Exception:  # noqa: BLE001 - no git, no history, no problem
+        pass
+    return dt.date.fromtimestamp(os.path.getmtime(path)).isoformat()
+
+
 def build_sitemap():
     url = SITE_URL.rstrip("/")
-    today = dt.date.today().isoformat()
     rows = []
     for page, _, listed in PAGES:
         if not listed:
@@ -156,7 +175,7 @@ def build_sitemap():
         priority = "1.0" if page == "index.html" else ("0.9" if page == "pricing.html" else "0.8")
         rows.append("  <url>\n    <loc>%s</loc>\n    <lastmod>%s</lastmod>\n"
                     "    <changefreq>weekly</changefreq>\n    <priority>%s</priority>\n  </url>"
-                    % (loc, today, priority))
+                    % (loc, last_change(os.path.join(HERE, page)), priority))
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
            + "\n".join(rows) + "\n</urlset>\n")

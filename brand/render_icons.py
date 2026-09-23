@@ -27,6 +27,7 @@ import ui_probe  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.abspath(os.path.join(HERE, ".."))
+IDENT = json.load(open(os.path.join(SITE, "src", "identity.json"), encoding="utf-8"))
 IMG = os.path.join(SITE, "assets", "img")
 TMP = os.path.join(HERE, "tmp")
 PORT = 9466
@@ -252,7 +253,7 @@ def main():
         "start_url": "/",
         "display": "standalone",
         "background_color": "#ffffff",
-        "theme_color": "#05070c",
+        "theme_color": IDENT["ink"],
         "icons": [
             {"src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml",
              "purpose": "any"},

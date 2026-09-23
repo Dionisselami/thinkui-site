@@ -40,66 +40,6 @@
     }
   }
 
-  /* ---------------------------------------------------------------- reveals */
-  function revealAll() {
-    var nodes = doc.querySelectorAll("[data-rise]");
-    for (var i = 0; i < nodes.length; i++) { nodes[i].classList.add("in"); }
-  }
-
-  function initReveals() {
-    var nodes = doc.querySelectorAll("[data-rise]");
-    if (!nodes.length) { return; }
-
-    // Above the fold reveals synchronously on first paint: if anything below
-    // fails, the top of the page was never hidden in the first place.
-    var fold = window.innerHeight || 800;
-    var below = [];
-    for (var i = 0; i < nodes.length; i++) {
-      var r = nodes[i].getBoundingClientRect();
-      if (r.top < fold * 0.9) { nodes[i].classList.add("in"); } else { below.push(nodes[i]); }
-    }
-
-    var usesObserver = false;
-    if (below.length && typeof window.IntersectionObserver === "function") {
-      try {
-        var io = new IntersectionObserver(function (entries) {
-          for (var j = 0; j < entries.length; j++) {
-            if (entries[j].isIntersecting) {
-              entries[j].target.classList.add("in");
-              io.unobserve(entries[j].target);
-            }
-          }
-        }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
-        for (var k = 0; k < below.length; k++) { io.observe(below[k]); }
-        usesObserver = true;
-      } catch (e) { usesObserver = false; }
-    }
-
-    // Second, independent mechanism: a scroll-driven rect sweep plus timed
-    // fallbacks, so a page whose observer never fires still reveals itself.
-    var sweep = function () {
-      for (var n = below.length - 1; n >= 0; n--) {
-        var el = below[n];
-        if (el.getBoundingClientRect().top < (window.innerHeight || 800) * 0.94) {
-          el.classList.add("in");
-          below.splice(n, 1);
-        }
-      }
-      if (!below.length) { window.removeEventListener("scroll", sweep); }
-    };
-    window.addEventListener("scroll", sweep, { passive: true });
-    window.addEventListener("resize", sweep, { passive: true });
-    window.setTimeout(sweep, 120);
-    if (!usesObserver) { window.setTimeout(revealAll, 1400); }
-    window.setTimeout(sweep, 2600);
-
-    // Never print blank paper.
-    window.addEventListener("beforeprint", revealAll);
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      revealAll();
-    }
-  }
-
   /* ------------------------------------------------------------------- copy */
   function legacyCopy(text, done) {
     try {
@@ -153,7 +93,6 @@
   }
 
   function boot() {
-    initReveals();
     initCopy();
     initTicker();
     initAuth();
@@ -172,7 +111,16 @@
       var msg = doc.createElement("div");
       msg.className = "auth__msg " + (params.get("error") ? "auth__msg--err" : "auth__msg--ok");
       msg.setAttribute("role", "status");
+      // Verdict in words first, then the colour agrees with it (see .auth__msg in site.css).
+    var cut = note.indexOf(". ");
+    if (cut > 0 && cut <= 60) {
+      var verdict = doc.createElement("b");
+      verdict.textContent = note.slice(0, cut + 1);
+      msg.appendChild(verdict);
+      msg.appendChild(doc.createTextNode(" " + note.slice(cut + 2)));
+    } else {
       msg.textContent = note;
+    }
       card.insertBefore(msg, card.firstChild);
     }
 
