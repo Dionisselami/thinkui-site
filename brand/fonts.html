@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typeface candidates &middot; ThinkUI</title>
+<style>
+@font-face { font-family: "f0"; src: url("../assets/fonts/public-sans-var.woff2") format("woff2"), url("../assets/fonts/archivo-var.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "f1"; src: url("fonts/instrument-sans-var.ttf") format("truetype"), url("../assets/fonts/public-sans-var.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "f2"; src: url("fonts/bricolage-grotesque-var.ttf") format("truetype"), url("../assets/fonts/public-sans-var.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "f3"; src: url("../assets/fonts/public-sans-var.woff2") format("woff2"), url("fonts/fraunces-var.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "f4"; src: url("../assets/fonts/public-sans-var.woff2") format("woff2"), url("fonts/ibm-plex-sans-var.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+:root { --ink:#0c0c0d; --paper:#fff; --brand:#d4431d; --brand-on-ink:#f0764f; --on-ink:#faf9f7;
+        --on-ink-soft:#b5b2ad; --text:#121213; --text-soft:#4c4c50; --text-mute:#6f6f76; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--paper); color:var(--text);
+       font-family:"f1", system-ui, -apple-system, sans-serif; }
+header.intro { padding:40px 32px 24px; border-bottom:1px solid rgba(18,18,19,.1); }
+header.intro h2 { margin:0 0 8px; font-family:"f1"; font-size:22px; letter-spacing:-.02em; }
+header.intro p { margin:0; max-width:74ch; color:var(--text-soft); font-size:15px; line-height:1.6; }
+.row { background:var(--ink); color:var(--on-ink); padding:56px 32px 44px; }
+.label { font-family:"f1"; font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+         color:var(--on-ink-soft); margin:0 0 22px; }
+.now { color:var(--brand-on-ink); margin-left:8px; }
+.row h1 { font-family:var(--face); font-weight:600; font-size:clamp(34px, 5.2vw, 58px);
+          letter-spacing:-.03em; line-height:1.04; margin:0 0 18px; max-width:18ch; }
+.row .lede { font-family:var(--face); font-size:17px; line-height:1.62; color:var(--on-ink-soft);
+             max-width:56ch; margin:0 0 26px; }
+.row .cta { display:inline-block; background:var(--brand); color:#fff; text-decoration:none;
+            padding:14px 22px; border-radius:8px; font-family:var(--face); font-weight:600; font-size:15px; }
+.row .why { font-family:"f1"; font-size:13.5px; line-height:1.6; color:var(--on-ink-soft);
+            max-width:64ch; margin:26px 0 0; }
+.light { padding:28px 32px 36px; border-bottom:1px solid rgba(18,18,19,.1); }
+.light .label { color:var(--text-mute); margin-bottom:14px; }
+.light .body { font-family:var(--face, "f1"); font-size:16.5px; line-height:1.65; color:var(--text);
+               max-width:74ch; margin:0; }
+.light:last-child { border-bottom:0; }
+</style>
+</head>
+<body>
+<header class="intro">
+  <h2>Typeface candidates</h2>
+  <p>Same headline, same lede, same accent, same dark surface &mdash; only the face changes. Option 1 is what
+     ships today. Everything here is OFL and self-hosted; the licence travels beside each file. Pick a number
+     and I will set it everywhere: the token file, the preload, the lockup, the icons and the social card all
+     regenerate from one place.</p>
+</header>
+
+<section class="row" id="f0" style="--face:'f0'">
+  <p class="label">1. Archivo + Public Sans  <span class="now">what ships now</span></p>
+  <h1>Interfaces your agent can use.</h1>
+  <p class="lede">ThinkUI plugs into the coding agent you already use and answers design questions with
+     evidence: the screen, the flow it belongs to, the component itself, the typeface.</p>
+  <a class="cta" href="#f0">Get access</a>
+  <p class="why">What the site is set in now. Archivo carries the display weight; Public Sans does the reading. Both self-hosted, 62 KB total.</p>
+</section>
+<section class="light">
+  <p class="label">Archivo + Public Sans — body text, 16.5px</p>
+  <p class="body">Five tools, one key, the same block on every client. Usage is metered per call and
+     visible in your dashboard, and nothing about your project leaves your machine. The library holds
+     470 references across 1,009 captures, and every result cites where it came from.</p>
+</section>
+
+<section class="row" id="f1" style="--face:'f1'">
+  <p class="label">2. Instrument Sans</p>
+  <h1>Interfaces your agent can use.</h1>
+  <p class="lede">ThinkUI plugs into the coding agent you already use and answers design questions with
+     evidence: the screen, the flow it belongs to, the component itself, the typeface.</p>
+  <a class="cta" href="#f1">Get access</a>
+  <p class="why">The sans sibling of the serif this site used to set its display type in. Keeps the earlier voice without the stock pairing.</p>
+</section>
+<section class="light">
+  <p class="label">Instrument Sans — body text, 16.5px</p>
+  <p class="body">Five tools, one key, the same block on every client. Usage is metered per call and
+     visible in your dashboard, and nothing about your project leaves your machine. The library holds
+     470 references across 1,009 captures, and every result cites where it came from.</p>
+</section>
+
+<section class="row" id="f2" style="--face:'f2'">
+  <p class="label">3. Bricolage Grotesque</p>
+  <h1>Interfaces your agent can use.</h1>
+  <p class="lede">ThinkUI plugs into the coding agent you already use and answers design questions with
+     evidence: the screen, the flow it belongs to, the component itself, the typeface.</p>
+  <a class="cta" href="#f2">Get access</a>
+  <p class="why">A grotesque with a real optical-size axis: tighter and denser at display sizes, looser when small. Most character of the four.</p>
+</section>
+<section class="light">
+  <p class="label">Bricolage Grotesque — body text, 16.5px</p>
+  <p class="body">Five tools, one key, the same block on every client. Usage is metered per call and
+     visible in your dashboard, and nothing about your project leaves your machine. The library holds
+     470 references across 1,009 captures, and every result cites where it came from.</p>
+</section>
+
+<section class="row" id="f3" style="--face:'f3'">
+  <p class="label">4. Fraunces</p>
+  <h1>Interfaces your agent can use.</h1>
+  <p class="lede">ThinkUI plugs into the coding agent you already use and answers design questions with
+     evidence: the screen, the flow it belongs to, the component itself, the typeface.</p>
+  <a class="cta" href="#f3">Get access</a>
+  <p class="why">If you want the editorial voice back, this is how it is done properly: a text serif with an optical axis, not an italic display serif.</p>
+</section>
+<section class="light">
+  <p class="label">Fraunces — body text, 16.5px</p>
+  <p class="body">Five tools, one key, the same block on every client. Usage is metered per call and
+     visible in your dashboard, and nothing about your project leaves your machine. The library holds
+     470 references across 1,009 captures, and every result cites where it came from.</p>
+</section>
+
+<section class="row" id="f4" style="--face:'f4'">
+  <p class="label">5. IBM Plex Sans</p>
+  <h1>Interfaces your agent can use.</h1>
+  <p class="lede">ThinkUI plugs into the coding agent you already use and answers design questions with
+     evidence: the screen, the flow it belongs to, the component itself, the typeface.</p>
+  <a class="cta" href="#f4">Get access</a>
+  <p class="why">A designed system rather than a default. Neutral, slightly technical, pairs with anything.</p>
+</section>
+<section class="light">
+  <p class="label">IBM Plex Sans — body text, 16.5px</p>
+  <p class="body">Five tools, one key, the same block on every client. Usage is metered per call and
+     visible in your dashboard, and nothing about your project leaves your machine. The library holds
+     470 references across 1,009 captures, and every result cites where it came from.</p>
+</section>
+</body>
+</html>

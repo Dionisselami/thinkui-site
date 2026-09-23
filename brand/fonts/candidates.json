@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Instrument Sans",
+    "file": "instrument-sans-var.ttf",
+    "bytes": 194336,
+    "why": "The sans sibling of the serif this site used to set its display type in. Keeps the earlier voice without the stock pairing.",
+    "licence": "Copyright 2022 The Instrument Sans Project Authors (https://"
+  },
+  {
+    "name": "Bricolage Grotesque",
+    "file": "bricolage-grotesque-var.ttf",
+    "bytes": 408496,
+    "why": "A grotesque with a real optical-size axis: tighter and denser at display sizes, looser when small. Most character of the four.",
+    "licence": "Copyright 2022 The Bricolage Grotesque Project Authors (http"
+  },
+  {
+    "name": "Fraunces",
+    "file": "fraunces-var.ttf",
+    "bytes": 360440,
+    "why": "If you want the editorial voice back, this is how it is done properly: a text serif with an optical axis, not an italic display serif.",
+    "licence": "Copyright 2018 The Fraunces Project Authors (https://github."
+  },
+  {
+    "name": "IBM Plex Sans",
+    "file": "ibm-plex-sans-var.ttf",
+    "bytes": 537244,
+    "why": "A designed system rather than a default. Neutral, slightly technical, pairs with anything.",
+    "licence": "Copyright \u00a9 2017 IBM Corp. with Reserved Font Name \"Plex\""
+  }
+]
