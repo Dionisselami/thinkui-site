@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Two Panes (mark)</title>
+  <g>
+  <rect x="12" y="14" width="24" height="36" rx="6" fill="currentColor"/>
+  <rect x="40" y="14" width="12" height="22" rx="5" fill="currentColor" fill-opacity=".55"/>
+</g>
+</svg>

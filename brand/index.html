@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ThinkUI — logo options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #05070c; --ink-2: #0d1119; --paper: #ffffff; --paper-2: #f4f6fa;
+    --fg: #0b0d12; --fg-soft: #4a505c; --fg-mute: #6b7280;
+    --on-ink: #f7f9fc; --on-ink-soft: #a7b0c0; --on-ink-mute: #7b8595;
+    --line: rgba(255,255,255,.10); --line-2: rgba(255,255,255,.18);
+    --brand-a: #6d6df0; --brand-b: #0f8ea6;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ink); color: var(--on-ink);
+    font: 400 15px/1.6 var(--sans); letter-spacing: -.005em;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 56px 32px 80px; }
+  header.top { max-width: 62ch; margin-bottom: 44px; }
+  .kicker { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #a5b4fc; }
+  h1 { font-size: 40px; line-height: 1.1; letter-spacing: -.03em; margin: 12px 0 14px; font-weight: 600; }
+  header.top p { color: var(--on-ink-soft); margin: 0; }
+  header.top p + p { margin-top: 10px; }
+
+  .current {
+    display: flex; align-items: center; gap: 18px; margin: 34px 0 8px;
+    padding: 18px 20px; border: 1px dashed var(--line-2); border-radius: 14px;
+    background: rgba(255,255,255,.03);
+  }
+  .current svg { width: 44px; height: 44px; flex: none; }
+  .current p { margin: 0; color: var(--on-ink-soft); font-size: 14px; }
+  .current b { color: #fff; }
+
+  .opt {
+    margin-top: 26px; padding: 30px 30px 26px;
+    border: 1px solid var(--line); border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0));
+  }
+  .opt__head { display: flex; gap: 16px; align-items: flex-start; }
+  .num {
+    flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+    background: linear-gradient(140deg, var(--brand-a), var(--brand-b)); color: #fff;
+    font: 600 15px/1 var(--sans);
+  }
+  .opt h2 { font-size: 21px; letter-spacing: -.02em; margin: 4px 0 8px; }
+  .idea { margin: 0; color: var(--on-ink-soft); max-width: 74ch; }
+  .note { margin: 20px 0 0; font-size: 13.5px; color: var(--on-ink-mute); }
+
+  .opt__row { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 26px; margin-top: 26px; }
+  figure { margin: 0; }
+  figcaption {
+    font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--on-ink-mute); margin-bottom: 14px;
+  }
+  .tiny { margin: 12px 0 0; font-size: 12px; color: var(--on-ink-mute); }
+  .tiny b { color: var(--on-ink-soft); }
+
+  .sizes { display: flex; align-items: flex-end; gap: 16px; }
+  .sizes span { display: block; line-height: 0; }
+  .s96 svg { width: 96px; height: 96px; }
+  .s48 svg { width: 48px; height: 48px; }
+  .s24 svg { width: 24px; height: 24px; }
+  .s16 svg { width: 16px; height: 16px; }
+
+  .grounds { display: flex; gap: 14px; }
+  .ground {
+    width: 96px; height: 96px; border-radius: 14px; display: grid; place-items: center;
+    border: 1px solid var(--line);
+  }
+  .ground svg { width: 56px; height: 56px; }
+  .ground--paper { background: var(--paper); color: var(--fg); border-color: transparent; }
+  .ground--ink { background: var(--ink-2); color: #fff; }
+
+  .lock { display: flex; align-items: center; gap: 12px; padding-top: 18px; }
+  .lock__mark svg { width: 22px; height: 22px; display: block; color: #fff; }
+  .lock__word { font-size: 30px; font-weight: 600; letter-spacing: -.025em; line-height: 1; }
+  .lock__word .ui {
+    background: linear-gradient(96deg, #a5b4fc, #67e8f9);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+  }
+
+  .pick {
+    margin-top: 22px; padding: 12px 20px; border-radius: 10px; cursor: pointer;
+    border: 1px solid var(--line-2); background: rgba(255,255,255,.06); color: #fff;
+    font: 550 14px/1 var(--sans);
+    transition: background .18s ease, transform .18s ease, border-color .18s ease;
+  }
+  .pick:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.34); transform: translateY(-1px); }
+
+  footer.foot { margin-top: 46px; color: var(--on-ink-mute); font-size: 13.5px; }
+  @media (max-width: 980px) {
+    .opt__row { grid-template-columns: 1fr; }
+    h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="kicker">ThinkUI · brand</span>
+    <h1>Six directions for the mark.</h1>
+    <p>Each one is a different idea, not a variation — so pick the idea you want the brand to
+      stand for, and I will finish that one properly: outlined wordmark, full icon set,
+      favicons, social avatar.</p>
+    <p>Before drawing these I ruled out what every AI and developer tool reaches for: a sparkle,
+      a brain, a chat bubble, a pair of angle brackets. None of the six is any of those.</p>
+  </header>
+
+  <div class="current">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" aria-label="current mark">
+  <defs><linearGradient id="cur" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#6d6df0"/><stop offset="1" stop-color="#0f8ea6"/></linearGradient></defs>
+  <rect width="64" height="64" rx="15" fill="url(#cur)"/>
+  <rect x="18" y="18" width="28" height="28" rx="7" fill="#ffffff" fill-opacity=".94"/>
+</svg>
+    <p><b>What you have now:</b> a plain gradient tile with a square in it — a placeholder,
+      not a mark. It carries no idea, which is why it reads as a template.</p>
+  </div>
+
+
+<article class="opt">
+  <div class="opt__head">
+    <span class="num">1</span>
+    <div>
+      <h2>Viewfinder</h2>
+      <p class="idea">Four corner brackets framing one point. The tool's job in one shape: put a frame around a reference so your agent can see what you mean.</p>
+    </div>
+  </div>
+
+  <div class="opt__row">
+    <figure class="col col--sizes">
+      <figcaption>App icon</figcaption>
+      <div class="sizes">
+        <span class="s96"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Viewfinder</title>
+  <defs>
+    <linearGradient id="ground1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground1)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen1)"/>
+  <g>
+  <g fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round">
+    <path d="M14 28v-9a5 5 0 0 1 5-5h9"/>
+    <path d="M36 14h9a5 5 0 0 1 5 5v9"/>
+    <path d="M50 36v9a5 5 0 0 1-5 5h-9"/>
+    <path d="M28 50h-9a5 5 0 0 1-5-5v-9"/>
+  </g>
+  <circle cx="32" cy="32" r="6" fill="#ffffff"/>
+</g>
+</svg>
+</span>
+        <span class="s48"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Viewfinder</title>
+  <defs>
+    <linearGradient id="ground1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground1)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen1)"/>
+  <g>
+  <g fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round">
+    <path d="M14 28v-9a5 5 0 0 1 5-5h9"/>
+    <path d="M36 14h9a5 5 0 0 1 5 5v9"/>
+    <path d="M50 36v9a5 5 0 0 1-5 5h-9"/>
+    <path d="M28 50h-9a5 5 0 0 1-5-5v-9"/>
+  </g>
+  <circle cx="32" cy="32" r="6" fill="#ffffff"/>
+</g>
+</svg>
+</span>
+        <span class="s24"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Viewfinder</title>
+  <defs>
+    <linearGradient id="ground1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground1)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen1)"/>
+  <g>
+  <g fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round">
+    <path d="M14 28v-9a5 5 0 0 1 5-5h9"/>
+    <path d="M36 14h9a5 5 0 0 1 5 5v9"/>
+    <path d="M50 36v9a5 5 0 0 1-5 5h-9"/>
+    <path d="M28 50h-9a5 5 0 0 1-5-5v-9"/>
+  </g>
+  <circle cx="32" cy="32" r="6" fill="#ffffff"/>
+</g>
+</svg>
+</span>
+        <span class="s16"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Viewfinder</title>
+  <defs>
+    <linearGradient id="ground1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground1)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen1)"/>
+  <g>
+  <g fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round">
+    <path d="M14 28v-9a5 5 0 0 1 5-5h9"/>
+    <path d="M36 14h9a5 5 0 0 1 5 5v9"/>
+    <path d="M50 36v9a5 5 0 0 1-5 5h-9"/>
+    <path d="M28 50h-9a5 5 0 0 1-5-5v-9"/>
+  </g>
+  <circle cx="32" cy="32" r="6" fill="#ffffff"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">96 · 48 · 24 · <b>16px actual</b></p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Mark, on paper and on ink</figcaption>
+      <div class="grounds">
+        <span class="ground ground--paper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Viewfinder (mark)</title>
+  <g>
+  <g fill="none" stroke="#0b0d12" stroke-width="5.5" stroke-linecap="round">
+    <path d="M14 28v-9a5 5 0 0 1 5-5h9"/>
+    <path d="M36 14h9a5 5 0 0 1 5 5v9"/>
+    <path d="M50 36v9a5 5 0 0 1-5 5h-9"/>
+    <path d="M28 50h-9a5 5 0 0 1-5-5v-9"/>
+  </g>
+  <circle cx="32" cy="32" r="6" fill="#0b0d12"/>
+</g>
+</svg>
+</span>
+        <span class="ground ground--ink"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Viewfinder (mark)</title>
+  <g>
+  <g fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round">
+    <path d="M14 28v-9a5 5 0 0 1 5-5h9"/>
+    <path d="M36 14h9a5 5 0 0 1 5 5v9"/>
+    <path d="M50 36v9a5 5 0 0 1-5 5h-9"/>
+    <path d="M28 50h-9a5 5 0 0 1-5-5v-9"/>
+  </g>
+  <circle cx="32" cy="32" r="6" fill="currentColor"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">transparent background, one colour</p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Lockup</figcaption>
+      <div class="lock">
+        <span class="lock__mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Viewfinder (mark)</title>
+  <g>
+  <g fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round">
+    <path d="M14 28v-9a5 5 0 0 1 5-5h9"/>
+    <path d="M36 14h9a5 5 0 0 1 5 5v9"/>
+    <path d="M50 36v9a5 5 0 0 1-5 5h-9"/>
+    <path d="M28 50h-9a5 5 0 0 1-5-5v-9"/>
+  </g>
+  <circle cx="32" cy="32" r="6" fill="currentColor"/>
+</g>
+</svg>
+</span>
+        <span class="lock__word">Think<span class="ui">UI</span></span>
+      </div>
+      <p class="tiny">mark sized to the wordmark's cap height</p>
+    </figure>
+  </div>
+
+  <p class="note">Strongest at small sizes — the corners survive as four distinct marks.</p>
+  <button class="pick" data-hermes-send="Use logo option 1 — Viewfinder">Use 1 · Viewfinder</button>
+</article>
+
+<article class="opt">
+  <div class="opt__head">
+    <span class="num">2</span>
+    <div>
+      <h2>Two Panes</h2>
+      <p class="idea">A canvas and a side panel. Deliberately unequal widths so it reads as a layout, not as a pause button — the reference sits beside the work.</p>
+    </div>
+  </div>
+
+  <div class="opt__row">
+    <figure class="col col--sizes">
+      <figcaption>App icon</figcaption>
+      <div class="sizes">
+        <span class="s96"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Two Panes</title>
+  <defs>
+    <linearGradient id="ground2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground2)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen2)"/>
+  <g>
+  <rect x="12" y="14" width="24" height="36" rx="6" fill="#ffffff"/>
+  <rect x="40" y="14" width="12" height="22" rx="5" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="s48"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Two Panes</title>
+  <defs>
+    <linearGradient id="ground2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground2)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen2)"/>
+  <g>
+  <rect x="12" y="14" width="24" height="36" rx="6" fill="#ffffff"/>
+  <rect x="40" y="14" width="12" height="22" rx="5" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="s24"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Two Panes</title>
+  <defs>
+    <linearGradient id="ground2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground2)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen2)"/>
+  <g>
+  <rect x="12" y="14" width="24" height="36" rx="6" fill="#ffffff"/>
+  <rect x="40" y="14" width="12" height="22" rx="5" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="s16"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Two Panes</title>
+  <defs>
+    <linearGradient id="ground2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground2)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen2)"/>
+  <g>
+  <rect x="12" y="14" width="24" height="36" rx="6" fill="#ffffff"/>
+  <rect x="40" y="14" width="12" height="22" rx="5" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">96 · 48 · 24 · <b>16px actual</b></p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Mark, on paper and on ink</figcaption>
+      <div class="grounds">
+        <span class="ground ground--paper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Two Panes (mark)</title>
+  <g>
+  <rect x="12" y="14" width="24" height="36" rx="6" fill="#0b0d12"/>
+  <rect x="40" y="14" width="12" height="22" rx="5" fill="#0b0d12" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="ground ground--ink"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Two Panes (mark)</title>
+  <g>
+  <rect x="12" y="14" width="24" height="36" rx="6" fill="currentColor"/>
+  <rect x="40" y="14" width="12" height="22" rx="5" fill="currentColor" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">transparent background, one colour</p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Lockup</figcaption>
+      <div class="lock">
+        <span class="lock__mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Two Panes (mark)</title>
+  <g>
+  <rect x="12" y="14" width="24" height="36" rx="6" fill="currentColor"/>
+  <rect x="40" y="14" width="12" height="22" rx="5" fill="currentColor" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="lock__word">Think<span class="ui">UI</span></span>
+      </div>
+      <p class="tiny">mark sized to the wordmark's cap height</p>
+    </figure>
+  </div>
+
+  <p class="note">The most 'interface' of the six; safest next to a wordmark.</p>
+  <button class="pick" data-hermes-send="Use logo option 2 — Two Panes">Use 2 · Two Panes</button>
+</article>
+
+<article class="opt">
+  <div class="opt__head">
+    <span class="num">3</span>
+    <div>
+      <h2>Layered</h2>
+      <p class="idea">One shape laid over another, the front one held back so the overlap reads. A reference arriving on top of what you are already building.</p>
+    </div>
+  </div>
+
+  <div class="opt__row">
+    <figure class="col col--sizes">
+      <figcaption>App icon</figcaption>
+      <div class="sizes">
+        <span class="s96"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Layered</title>
+  <defs>
+    <linearGradient id="ground3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground3)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen3)"/>
+  <g>
+  <rect x="13" y="13" width="28" height="28" rx="8.5" fill="#ffffff"/>
+  <rect x="25" y="25" width="26" height="26" rx="8" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="s48"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Layered</title>
+  <defs>
+    <linearGradient id="ground3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground3)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen3)"/>
+  <g>
+  <rect x="13" y="13" width="28" height="28" rx="8.5" fill="#ffffff"/>
+  <rect x="25" y="25" width="26" height="26" rx="8" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="s24"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Layered</title>
+  <defs>
+    <linearGradient id="ground3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground3)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen3)"/>
+  <g>
+  <rect x="13" y="13" width="28" height="28" rx="8.5" fill="#ffffff"/>
+  <rect x="25" y="25" width="26" height="26" rx="8" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="s16"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Layered</title>
+  <defs>
+    <linearGradient id="ground3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground3)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen3)"/>
+  <g>
+  <rect x="13" y="13" width="28" height="28" rx="8.5" fill="#ffffff"/>
+  <rect x="25" y="25" width="26" height="26" rx="8" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">96 · 48 · 24 · <b>16px actual</b></p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Mark, on paper and on ink</figcaption>
+      <div class="grounds">
+        <span class="ground ground--paper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Layered (mark)</title>
+  <g>
+  <rect x="13" y="13" width="28" height="28" rx="8.5" fill="#0b0d12"/>
+  <rect x="25" y="25" width="26" height="26" rx="8" fill="#0b0d12" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="ground ground--ink"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Layered (mark)</title>
+  <g>
+  <rect x="13" y="13" width="28" height="28" rx="8.5" fill="currentColor"/>
+  <rect x="25" y="25" width="26" height="26" rx="8" fill="currentColor" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">transparent background, one colour</p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Lockup</figcaption>
+      <div class="lock">
+        <span class="lock__mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Layered (mark)</title>
+  <g>
+  <rect x="13" y="13" width="28" height="28" rx="8.5" fill="currentColor"/>
+  <rect x="25" y="25" width="26" height="26" rx="8" fill="currentColor" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="lock__word">Think<span class="ui">UI</span></span>
+      </div>
+      <p class="tiny">mark sized to the wordmark's cap height</p>
+    </figure>
+  </div>
+
+  <p class="note">Softest of the six; best if you want a friendly, non-technical feel.</p>
+  <button class="pick" data-hermes-send="Use logo option 3 — Layered">Use 3 · Layered</button>
+</article>
+
+<article class="opt">
+  <div class="opt__head">
+    <span class="num">4</span>
+    <div>
+      <h2>Distilled</h2>
+      <p class="idea">Lines of a page narrowing to a single bar — a long description resolving into one decision. The gradient of full, half, low opacity is the narrowing.</p>
+    </div>
+  </div>
+
+  <div class="opt__row">
+    <figure class="col col--sizes">
+      <figcaption>App icon</figcaption>
+      <div class="sizes">
+        <span class="s96"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Distilled</title>
+  <defs>
+    <linearGradient id="ground4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground4)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen4)"/>
+  <g>
+  <rect x="14" y="17" width="36" height="6.5" rx="3.25" fill="#ffffff"/>
+  <rect x="14" y="28.75" width="26" height="6.5" rx="3.25" fill="#ffffff" fill-opacity=".78"/>
+  <rect x="14" y="40.5" width="16" height="6.5" rx="3.25" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="s48"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Distilled</title>
+  <defs>
+    <linearGradient id="ground4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground4)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen4)"/>
+  <g>
+  <rect x="14" y="17" width="36" height="6.5" rx="3.25" fill="#ffffff"/>
+  <rect x="14" y="28.75" width="26" height="6.5" rx="3.25" fill="#ffffff" fill-opacity=".78"/>
+  <rect x="14" y="40.5" width="16" height="6.5" rx="3.25" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="s24"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Distilled</title>
+  <defs>
+    <linearGradient id="ground4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground4)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen4)"/>
+  <g>
+  <rect x="14" y="17" width="36" height="6.5" rx="3.25" fill="#ffffff"/>
+  <rect x="14" y="28.75" width="26" height="6.5" rx="3.25" fill="#ffffff" fill-opacity=".78"/>
+  <rect x="14" y="40.5" width="16" height="6.5" rx="3.25" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="s16"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Distilled</title>
+  <defs>
+    <linearGradient id="ground4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground4)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen4)"/>
+  <g>
+  <rect x="14" y="17" width="36" height="6.5" rx="3.25" fill="#ffffff"/>
+  <rect x="14" y="28.75" width="26" height="6.5" rx="3.25" fill="#ffffff" fill-opacity=".78"/>
+  <rect x="14" y="40.5" width="16" height="6.5" rx="3.25" fill="#ffffff" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">96 · 48 · 24 · <b>16px actual</b></p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Mark, on paper and on ink</figcaption>
+      <div class="grounds">
+        <span class="ground ground--paper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Distilled (mark)</title>
+  <g>
+  <rect x="14" y="17" width="36" height="6.5" rx="3.25" fill="#0b0d12"/>
+  <rect x="14" y="28.75" width="26" height="6.5" rx="3.25" fill="#0b0d12" fill-opacity=".78"/>
+  <rect x="14" y="40.5" width="16" height="6.5" rx="3.25" fill="#0b0d12" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="ground ground--ink"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Distilled (mark)</title>
+  <g>
+  <rect x="14" y="17" width="36" height="6.5" rx="3.25" fill="currentColor"/>
+  <rect x="14" y="28.75" width="26" height="6.5" rx="3.25" fill="currentColor" fill-opacity=".78"/>
+  <rect x="14" y="40.5" width="16" height="6.5" rx="3.25" fill="currentColor" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">transparent background, one colour</p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Lockup</figcaption>
+      <div class="lock">
+        <span class="lock__mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Distilled (mark)</title>
+  <g>
+  <rect x="14" y="17" width="36" height="6.5" rx="3.25" fill="currentColor"/>
+  <rect x="14" y="28.75" width="26" height="6.5" rx="3.25" fill="currentColor" fill-opacity=".78"/>
+  <rect x="14" y="40.5" width="16" height="6.5" rx="3.25" fill="currentColor" fill-opacity=".55"/>
+</g>
+</svg>
+</span>
+        <span class="lock__word">Think<span class="ui">UI</span></span>
+      </div>
+      <p class="tiny">mark sized to the wordmark's cap height</p>
+    </figure>
+  </div>
+
+  <p class="note">Reads as text becoming a choice; the odd widths keep it off the hamburger cliché.</p>
+  <button class="pick" data-hermes-send="Use logo option 4 — Distilled">Use 4 · Distilled</button>
+</article>
+
+<article class="opt">
+  <div class="opt__head">
+    <span class="num">5</span>
+    <div>
+      <h2>Arrival</h2>
+      <p class="idea">An arrow entering through the open side of a frame. The reference comes in, it does not go out — the direction of the whole product.</p>
+    </div>
+  </div>
+
+  <div class="opt__row">
+    <figure class="col col--sizes">
+      <figcaption>App icon</figcaption>
+      <div class="sizes">
+        <span class="s96"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Arrival</title>
+  <defs>
+    <linearGradient id="ground5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground5)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen5)"/>
+  <g transform="translate(3.12 0.00)">
+  <path d="M22 12h20a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6H22" fill="none" stroke="#ffffff"
+        stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M10 32h20" fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M25 25.5 31.5 32 25 38.5" fill="none" stroke="#ffffff" stroke-width="5.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
+</span>
+        <span class="s48"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Arrival</title>
+  <defs>
+    <linearGradient id="ground5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground5)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen5)"/>
+  <g transform="translate(3.12 0.00)">
+  <path d="M22 12h20a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6H22" fill="none" stroke="#ffffff"
+        stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M10 32h20" fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M25 25.5 31.5 32 25 38.5" fill="none" stroke="#ffffff" stroke-width="5.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
+</span>
+        <span class="s24"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Arrival</title>
+  <defs>
+    <linearGradient id="ground5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground5)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen5)"/>
+  <g transform="translate(3.12 0.00)">
+  <path d="M22 12h20a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6H22" fill="none" stroke="#ffffff"
+        stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M10 32h20" fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M25 25.5 31.5 32 25 38.5" fill="none" stroke="#ffffff" stroke-width="5.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
+</span>
+        <span class="s16"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Arrival</title>
+  <defs>
+    <linearGradient id="ground5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground5)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen5)"/>
+  <g transform="translate(3.12 0.00)">
+  <path d="M22 12h20a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6H22" fill="none" stroke="#ffffff"
+        stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M10 32h20" fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M25 25.5 31.5 32 25 38.5" fill="none" stroke="#ffffff" stroke-width="5.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">96 · 48 · 24 · <b>16px actual</b></p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Mark, on paper and on ink</figcaption>
+      <div class="grounds">
+        <span class="ground ground--paper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Arrival (mark)</title>
+  <g transform="translate(3.12 0.00)">
+  <path d="M22 12h20a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6H22" fill="none" stroke="#0b0d12"
+        stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M10 32h20" fill="none" stroke="#0b0d12" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M25 25.5 31.5 32 25 38.5" fill="none" stroke="#0b0d12" stroke-width="5.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
+</span>
+        <span class="ground ground--ink"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Arrival (mark)</title>
+  <g transform="translate(3.12 0.00)">
+  <path d="M22 12h20a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6H22" fill="none" stroke="currentColor"
+        stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M10 32h20" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M25 25.5 31.5 32 25 38.5" fill="none" stroke="currentColor" stroke-width="5.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">transparent background, one colour</p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Lockup</figcaption>
+      <div class="lock">
+        <span class="lock__mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Arrival (mark)</title>
+  <g transform="translate(3.12 0.00)">
+  <path d="M22 12h20a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6H22" fill="none" stroke="currentColor"
+        stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M10 32h20" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M25 25.5 31.5 32 25 38.5" fill="none" stroke="currentColor" stroke-width="5.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
+</span>
+        <span class="lock__word">Think<span class="ui">UI</span></span>
+      </div>
+      <p class="tiny">mark sized to the wordmark's cap height</p>
+    </figure>
+  </div>
+
+  <p class="note">The most narrative of the six; the open edge is the idea, so keep it open.</p>
+  <button class="pick" data-hermes-send="Use logo option 5 — Arrival">Use 5 · Arrival</button>
+</article>
+
+<article class="opt">
+  <div class="opt__head">
+    <span class="num">6</span>
+    <div>
+      <h2>Monogram T</h2>
+      <p class="idea">The initial, set like a piece of type rather than drawn. Plain enough to sit anywhere, and the only one that is a letter.</p>
+    </div>
+  </div>
+
+  <div class="opt__row">
+    <figure class="col col--sizes">
+      <figcaption>App icon</figcaption>
+      <div class="sizes">
+        <span class="s96"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Monogram T</title>
+  <defs>
+    <linearGradient id="ground6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground6)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen6)"/>
+  <g transform="translate(0.00 -0.88)">
+  <rect x="15" y="16" width="34" height="7" rx="3.5" fill="#ffffff"/>
+  <rect x="28.5" y="23" width="7" height="27" rx="3.5" fill="#ffffff"/>
+</g>
+</svg>
+</span>
+        <span class="s48"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Monogram T</title>
+  <defs>
+    <linearGradient id="ground6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground6)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen6)"/>
+  <g transform="translate(0.00 -0.88)">
+  <rect x="15" y="16" width="34" height="7" rx="3.5" fill="#ffffff"/>
+  <rect x="28.5" y="23" width="7" height="27" rx="3.5" fill="#ffffff"/>
+</g>
+</svg>
+</span>
+        <span class="s24"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Monogram T</title>
+  <defs>
+    <linearGradient id="ground6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground6)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen6)"/>
+  <g transform="translate(0.00 -0.88)">
+  <rect x="15" y="16" width="34" height="7" rx="3.5" fill="#ffffff"/>
+  <rect x="28.5" y="23" width="7" height="27" rx="3.5" fill="#ffffff"/>
+</g>
+</svg>
+</span>
+        <span class="s16"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Monogram T</title>
+  <defs>
+    <linearGradient id="ground6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d6df0"/>
+      <stop offset="1" stop-color="#0f8ea6"/>
+    </linearGradient>
+    <linearGradient id="sheen6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset=".62" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground6)"/>
+  <rect width="64" height="64" rx="15" fill="url(#sheen6)"/>
+  <g transform="translate(0.00 -0.88)">
+  <rect x="15" y="16" width="34" height="7" rx="3.5" fill="#ffffff"/>
+  <rect x="28.5" y="23" width="7" height="27" rx="3.5" fill="#ffffff"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">96 · 48 · 24 · <b>16px actual</b></p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Mark, on paper and on ink</figcaption>
+      <div class="grounds">
+        <span class="ground ground--paper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Monogram T (mark)</title>
+  <g transform="translate(0.00 -0.88)">
+  <rect x="15" y="16" width="34" height="7" rx="3.5" fill="#0b0d12"/>
+  <rect x="28.5" y="23" width="7" height="27" rx="3.5" fill="#0b0d12"/>
+</g>
+</svg>
+</span>
+        <span class="ground ground--ink"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Monogram T (mark)</title>
+  <g transform="translate(0.00 -0.88)">
+  <rect x="15" y="16" width="34" height="7" rx="3.5" fill="currentColor"/>
+  <rect x="28.5" y="23" width="7" height="27" rx="3.5" fill="currentColor"/>
+</g>
+</svg>
+</span>
+      </div>
+      <p class="tiny">transparent background, one colour</p>
+    </figure>
+
+    <figure class="col">
+      <figcaption>Lockup</figcaption>
+      <div class="lock">
+        <span class="lock__mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Monogram T (mark)</title>
+  <g transform="translate(0.00 -0.88)">
+  <rect x="15" y="16" width="34" height="7" rx="3.5" fill="currentColor"/>
+  <rect x="28.5" y="23" width="7" height="27" rx="3.5" fill="currentColor"/>
+</g>
+</svg>
+</span>
+        <span class="lock__word">Think<span class="ui">UI</span></span>
+      </div>
+      <p class="tiny">mark sized to the wordmark's cap height</p>
+    </figure>
+  </div>
+
+  <p class="note">The conservative choice: unmistakably a brand, never mistaken for an icon set.</p>
+  <button class="pick" data-hermes-send="Use logo option 6 — Monogram T">Use 6 · Monogram T</button>
+</article>
+
+
+  <footer class="foot">
+    The files for every option are already written to <code>brand/out/</code> — block (app icon),
+    mark (transparent, one colour) and mono. Tell me the number and I will ship the set.
+  </footer>
+</div>
+<script>
+  // inside a preview pane the button calls home; in a plain browser it is inert
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('[data-hermes-send]');
+    if (b) { b.textContent = 'Picked — tell me in chat if nothing happened'; }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ThinkUI">
+  <title>ThinkUI — Viewfinder (mark)</title>
+  <g>
+  <g fill="none" stroke="#0b0d12" stroke-width="5.5" stroke-linecap="round">
+    <path d="M14 28v-9a5 5 0 0 1 5-5h9"/>
+    <path d="M36 14h9a5 5 0 0 1 5 5v9"/>
+    <path d="M50 36v9a5 5 0 0 1-5 5h-9"/>
+    <path d="M28 50h-9a5 5 0 0 1-5-5v-9"/>
+  </g>
+  <circle cx="32" cy="32" r="6" fill="#0b0d12"/>
+</g>
+</svg>

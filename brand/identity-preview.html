@@ -1,0 +1,58 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #eef1f7; }
+  body { font: 400 13px/1.5 Inter, system-ui, sans-serif; color: #05070c; width: 1180px; }
+  .band { padding: 30px 40px; }
+  .band--ink { background: #05070c; color: #f7f9fc; }
+  h3 { font: 600 11px/1 Inter; letter-spacing: .14em; text-transform: uppercase;
+       color: #6b7280; margin: 0 0 20px; }
+  .band--ink h3 { color: #7b8595; }
+  .row { display: flex; align-items: flex-end; gap: 44px; flex-wrap: wrap; }
+  .cell { text-align: left; }
+  .cap { font-size: 11px; color: #6b7280; margin-top: 12px; }
+  .band--ink .cap { color: #7b8595; }
+  .icons { display: flex; align-items: flex-end; gap: 26px; }
+  .px { image-rendering: pixelated; display: block; }
+  .frame { background: #fff; border: 1px solid #d8dde8; border-radius: 10px; padding: 16px 20px; }
+</style></head><body>
+<div class="band">
+  <h3>The lockup — on paper</h3>
+  <div class="row">
+    <div class="cell"><img src="../assets/img/logo.svg" style="height:26px"><div class="cap">26px (header)</div></div>
+    <div class="cell"><img src="../assets/img/logo.svg" style="height:40px"><div class="cap">40px</div></div>
+    <div class="cell"><img src="../assets/img/logo.svg" style="height:64px"><div class="cap">64px</div></div>
+    <div class="cell"><img src="../assets/img/logo-bare.svg" style="height:64px"><div class="cap">no tile, for docs</div></div>
+  </div>
+</div>
+<div class="band band--ink">
+  <h3>The lockup — on ink</h3>
+  <div class="row">
+    <div class="cell"><img src="../assets/img/logo-inverse.svg" style="height:26px"><div class="cap">26px (footer)</div></div>
+    <div class="cell"><img src="../assets/img/logo-inverse.svg" style="height:64px"><div class="cap">64px</div></div>
+  </div>
+</div>
+<div class="band">
+  <h3>The mark and the icon set — real pixel sizes</h3>
+  <div class="row">
+    <div class="cell"><img src="../assets/img/mark.svg" style="height:56px"><div class="cap">mark, one colour</div></div>
+    <div class="cell"><img src="../assets/img/mark-knockout.svg" style="height:56px"><div class="cap">knockout tile</div></div>
+    <div class="cell icons">
+      <div><img class="px" src="../assets/img/favicon-16.png" style="width:16px;height:16px"><div class="cap">16</div></div>
+      <div><img class="px" src="../assets/img/favicon-32.png" style="width:32px;height:32px"><div class="cap">32</div></div>
+      <div><img src="../assets/img/favicon-64.png" style="width:64px;height:64px"><div class="cap">64</div></div>
+      <div><img src="../assets/img/favicon-128.png" style="width:128px;height:128px"><div class="cap">128</div></div>
+      <div><img src="../assets/img/apple-touch-icon.png" style="width:90px;height:90px"><div class="cap">apple 180</div></div>
+    </div>
+  </div>
+</div>
+<div class="band">
+  <h3>16px, magnified with real pixels — what a tab actually shows</h3>
+  <div class="row">
+    <div class="cell"><img class="px" src="../assets/img/favicon-16.png" style="width:128px;height:128px"></div>
+    <div class="cell"><img class="px" src="../assets/img/favicon-32.png" style="width:128px;height:128px"></div>
+    <div class="cell"><img src="../assets/img/apple-touch-icon.png" style="width:128px;height:128px"><div class="cap">apple touch, full-bleed (unmasked)</div></div>
+  </div>
+</div>
+</body></html>
