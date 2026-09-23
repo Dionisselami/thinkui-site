@@ -617,7 +617,7 @@ html.js [data-rise].in {
 .split__aside .lede { color: var(--on-ink-soft); margin-top: 16px; font-size: 16.5px; }
 .split__list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
 .split__list li { display: flex; gap: 12px; font-size: 15px; color: var(--on-ink-soft); }
-.split__list svg { width: 18px; height: 18px; flex: none; color: #34d399; margin-top: 2px; }
+.split__list svg { width: 18px; height: 18px; flex: none; color: var(--brand-on-ink); margin-top: 2px; }
 .split__main { display: grid; place-items: center; padding: 64px var(--gut); background: var(--paper); }
 .split__main .auth__card { box-shadow: var(--sh-2); }
 .split__foot { font-size: 13.5px; color: var(--on-ink-mute); }
