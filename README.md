@@ -79,11 +79,13 @@ python verify_identity.py                                           # the lockup
 python ../src/build.py                                              # stamps the lockups into every page
 ```
 
-`brand/build_identity.py` pulls Inter's own outlines (instanced at wght 600 / opsz 30,
-shaped through HarfBuzz so kerning and advances are the font's), places everything from
-**measured ink bounds** — cap height 1506 units, stem 253 — and writes
-`src/identity.json`, which the social card reads so the card's mark cannot drift from
-the SVG.
+`brand/build_identity.py` pulls the display face's own outlines (Bricolage Grotesque,
+instanced at wght 600 / opsz 30, shaped through HarfBuzz so kerning and advances are the
+font's), places everything from **measured ink bounds** — cap height 726 units of 1000,
+stem 124, stem/cap 0.172 — and writes `src/identity.json`, which the social card reads so
+the card's mark cannot drift from the SVG. The mark is re-cut from whichever face is
+current: change the typeface and the logo follows, because it *is* the product name set in
+that face.
 
 The mark is *Distilled*: three left-aligned bars inside a 64-unit grid, in two cuts.
 
@@ -99,12 +101,24 @@ nothing else about it should be styled per page.
 re-run the four commands. Do not hand-edit `assets/img/*.svg` — the next build
 overwrites it.
 
-**Typefaces:** Archivo (display) and Public Sans (body), both OFL 1.1, both served from
-our own origin as variable woff2 — `assets/fonts/`, with each notice beside it. Nothing
-on a page loads a font from a third party. Inter is still used to draw the wordmark's
-outlines at build time: it ships only inside `brand/` (never deployed) and as outlines
-inside the logo, with its notice at `brand/Inter-OFL.txt`. Mono is the system stack; we
-ship no mono.
+**Typefaces:** Bricolage Grotesque, one face doing both jobs — its optical-size axis
+tightens it at display sizes and loosens it for reading. OFL 1.1, self-hosted as a variable
+woff2 in `assets/fonts/` with its notice beside it, preloaded, and the only webfont on the
+page. Nothing loads a font from a third party.
+
+It is the *only* face named in `--sans`/`--display` on purpose: with `font-display: swap`
+the browser renders the swap period in the next font in the stack, so naming a second
+webfont there downloads it on every page for text that will never use it. A missing glyph
+falls to the system face instead. (`public-sans-var.woff2` is kept for the chooser page and
+for a future pairing, but is not declared in `site.css`.)
+
+The face was picked from five candidates set in the same headline on the same dark
+surface — see `brand/fonts.html`, which is a chooser and is never deployed. To change it:
+drop the new woff2 in `assets/fonts/`, update `--sans`/`--display` and the `@font-face` in
+`assets/css/site.css`, swap the preload in `src/*.html`, then point `FONT` in
+`brand/build_identity.py` and `wordmark_path` in `src/build.py` at the new file and re-run
+the identity chain, so the wordmark and the social card are re-cut from it. Mono is the
+system stack; we ship no mono.
 
 ## 4. What still has to be wired
 

@@ -51,7 +51,7 @@ JS_REPORT = r"""
     has_mono: !!document.querySelector('.mono, .code pre, code'),
     fonts: {
       status: document.fonts.status,
-      inter: document.fonts.check('16px Inter'),
+      display: document.fonts.check('16px "Bricolage Grotesque"'),
       serif: document.fonts.check('16px "Instrument Serif"'),
       mono: document.fonts.check('16px "JetBrains Mono"')
     }

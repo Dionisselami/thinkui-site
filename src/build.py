@@ -214,21 +214,28 @@ def build_og():
     # One flat ink, no spotlight. The card used to be painted with a hand-rolled indigo to
     # cyan glow, which is the same atmosphere the site has just dropped, and it dragged the
     # whole card blue. The colour now comes from the identity.
+    # Every colour on the card comes from the identity: a cold slate grey used to be
+    # hard-coded here, left over from when the palette was blue.
     img = Image.new("RGB", (W, H), hx(ident["ink"]))
     d = ImageDraw.Draw(img, "RGBA")
-    inter_path = os.path.join(SITE, "brand", "Inter-var.ttf")
+    wordmark_path = os.path.join(SITE, "brand", "fonts", "bricolage-grotesque-var.ttf")
 
     def font(size, weight="R"):
         wght = 600 if weight == "B" else 400
-        if os.path.exists(inter_path):
+        if os.path.exists(wordmark_path):
             try:
-                f = ImageFont.truetype(inter_path, size)
-                # the card must use the wordmark's own weight and optical size, or the
-                # type silently reverts to whatever the variable font defaults to
-                f.set_variation_by_axes([ident["opsz"], wght])
+                f = ImageFont.truetype(wordmark_path, size)
+                # The card must use the wordmark's own weight and optical size, or the type
+                # silently reverts to whatever the variable font defaults to. Bricolage
+                # Grotesque carries three axes in this order - opsz, wght, wdth - so set all
+                # three; fall back to the two that matter if it is ever re-cut without wdth.
+                try:
+                    f.set_variation_by_axes([ident["opsz"], wght, 100])
+                except Exception:  # noqa: BLE001
+                    f.set_variation_by_axes([ident["opsz"], wght])
                 return f
             except Exception as exc:  # noqa: BLE001
-                print("  (Inter unavailable: %s)" % exc)
+                print("  (wordmark font unavailable: %s)" % exc)
         for name in (["seguisb.ttf", "segoeuib.ttf", "arialbd.ttf"] if weight == "B"
                      else ["segoeui.ttf", "arial.ttf"]):
             try:
@@ -259,7 +266,7 @@ def build_og():
                             radius=bh / 2.0, fill=(255, 255, 255, 240))
         y += (ident["tile_t"] + gap) * k
     d.text((152, 86), ident["word"], font=font(38, "B"), fill=(255, 255, 255, 245))
-    d.text((152, 128), "MCP server", font=font(20), fill=(167, 176, 192, 255))
+    d.text((152, 128), "MCP server", font=font(20), fill=hx(ident["on_ink_soft"]) + (255,))
 
     # headline, wrapped
     head = "Interface references your agent can actually use."
@@ -277,13 +284,13 @@ def build_og():
         y += 78
 
     d.text((84, y + 26), "Screens · Flows · Components · Fonts · Icons — traceable to source",
-           font=font(25), fill=(167, 176, 192, 255))
+           font=font(25), fill=hx(ident["on_ink_soft"]) + (255,))
 
     d.line([(84, 520), (W - 84, 520)], fill=(255, 255, 255, 40), width=1)
     d.text((84, 552), urllib.parse.urlparse(SITE_URL).netloc,
            font=font(24, "B"), fill=(255, 255, 255, 220))
     d.text((W - 424, 552), "Runs locally over stdio · Any MCP client",
-           font=font(22), fill=(167, 176, 192, 255))
+           font=font(22), fill=hx(ident["on_ink_soft"]) + (255,))
 
     out = os.path.join(SITE, "assets", "img", "og.png")
     img.save(out, "PNG", optimize=True)

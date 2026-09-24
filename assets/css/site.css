@@ -26,14 +26,9 @@
 
 /* --------------------------------------------------------------- 00 fonts */
 @font-face {
-  font-family: "Archivo";
-  src: url("../fonts/archivo-var.woff2") format("woff2");
-  font-weight: 600 700; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Public Sans";
-  src: url("../fonts/public-sans-var.woff2") format("woff2");
-  font-weight: 400 600; font-style: normal; font-display: swap;
+  font-family: "Bricolage Grotesque";
+  src: url("../fonts/bricolage-grotesque-var.woff2") format("woff2");
+  font-weight: 400 800; font-style: normal; font-display: swap;
 }
 
 /* ---------------------------------------------------------------- 01 tokens */
@@ -73,12 +68,20 @@
   --ok:          #0f7b5f;
   --warn:        #b45309;
 
-  /* Chosen, not defaulted: Archivo for display (a grotesque with real character at
-     headline sizes), Public Sans for body. Both self-hosted, so no third-party font
-     request on a page that tells people it runs locally. Mono is the system stack -
-     we ship no mono, and code is the only place it belongs. */
-  --sans:  "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --display: "Archivo", "Public Sans", system-ui, sans-serif;
+  /* Chosen, not defaulted - and chosen by the person who has to look at it: Bricolage
+     Grotesque, picked from five candidates set in the same headline on the same dark
+     surface. Its optical-size axis tightens it at display sizes and loosens it for
+     reading, which is why one face can do both jobs here.
+
+     One face, deliberately, and no webfont named after it in the stack: with
+     font-display: swap the browser renders the swap period in the *next* font in the list,
+     so naming a second webfont there downloads it on every page for text that was never
+     going to use it. A missing glyph falls to the system face instead, which costs nothing.
+     Self-hosted, so no third-party font request on a page that tells people it runs
+     locally. Mono is the system stack - we ship no mono, and code is the only place it
+     belongs. */
+  --sans:  "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
   --mono:  ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
 
   --wrap:  1140px;
@@ -146,7 +149,7 @@ h1 { font-size: clamp(38px, 5.4vw, 66px); letter-spacing: -0.035em; }
 h2 { font-size: clamp(27px, 3.6vw, 44px); letter-spacing: -0.03em; max-width: 22ch; }
 h3 { font-size: 18px; letter-spacing: -0.015em; }
 .display { font-family: var(--display); font-weight: 600; letter-spacing: -0.025em; line-height: 1.04; }
-/* Archivo holds its shape at display sizes, so the hero can be set large and tight */
+/* Bricolage holds its shape at display sizes, so the hero can be set large and tight */
 .hero h1.display { font-size: clamp(40px, 5.6vw, 70px); letter-spacing: -0.03em; }
 .band h1.display { letter-spacing: -0.028em; }
 .closing h2.display { font-size: clamp(30px, 4vw, 52px); }

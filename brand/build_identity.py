@@ -6,7 +6,7 @@ the one above, sitting inside the 64-unit grid the options were drawn on.
 
 Nothing here is traced or hand-positioned:
 
-* the wordmark is Inter's own outlines, instanced at wght 600 / opsz 30 and shaped
+* the wordmark is Bricolage Grotesque's own outlines, instanced at wght 600 / opsz 30, shaped
   through HarfBuzz, so advances and kerning are the font's, not my guess;
 * every position is derived from measured ink bounds (cap height, stem width, the
   mark's own box) rather than typed in, so the lockup stays correct if any part of it
@@ -43,7 +43,10 @@ SITE = os.path.abspath(os.path.join(HERE, ".."))
 IMG = os.path.join(SITE, "assets", "img")
 MASTERS = os.path.join(HERE, "out", "identity")
 
-FONT = os.path.join(HERE, "Inter-var.ttf")
+# The wordmark is the product name set in the display face and converted to outlines.
+# When the display face changes, the mark is re-cut from it, so the logo can never drift
+# from the type it sits beside.
+FONT = os.path.join(HERE, "fonts", "bricolage-grotesque-var.ttf")
 WORD = "ThinkUI"
 W_WGHT, W_OPSZ = 600, 30
 TRACKING_EM = -0.02          # the site's own letter-spacing on .brand
@@ -51,6 +54,8 @@ TRACKING_EM = -0.02          # the site's own letter-spacing on .brand
 # site tokens (assets/css/site.css)
 INK = "#0c0c0d"
 ON_INK = "#faf9f7"
+# The muted grey for text on the ink surface - warm, because the palette is.
+ON_INK_SOFT = "#b5b2ad"
 # One accent, deeper at the bottom stop: depth inside a hue rather than a rainbow across
 # two. Measured, not eyeballed: white bars read 4.55:1 on the light stop and 6.97:1 on
 # the deep one, so the glyph holds at 16px.
@@ -106,7 +111,7 @@ def measure_font():
     bounds_pen, _ = _draw(font, WORD, BoundsPen, TRACKING_EM)
     x0, y0, x1, y1 = bounds_pen.bounds
 
-    stem_pen, _ = _draw(font, "l", BoundsPen)          # Inter's "l" is a bare stem
+    stem_pen, _ = _draw(font, "l", BoundsPen)          # a grotesque "l" is a bare stem
     sx0, _, sx1, _ = stem_pen.bounds
     stem = sx1 - sx0
 
@@ -276,7 +281,7 @@ def main():
     os.makedirs(IMG, exist_ok=True)
     os.makedirs(MASTERS, exist_ok=True)
     m = measure_font()
-    print("Inter %d / opsz %d, upem %d" % (W_WGHT, W_OPSZ, m["upem"]))
+    print("Bricolage Grotesque %d / opsz %d, upem %d" % (W_WGHT, W_OPSZ, m["upem"]))
     print("  cap height %d units   stem width %d units   stem/cap %.3f"
           % (m["cap"], m["stem"], m["stem"] / m["cap"]))
     print("  wordmark ink %.0f x %.0f units, advance %.0f"
@@ -323,7 +328,7 @@ def main():
         "upem": m["upem"], "cap": m["cap"], "stem": m["stem"],
         "advance": m["advance"], "word_bbox": m["bbox"],
         "tile_a": TILE_A, "tile_b": TILE_B, "glow_a": GLOW_A, "glow_b": GLOW_B,
-        "ink": INK, "on_ink": ON_INK,
+        "ink": INK, "on_ink": ON_INK, "on_ink_soft": ON_INK_SOFT,
         "lockup_block": {"w": round(L["total_w"], 3), "h": round(L["total_h"], 3),
                          "baseline": round(L["baseline"], 3), "cap_px": round(L["cap_px"], 3)},
         "lockup_bare": {"w": round(B["total_w"], 1), "h": round(B["total_h"], 1)},
