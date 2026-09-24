@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import os
 import re
 import subprocess
@@ -132,6 +133,39 @@ def render(page: str, text: str) -> str:
     return text
 
 
+def asset_version(rel: str) -> str:
+    """A short content hash for one asset, or "" if it is not on disk.
+
+    The pages used to reference assets/css/site.css and assets/js/field.js with no version
+    at all. That is fine until the file changes: a browser (or a webview, or a CDN) that
+    holds the old copy keeps serving it against the new HTML, and the page renders as a
+    mix of two builds. That is not hypothetical - it is how a fixed hero animation went on
+    being reported as broken. The hash makes every change a new URL, so a stale asset can
+    never pair with a fresh page.
+
+    Fonts are deliberately excluded: the @font-face URL in the stylesheet and the preload
+    in the markup have to match exactly, and they live in two different files. Renaming the
+    woff2 is the way to force a font refresh.
+    """
+    path = os.path.join(SITE, rel)
+    try:
+        with open(path, "rb") as fh:
+            return hashlib.sha256(fh.read()).hexdigest()[:10]
+    except OSError:
+        return ""
+
+
+ASSET_RE = re.compile(r"(assets/[\w./\-]+\.(?:css|js))(?![?\w])")
+
+
+def version_assets(text: str) -> str:
+    def sub(m):
+        rel = m.group(1)
+        v = asset_version(rel)
+        return "%s?v=%s" % (rel, v) if v else rel
+    return ASSET_RE.sub(sub, text)
+
+
 def build_pages():
     made = []
     for page, title, _ in PAGES:
@@ -139,7 +173,7 @@ def build_pages():
         if not os.path.exists(src):
             print("  missing src/%s — skipped" % page)
             continue
-        text = render(page, open(src, encoding="utf-8").read())
+        text = version_assets(render(page, open(src, encoding="utf-8").read()))
         out = os.path.join(SITE, page)
         open(out, "w", encoding="utf-8").write(text)
         made.append((page, os.path.getsize(out)))
