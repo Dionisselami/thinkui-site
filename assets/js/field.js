@@ -182,7 +182,7 @@
     this.ambient = [];
 
     if (this.markEnabled) {
-      var count = Math.round(Math.min(1100, Math.max(300, area / 2600)));
+      var count = Math.round(Math.min(1400, Math.max(320, area / 2000)));
       if (window.innerWidth < 700) count = Math.round(count * 0.55);
       for (i = 0; i < count; i++) {
         var t = this.target(i);
@@ -205,29 +205,35 @@
       }
     }
 
-    /* The ambient layer: one point per cell of a jittered grid, so the whole frame is covered
-       evenly by construction. A random scatter at the same count leaves visible holes - the
-       field measured empty in 92 of 96 regions before this, and even a fixed grid reopens
-       holes as the points drift, so the cell is chosen from the area to hold a few points per
-       region at any moment. */
-    var target = Math.min(900, Math.max(260, area / 900));
-    var cell = Math.max(28, Math.min(Math.sqrt(area / target), 90));
+    /* The ambient layer is the dust: one point per cell of a jittered grid, so the whole
+       frame is covered evenly by construction. A random scatter at the same count leaves
+       visible holes - the field measured empty in 92 of 96 regions before this, and even a
+       fixed grid reopens holes as the points drift, so the cell is chosen from the area.
+
+       It has to read as haze, not as a dot matrix, which is why the count is high and the
+       sizes and alphas are skewed: most grains are sub-pixel and barely there, a few are
+       larger and brighter, and the bright ones drift slower - the same trick that makes a
+       depth of field read. Jitter is close to a full cell now that the cells are small, so
+       the grid underneath is not legible. */
+    var target = Math.min(1800, Math.max(420, area / 430));
+    var cell = Math.max(16, Math.min(Math.sqrt(area / target), 90));
     var cols = Math.max(3, Math.ceil(this.w / cell)),
         rows = Math.max(3, Math.ceil(this.h / cell));
     var cw = this.w / cols, chh = this.h / rows;
     for (var gy = 0; gy < rows; gy++) {
       for (var gx = 0; gx < cols; gx++) {
+        var near = Math.random();                 // 0 = fine grain far off, 1 = a near mote
         this.ambient.push({
-          x: (gx + 0.5 + (Math.random() - 0.5) * 0.55) * cw,
-          y: (gy + 0.5 + (Math.random() - 0.5) * 0.55) * chh,
-          vx: (Math.random() - 0.5) * 0.12,
-          vy: -0.03 - Math.random() * 0.10,
-          size: 0.9 + Math.random() * 0.9,
-          alpha: 0.10 + Math.random() * 0.11,
+          x: (gx + 0.5 + (Math.random() - 0.5) * 0.92) * cw,
+          y: (gy + 0.5 + (Math.random() - 0.5) * 0.92) * chh,
+          vx: (Math.random() - 0.5) * 0.14,
+          vy: -0.03 - Math.random() * 0.12,
+          size: 0.55 + near * near * 1.9,         // mostly sub-pixel, a few real motes
+          alpha: 0.05 + near * 0.21,              // faint by default, brighter when nearer
           colour: COLOURS[(Math.random() * COLOURS.length) | 0],
           wobble: Math.random() * Math.PI * 2,
-          wobbleRate: 0.0004 + Math.random() * 0.0009,
-          drift: 0.5 + Math.random() * 0.7
+          wobbleRate: 0.0004 + Math.random() * 0.0013,
+          drift: 0.35 + (1 - near) * 1.1          // near motes hang, far grains travel
         });
       }
     }
