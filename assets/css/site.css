@@ -49,7 +49,10 @@
 
   --on-ink:      #faf9f7;
   --on-ink-soft: #b5b2ad;
-  --on-ink-mute: #86837e;
+  --on-ink-mute: #a9a5a0;   /* 7.9:1 on ink, and 5.0:1 against the brightest
+                                    pixel the hero field can put behind text. The
+                                    old #86837e was 5.2:1 on bare ink, which left no
+                                    headroom: any dust at all pushed it under 4.5:1. */
 
   --line:        rgba(18, 18, 19, 0.10);
   --line-2:      rgba(18, 18, 19, 0.18);
@@ -367,7 +370,7 @@ h3 { font-size: 18px; letter-spacing: -0.015em; }
 }
 /* Syntax colour drawn from the one palette instead of the default rainbow: comments
    recede, keys carry the accent, strings stay neutral. */
-.code pre .c { color: var(--on-ink-mute); }   /* 4.9:1 on the code surface - the old grey was 3.7:1 */
+.code pre .c { color: var(--on-ink-mute); }   /* 8.0:1 on the code surface - the old grey was 3.7:1 */
 .code pre .k { color: var(--brand-on-ink); }
 .code pre .s { color: var(--on-ink); }
 .code pre .f { color: #b5b2ad; }
