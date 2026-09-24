@@ -60,6 +60,30 @@
 
   var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* A soft halo, one sprite per colour, built once and drawn with drawImage.
+     Not shadowBlur: that re-runs the blur for every point, and at a few thousand points it
+     costs more than the whole rest of the frame. A sprite is a blit.
+     The glow is the grains' own light rather than a wash behind them - it belongs to the
+     bigger, brighter motes and to the mark, not to every speck of dust, which is both the
+     honest reading of the material and the reason it stays affordable. */
+  function glowSprite(colour) {
+    var S = 64, c = document.createElement("canvas"), g;
+    c.width = c.height = S;
+    g = c.getContext("2d");
+    var r = parseInt(colour.slice(1, 3), 16),
+        gg = parseInt(colour.slice(3, 5), 16),
+        b = parseInt(colour.slice(5, 7), 16);
+    var grad = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+    grad.addColorStop(0.00, "rgba(" + r + "," + gg + "," + b + ",0.90)");
+    grad.addColorStop(0.22, "rgba(" + r + "," + gg + "," + b + ",0.34)");
+    grad.addColorStop(0.55, "rgba(" + r + "," + gg + "," + b + ",0.08)");
+    grad.addColorStop(1.00, "rgba(" + r + "," + gg + "," + b + ",0)");
+    g.fillStyle = grad;
+    g.fillRect(0, 0, S, S);
+    return c;
+  }
+  var GLOW = COLOURS.map(glowSprite);
+
   function pullAt(u) {
     if (u < GATHER_END) return u / GATHER_END;                       // rising
     if (u < HOLD_END) return 1;                                      // held
@@ -197,7 +221,8 @@
           bar: BARS.indexOf(t.bar),
           size: 1.1 + Math.random() * 1.3,
           alpha: 0.30 + Math.random() * 0.45,
-          colour: COLOURS[(Math.random() * COLOURS.length) | 0],
+          // the bucket the draw loop will use, so the grain and its halo are the same colour
+          ci: i % COLOURS.length,
           // its own offset into the cycle, so no two points start together
           phase: Math.random(),
           wobble: Math.random() * Math.PI * 2
@@ -215,14 +240,15 @@
        larger and brighter, and the bright ones drift slower - the same trick that makes a
        depth of field read. Jitter is close to a full cell now that the cells are small, so
        the grid underneath is not legible. */
-    var target = Math.min(1800, Math.max(420, area / 430));
-    var cell = Math.max(16, Math.min(Math.sqrt(area / target), 90));
+    var target = Math.min(2600, Math.max(620, area / 300));
+    var cell = Math.max(15, Math.min(Math.sqrt(area / target), 90));
     var cols = Math.max(3, Math.ceil(this.w / cell)),
         rows = Math.max(3, Math.ceil(this.h / cell));
     var cw = this.w / cols, chh = this.h / rows;
     for (var gy = 0; gy < rows; gy++) {
       for (var gx = 0; gx < cols; gx++) {
         var near = Math.random();                 // 0 = fine grain far off, 1 = a near mote
+        var ci = (Math.random() * COLOURS.length) | 0;
         this.ambient.push({
           x: (gx + 0.5 + (Math.random() - 0.5) * 0.92) * cw,
           y: (gy + 0.5 + (Math.random() - 0.5) * 0.92) * chh,
@@ -230,7 +256,9 @@
           vy: -0.03 - Math.random() * 0.12,
           size: 0.55 + near * near * 1.9,         // mostly sub-pixel, a few real motes
           alpha: 0.05 + near * 0.21,              // faint by default, brighter when nearer
-          colour: COLOURS[(Math.random() * COLOURS.length) | 0],
+          ci: ci,
+          colour: COLOURS[ci],
+          glow: near > 0.72,                      // the brighter motes carry the light
           wobble: Math.random() * Math.PI * 2,
           wobbleRate: 0.0004 + Math.random() * 0.0013,
           drift: 0.35 + (1 - near) * 1.1          // near motes hang, far grains travel
@@ -337,11 +365,22 @@
   };
 
   Field.prototype.draw = function (now) {
-    var ctx = this.ctx, t = now - (this.start || now), i, p, a;
+    var ctx = this.ctx, t = now - (this.start || now), i, p, a, rad, u, fade;
     ctx.clearRect(0, 0, this.w, this.h);
     ctx.globalCompositeOperation = "lighter";
 
-    // the ambient layer first: it is the frame's floor, and it never disappears
+    /* Halos first, then the grains on top of their own light, so each point reads as a
+       glowing mote rather than a dot with a ring around it. The halos are suppressed harder
+       than the grains inside the copy's box (floor 0.30 against 0.45): diffuse light behind a
+       word costs more contrast than a few crisp points do, and the gate is measured, not
+       assumed - at the grains' floor the accent link fell to 4.71:1 against a 4.5:1 gate. */
+    for (i = 0; i < this.ambient.length; i++) {
+      p = this.ambient[i];
+      if (!p.glow) continue;
+      rad = p.size * 9;
+      ctx.globalAlpha = p.alpha * 1.5 * this.dim(p.x, p.y, 0.30, 70);
+      ctx.drawImage(GLOW[p.ci], p.x - rad, p.y - rad, rad * 2, rad * 2);
+    }
     for (i = 0; i < this.ambient.length; i++) {
       p = this.ambient[i];
       ctx.fillStyle = p.colour;
@@ -349,10 +388,18 @@
       ctx.fillRect(p.x, p.y, p.size, p.size);
     }
 
-    // the mark, one pass per colour so the fillStyle changes six times a frame, not per point
     if (this.particles.length) {
-      var u = (t % CYCLE) / CYCLE;
-      var fade = 0.86 + 0.14 * pullAt(u);       // a little brighter while the mark holds
+      u = (t % CYCLE) / CYCLE;
+      fade = 0.86 + 0.14 * pullAt(u);         // a little brighter while the mark holds
+      for (i = 0; i < this.particles.length; i++) {
+        p = this.particles[i];
+        a = p.alpha * fade * this.dim(p.x, p.y, 0, 90);
+        if (a <= 0.004) continue;
+        rad = p.size * 7;
+        ctx.globalAlpha = a * 0.7;
+        ctx.drawImage(GLOW[p.ci], p.x - rad, p.y - rad, rad * 2, rad * 2);
+      }
+      // one fillStyle change per colour bucket, not per point
       for (var c = 0; c < COLOURS.length; c++) {
         ctx.fillStyle = COLOURS[c];
         for (i = c; i < this.particles.length; i += COLOURS.length) {

@@ -14,7 +14,9 @@ const SRC = path.join(__dirname, "..", "assets", "js", "field.js");
 
 function run(width, height, copyBlocks) {
   const ctx = {
-    setTransform() {}, clearRect() {}, fillRect() {}, getImageData: (x, y, w, h) => ({ data: new Uint8ClampedArray(4) }),
+    setTransform() {}, clearRect() {}, fillRect() {}, drawImage() {},
+    createRadialGradient: () => ({ addColorStop() {} }),
+    getImageData: (x, y, w, h) => ({ data: new Uint8ClampedArray(4) }),
     globalAlpha: 1, globalCompositeOperation: "source-over", fillStyle: "#000"
   };
   const canvas = {
@@ -36,7 +38,9 @@ function run(width, height, copyBlocks) {
     addEventListener() {},
     IntersectionObserver: undefined
   };
-  const doc = { querySelectorAll: (s) => (s === "canvas.field" ? [canvas] : []), addEventListener() {}, hidden: false };
+  const doc = { querySelectorAll: (s) => (s === "canvas.field" ? [canvas] : []),
+    createElement: () => ({ width: 0, height: 0, getContext: () => ctx }),
+    addEventListener() {}, hidden: false };
 
   const src = fs.readFileSync(SRC, "utf8");
   const fn = new Function("window", "document", "performance", src + "\nreturn window.__thinkuiField;");
@@ -50,7 +54,8 @@ function report(label, width, height, blocks) {
   const f = field;
   console.log("\n%s  (%dx%d css)", label, width, height);
   console.log("  markEnabled: %s   band: %s", f.markEnabled, f.markBand);
-  console.log("  dust points: %d   dense points: %d", f.ambient.length, f.particles.length);
+  const glowers = f.ambient.filter(p => p.glow).length;
+  console.log("  dust points: %d (glowing %d)   dense points: %d", f.ambient.length, glowers, f.particles.length);
   const sizes = f.ambient.map(p => p.size).sort((a, b) => a - b);
   const alphas = f.ambient.map(p => p.alpha).sort((a, b) => a - b);
   const q = (a, x) => a[Math.floor(a.length * x)].toFixed(2);

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>field probe</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #000; }
+  iframe { position: fixed; inset: 0; width: 100vw; height: 100vh; border: 0; display: block; }
+  #out { position: fixed; left: -9999px; top: 0; }
+</style>
+</head>
+<body>
+<!--
+  A measurement harness that lives in src/, which the deploy script excludes, so it can never
+  ship. It frames the real built page same-origin, reads the field's own canvas back, and
+  writes the numbers into the DOM for `chrome --headless --dump-dom` to print. `?hide=1` hides
+  the canvas after measuring, so a second screenshot gives the same frame without the field -
+  the only way to attribute a pixel to the animation.
+-->
+<iframe id="f" src="/index.html?probe=1"></iframe>
+<pre id="out">pending</pre>
+<script>
+(function () {
+  var hide = new URLSearchParams(location.search).get("hide") === "1";
+  var f = document.getElementById("f");
+
+  function measure() {
+    try {
+      var w = f.contentWindow, d = f.contentDocument;
+      var c = d.querySelector("canvas.field");
+      if (!c || !w.__thinkuiField) return null;
+      var field = w.__thinkuiField[0];
+      var img = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+      var GX = 16, GY = 10, cw = Math.floor(c.width / GX), ch = Math.floor(c.height / GY);
+      var empty = 0, min = 1e9, tot = 0, painted = 0, strong = 0, gy, gx, y, x, ink, i;
+      for (gy = 0; gy < GY; gy++) {
+        for (gx = 0; gx < GX; gx++) {
+          ink = 0;
+          for (y = gy * ch; y < (gy + 1) * ch; y++)
+            for (x = gx * cw; x < (gx + 1) * cw; x++)
+              if (img[(y * c.width + x) * 4 + 3] > 6) ink++;
+          if (ink === 0) empty++;
+          if (ink < min) min = ink;
+          tot += ink;
+        }
+      }
+      for (i = 3; i < img.length; i += 4) { if (img[i] > 6) painted++; if (img[i] > 90) strong++; }
+      var t0 = w.performance.now();
+      for (i = 0; i < 30; i++) { field.step(w.performance.now() + i * 16, 16); field.draw(w.performance.now()); }
+      var ms = (w.performance.now() - t0) / 30;
+      return {
+        viewport: [w.innerWidth, w.innerHeight], canvas: [c.width, c.height],
+        dust: field.ambient.length, glowing: field.ambient.filter(function (p) { return p.glow; }).length,
+        dense: field.particles.length, markEnabled: field.markEnabled, band: field.markBand,
+        paintedPixels: painted, brightPixels: strong,
+        emptyCells: empty, ofCells: GX * GY, minCell: min, meanCell: Math.round(tot / (GX * GY)),
+        msPerFrame: +ms.toFixed(2), running: field.running, frame: field.frame,
+        css: [field.w, field.h],
+        // the text nodes and their own colours, so a screenshot can be attributed to them
+        nodes: (function () {
+          var out = [];
+          d.querySelectorAll(".hero__inner *").forEach(function (el) {
+            var kids = el.children, i, hasTextKid = false;
+            for (i = 0; i < kids.length; i++) if ((kids[i].textContent || "").trim()) hasTextKid = true;
+            if (hasTextKid) return;
+            var txt = (el.textContent || "").trim();
+            if (!txt) return;
+            var r = el.getBoundingClientRect();
+            if (!r.width || !r.height) return;
+            var cs = w.getComputedStyle(el);
+            out.push({ sel: el.tagName.toLowerCase() + (el.className ? "." + el.className.split(" ")[0] : ""),
+                       text: txt.slice(0, 16), colour: cs.color,
+                       x: Math.round(r.left), y: Math.round(r.top),
+                       w: Math.round(r.width), h: Math.round(r.height) });
+          });
+          return out;
+        })()
+      };
+    } catch (e) { return { error: String(e) }; }
+  }
+
+  setTimeout(function () {
+    var r = measure();
+    if (!r) { document.getElementById("out").textContent = "RESULT:NOT_READY"; return; }
+    if (hide) {
+      var c2 = f.contentDocument.querySelector("canvas.field");
+      if (c2) c2.style.visibility = "hidden";
+    }
+    document.getElementById("out").textContent = "RESULT:" + JSON.stringify(r);
+  }, 3000);
+})();
+</script>
+</body>
+</html>
