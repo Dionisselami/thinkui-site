@@ -27,6 +27,14 @@ import webbrowser
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 PAGES = {"", "index", "pricing", "docs", "login", "signup", "404", "terms", "privacy"}
+# Files a browser asks for at the origin root even though the pages point at the
+# copies under assets/img. Serving the real file beats answering 404 to a request
+# the site itself provoked.
+ROOT_FILES = {
+    "/favicon.ico": "assets/img/favicon.ico",
+    "/apple-touch-icon.png": "assets/img/apple-touch-icon.png",
+    "/apple-touch-icon-precomposed.png": "assets/img/apple-touch-icon.png",
+}
 
 # Routes that existed before the redesign. They no longer have pages of their
 # own, so they redirect rather than 404 — a dead link should land somewhere
@@ -72,9 +80,20 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if not str(args[1] if len(args) > 1 else "").startswith("2"):
             sys.stderr.write("  %s\n" % (fmt % args))
 
+    def handle(self):
+        # A browser that navigates away mid-response is not an error worth a
+        # traceback. Without this the dev host fills the console with noise
+        # every time you click a link while a page is still loading.
+        try:
+            super().handle()
+        except (BrokenPipeError, ConnectionResetError):
+            pass
+
     # ---------- routing ----------
     def translate_path(self, path):
         parsed = urllib.parse.urlparse(path).path
+        if parsed in ROOT_FILES:
+            return os.path.join(ROOT, *ROOT_FILES[parsed].split("/"))
         clean = urllib.parse.unquote(parsed).strip("/")
         parts = [p for p in clean.split("/") if p]
 
@@ -114,7 +133,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store")
         self.end_headers()
-        return self.wfile.write(body)
+        # do_GET() does `f = send_head()` and then `f.close()` on whatever came
+        # back, so returning the byte count here (an int) blew up every request
+        # that reached a missing file — and took the dev host down with it.
+        # The body is already written: the contract is None.
+        self.wfile.write(body)
+        return None
 
     def end_headers(self):
         # dev host: always re-read files so edits show on refresh
