@@ -56,6 +56,24 @@
         emptyCells: empty, ofCells: GX * GY, minCell: min, meanCell: Math.round(tot / (GX * GY)),
         msPerFrame: +ms.toFixed(2), running: field.running, frame: field.frame,
         css: [field.w, field.h],
+        // motion state, so the reduced-motion path can be read from the same dump
+        motion: (function () {
+          var g = function (el, pseudo) { return w.getComputedStyle(el, pseudo || null); };
+          var hero = d.querySelector(".hero__inner");
+          return {
+            heroAnimDuration: g(hero.children[1]).animationDuration,
+            heroTransform: g(hero.children[1]).transform,
+            headlineOpacity: g(d.querySelector("h1.display")).opacity,
+            headlineText: (d.querySelector("h1.display").textContent || "").trim().slice(0, 22),
+            veilAnimation: g(d.querySelector(".veil")).animationName,
+            beamAnimation: g(d.querySelector(".beam")).animationName,
+            tickerAnimation: g(d.querySelector(".ticker__row")).animationName,
+            fieldRunning: field.running,
+            pressToken: g(d.documentElement).getPropertyValue("--press").trim(),
+            cardRuleAtRest: g(d.querySelector(".card"), "::after").transform,
+            bestPlanRule: g(d.querySelector(".plan--best"), "::after").transform
+          };
+        })(),
         // the text nodes and their own colours, so a screenshot can be attributed to them
         nodes: (function () {
           var out = [];
