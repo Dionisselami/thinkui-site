@@ -131,7 +131,7 @@ lines that connect it to a running service.
 | 2 | Your prices and checkout | `src/index.html`, `src/pricing.html` | Plans are `$0 / $19 / $49`. The plan buttons currently point at `signup.html`; swap them for a checkout URL when billing is live. |
 | 3 | Contact address | `src/build.py` → `CONTACT_EMAIL` | Appears on the terms and privacy pages. |
 | 4 | Legal review | `src/terms.html`, `src/privacy.html` | Written as a plain-language starting point that matches what the product actually does. Have someone qualified read them before you take money. |
-| 5 | The npm package | `src/docs.html` | The docs show `npx -y thinkui-mcp`. Until that package is published, the docs also give the from-a-checkout form (`command: python`, `args: ["…/server.py"]`), which is what runs today. |
+| 5 | ~~The npm package~~ | `src/docs.html` | Resolved differently: the docs no longer advertise a package. They give the hosted endpoint (`url: https://thinkui.xyz/mcp` + an `Authorization` header), which is live and verified, and the run-it-yourself form (`command: python`, `args: ["…/server.py"]`) as the alternative. Nothing on the page asks a reader to install something that does not exist. |
 
 ## 5. Verify it
 

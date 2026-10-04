@@ -68,8 +68,9 @@
     <div class="grain" aria-hidden="true"></div>
     <div class="wrap">
       <h1 class="display">Connected in one block.</h1>
-      <p class="lede">ThinkUI is a standard MCP server over stdio. There is no SDK to install into
-        your project, no build step and no daemon to keep alive, your agent starts it when it needs it.</p>
+      <p class="lede">ThinkUI is a hosted MCP server. Your agent connects to one URL and sends your key in the
+        request header, so there is no SDK to add to your project, no build step, no package to install and no
+        daemon to keep alive. Prefer to run the server yourself? That form is further down this page.</p>
     </div>
   </section>
 
@@ -79,7 +80,8 @@
         <span class="eyebrow">Step 1</span>
         <h2>Get your key.</h2>
         <p class="lede">Create an account and copy the key from your dashboard. It is the only credential you need,
-          and it goes in one place: the <span class="mono">THINKUI_KEY</span> environment variable of the server entry.</p>
+          and it goes in one place: the <span class="mono">Authorization</span> header of the server entry, written as
+          <span class="mono">Bearer your-key</span>.</p>
       </div>
 
       <div class="head" style="margin-top:46px">
@@ -102,14 +104,14 @@
 <pre>{
   <span class="k">"mcpServers"</span>: {
     <span class="k">"thinkui"</span>: {
-      <span class="k">"command"</span>: <span class="s">"npx"</span>,
-      <span class="k">"args"</span>: [<span class="s">"-y"</span>, <span class="s">"thinkui-mcp"</span>],
-      <span class="k">"env"</span>: { <span class="k">"THINKUI_KEY"</span>: <span class="s">"your-key"</span> }
+      <span class="k">"url"</span>: <span class="s">"https://thinkui.xyz/mcp"</span>,
+      <span class="k">"headers"</span>: { <span class="k">"Authorization"</span>: <span class="s">"Bearer your-key"</span> }
     }
   }
 }</pre>
-          <div class="code__note">Claude Desktop · macOS: <span class="mono">~/Library/Application Support/Claude/</span><br>
-            Windows: <span class="mono">%APPDATA%\Claude\</span>. Restart the app after saving.</div>
+          <div class="code__note">Two values are all a client needs: the URL, and an
+            <span class="mono">Authorization</span> header carrying your key. A client with a field for a remote server
+            URL takes them as they are. Restart the app after saving.</div>
         </div>
 
         <div class="code">
@@ -121,26 +123,27 @@
               <span>Copy</span>
             </button>
           </div>
-<pre><span class="c">// Cursor: keep the key as written</span>
+<pre><span class="c">// the same two lines in Cursor, VS Code, Windsurf and Zed</span>
 {
   <span class="k">"mcpServers"</span>: {
     <span class="k">"thinkui"</span>: {
-      <span class="k">"command"</span>: <span class="s">"npx"</span>,
-      <span class="k">"args"</span>: [<span class="s">"-y"</span>, <span class="s">"thinkui-mcp"</span>],
-      <span class="k">"env"</span>: { <span class="k">"THINKUI_KEY"</span>: <span class="s">"your-key"</span> }
+      <span class="k">"url"</span>: <span class="s">"https://thinkui.xyz/mcp"</span>,
+      <span class="k">"headers"</span>: { <span class="k">"Authorization"</span>: <span class="s">"Bearer your-key"</span> }
     }
   }
 }</pre>
-          <div class="code__note">VS Code uses the same block under a <span class="mono">"servers"</span> key instead of
-            <span class="mono">"mcpServers"</span>. Claude Code: <span class="mono">claude mcp add thinkui -- npx -y thinkui-mcp</span>.</div>
+          <div class="code__note">VS Code puts the same entry under a <span class="mono">"servers"</span> key rather than
+            <span class="mono">"mcpServers"</span>. Claude Code takes it from the command line:
+            <span class="mono">claude mcp add --transport http thinkui https://thinkui.xyz/mcp --header "Authorization: Bearer your-key"</span>.</div>
         </div>
       </div>
 
       <div class="notice" style="margin-top:26px">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-        <span>Running from a local checkout instead of the published package? Use
+        <span>Running the server yourself instead? Point your client at a command rather than a URL:
           <span class="mono">"command": "python"</span> with
-          <span class="mono">"args": ["C:/path/to/thinkui-mcp/server.py"]</span>, that is the same server, started directly.</span>
+          <span class="mono">"args": ["C:/path/to/thinkui-mcp/server.py"]</span>. That is the same server on your own
+          machine, and it needs no key - the key is what gates the hosted URL.</span>
       </div>
     </div>
   </section>
@@ -242,15 +245,16 @@
         </details>
         <details>
           <summary>It runs but every call fails.</summary>
-          <div class="answer"><p>Check <span class="mono">THINKUI_KEY</span> is present in the server's
-            <span class="mono">env</span> block, and that you are on the plan that includes what you are asking for.
-            A free plan can call every tool, up to its monthly limit.</p></div>
+          <div class="answer"><p>Check the <span class="mono">Authorization</span> header is present and reads
+            <span class="mono">Bearer your-key</span> with your own key in place of
+            <span class="mono">your-key</span>. A missing or wrong key comes back as JSON-RPC rather than a blank
+            failure, and the message says which it is.</p></div>
         </details>
         <details>
-          <summary>Which Node version is needed?</summary>
-          <div class="answer"><p>The published package runs on any current LTS Node with <span class="mono">npx</span>
-            available. If you are starting the server from a local checkout instead, Python 3.10 or newer is what it
-            needs.</p></div>
+          <summary>Do I need Node or Python installed?</summary>
+          <div class="answer"><p>No. The server is hosted, so all your agent needs is the URL and your key - no Node,
+            no Python, no package manager. Python 3.10 or newer only matters if you run the server from your own copy
+            instead.</p></div>
         </details>
       </div>
     </div>

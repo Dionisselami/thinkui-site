@@ -74,7 +74,7 @@
         { "@type": "Question", "name": "What is MCP?",
           "acceptedAnswer": { "@type": "Answer", "text": "The Model Context Protocol is the standard way an AI coding agent connects to an outside tool. You add a server to your agent's config once and its tools become available in every conversation." } },
         { "@type": "Question", "name": "Which clients does ThinkUI work with?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Any client that speaks MCP over stdio: Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed and any agent framework with an MCP client." } },
+          "acceptedAnswer": { "@type": "Answer", "text": "Any client that speaks MCP: Claude Code, Claude Desktop, Cursor, VS Code, Windsurf, Zed and any agent framework with an MCP client. The server is hosted, so there is nothing to install and nothing to keep running." } },
         { "@type": "Question", "name": "Does my code or my project leave my machine?",
           "acceptedAnswer": { "@type": "Answer", "text": "No. The server runs as a local process your agent starts, and it answers from its own reference corpus. Nothing about your project is sent anywhere to produce a result." } },
         { "@type": "Question", "name": "What happens when it does not know something?",
@@ -227,7 +227,7 @@
           <h3>Fits your setup</h3>
           <p>A local process your agent starts. Add one block to its config and the tools appear in every conversation
             you have in that client.</p>
-          <div class="card__foot">MCP over stdio</div>
+          <div class="card__foot">MCP over HTTPS</div>
         </article>
       </div>
     </div>
@@ -262,8 +262,9 @@
         <div>
           <h3 style="margin-bottom:12px">One block of config.</h3>
           <p class="small" style="font-size:15px">
-            ThinkUI ships as a standard MCP server. Add it to Claude Desktop, Claude Code, Cursor, VS Code, Windsurf,
-            Zed or any framework with an MCP client: the same block works everywhere, and it is the only setup step.
+            ThinkUI runs as a hosted MCP server: your agent connects to one URL and sends your key in the
+            request header. Add it to Claude Code, Claude Desktop, Cursor, VS Code, Windsurf, Zed or any framework
+            with an MCP client. Nothing to install, nothing to keep running.
           </p>
           <p class="small" style="margin-top:16px">
             Your account key goes in one place. Everything else (tools, prompts, transport) is handled by the server.
@@ -277,7 +278,7 @@
         <div class="code">
           <div class="code__bar">
             <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="name">claude_desktop_config.json</span>
+            <span class="name">mcp.json</span>
             <button class="code__copy" type="button" data-copy aria-label="Copy configuration">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <span>Copy</span>
@@ -286,9 +287,8 @@
 <pre>{
   <span class="k">"mcpServers"</span>: {
     <span class="k">"thinkui"</span>: {
-      <span class="k">"command"</span>: <span class="s">"npx"</span>,
-      <span class="k">"args"</span>: [<span class="s">"-y"</span>, <span class="s">"thinkui-mcp"</span>],
-      <span class="k">"env"</span>: { <span class="k">"THINKUI_KEY"</span>: <span class="s">"your-key"</span> }
+      <span class="k">"url"</span>: <span class="s">"https://thinkui.xyz/mcp"</span>,
+      <span class="k">"headers"</span>: { <span class="k">"Authorization"</span>: <span class="s">"Bearer your-key"</span> }
     }
   }
 }</pre>
@@ -370,7 +370,7 @@
         <details>
           <summary>Which clients does it work with?</summary>
           <div class="answer">
-            <p>Any client that speaks MCP over stdio: Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed, and
+            <p>Any client that speaks MCP: Claude Code, Claude Desktop, Cursor, VS Code, Windsurf, Zed, and
               agent frameworks with an MCP client. The config block is the same everywhere.</p>
           </div>
         </details>
