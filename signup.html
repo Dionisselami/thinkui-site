@@ -70,16 +70,12 @@
         </div>
                 <form action="/api/auth/sign-up" method="post" novalidate>
           <label class="field">
-            <span class="field__label">Name</span>
-            <input type="text" name="name" autocomplete="name" placeholder="Your name">
-          </label>
-          <label class="field">
             <span class="field__label">Work email</span>
             <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
           </label>
           <label class="field">
             <span class="field__label">Password</span>
-            <input type="password" name="password" autocomplete="new-password" placeholder="At least 8 characters" required>
+            <input type="password" name="password" autocomplete="new-password" placeholder="At least 10 characters" minlength="10" required>
           </label>
           <div class="auth__row">
             <label class="check"><input type="checkbox" name="terms" value="1" required> I agree to the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a></label>
@@ -102,6 +98,6 @@
     </div>
   </div>
 </main>
-<script src="assets/js/app.js?v=7854af0eee" defer></script>
+<script src="assets/js/app.js?v=408bd9c321" defer></script>
 </body>
 </html>

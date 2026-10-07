@@ -140,6 +140,19 @@
         plan.slice(1) + ". Cancel any time from your account page.";
     }
 
+    // A failed sign-in comes back as a redirect, which drops the email that was just typed:
+    // one wrong password meant retyping both fields. Keep the address for the trip.
+    var emailField = form.querySelector("input[name=email]");
+    if (emailField) {
+      try {
+        var kept = sessionStorage.getItem("thinkui.email");
+        if (kept && !emailField.value) emailField.value = kept;
+      } catch (e) { /* storage blocked (private mode) - not worth failing over */ }
+      form.addEventListener("submit", function () {
+        try { sessionStorage.setItem("thinkui.email", emailField.value); } catch (e) { /* ignore */ }
+      });
+    }
+
     form.addEventListener("submit", function () {
       var btn = form.querySelector("button[type=submit]");
       if (btn) { btn.disabled = true; btn.textContent = "Working…"; }
