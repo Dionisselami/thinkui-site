@@ -18,6 +18,8 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import hashlib
+import html
+import json
 import os
 import re
 import subprocess
@@ -45,8 +47,8 @@ PAGES = [
     ("login.html",    "Sign in — ThinkUI",                                             False),
     ("signup.html",   "Create your account — ThinkUI",                                 False),
     ("404.html",      "Page not found — ThinkUI",                                      False),
-    ("terms.html",    "Terms of service — ThinkUI",                                    False),
-    ("privacy.html",  "Privacy — ThinkUI",                                             False),
+    ("terms.html",    "Terms of service — ThinkUI",                                    True),
+    ("privacy.html",  "Privacy — ThinkUI",                                             True),
 ]
 
 # pages that must never be indexed (auth surfaces) vs. the 404 (noindex too)
@@ -176,8 +178,61 @@ def build_pages():
         text = version_assets(render(page, open(src, encoding="utf-8").read()))
         out = os.path.join(SITE, page)
         open(out, "w", encoding="utf-8").write(text)
+        if page == "index.html":
+            n = sync_faq_schema(out)
+            if n:
+                print("  faq schema      %d questions synced to the visible copy" % n)
         made.append((page, os.path.getsize(out)))
     return made
+
+
+def sync_faq_schema(path: str) -> int:
+    """Make the FAQPage structured data say exactly what the page says.
+
+    The FAQ exists twice: the visible <details> blocks and the JSON-LD a crawler reads.
+    They had drifted apart on five of six answers — one still described a server running
+    locally on a hosted product — and a schema that contradicts the page is worse than no
+    schema. Derive it from the visible copy so the two cannot disagree.
+    """
+    with open(path, encoding="utf-8") as fh:
+        text = fh.read()
+
+    pairs = []
+    for m in re.finditer(r'<summary[^>]*>(.*?)</summary>\s*<div class="answer">\s*<p[^>]*>(.*?)</p>',
+                         text, re.S):
+        q = html.unescape(re.sub(r"<[^>]+>", "", m.group(1)))
+        a = html.unescape(re.sub(r"<[^>]+>", "", m.group(2)))
+        pairs.append((re.sub(r"\s+", " ", q).strip(), re.sub(r"\s+", " ", a).strip()))
+    if not pairs:
+        return 0
+
+    block = re.search(r'(<script[^>]*type="application/ld\+json"[^>]*>)(.*?)(</script>)', text, re.S)
+    if not block:
+        return 0
+    try:
+        data = json.loads(block.group(2))
+    except json.JSONDecodeError:
+        return 0
+
+    # The graph may be the document itself, a bare list, or wrapped in a @graph node.
+    if isinstance(data, dict) and isinstance(data.get("@graph"), list):
+        nodes = data["@graph"]
+    else:
+        nodes = data if isinstance(data, list) else [data]
+    found = False
+    for node in nodes:
+        if isinstance(node, dict) and node.get("@type") == "FAQPage":
+            node["mainEntity"] = [
+                {"@type": "Question", "name": q,
+                 "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in pairs]
+            found = True
+    if not found:
+        return 0
+
+    text = text[:block.start(2)] + json.dumps(data, ensure_ascii=False, indent=2) + text[block.end(2):]
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write(text)
+    return len(pairs)
 
 
 def last_change(path: str) -> str:

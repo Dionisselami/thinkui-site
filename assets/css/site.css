@@ -436,7 +436,11 @@ h3 { font-size: 18px; letter-spacing: -0.015em; }
 @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ----------------------------------------------------------- 11 pricing */
-.pricing { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.pricing { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+/* Cards carry different amounts of copy, so stretching alone leaves the three CTAs at
+   three different heights. Pin the action to the foot of its card so the buttons line up
+   and the row reads as one table instead of three stacked blocks. */
+.plan > .btn { margin-top: auto; }
 .plan {
   position: relative; display: flex; flex-direction: column; gap: 16px;
   padding: 32px 24px; background: var(--paper);

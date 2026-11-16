@@ -26,7 +26,7 @@
 <meta name="twitter:description" content="What ThinkUI collects when you use the MCP server, what it does not, and how to have your data removed.">
 <meta name="twitter:image" content="https://thinkui.xyz/assets/img/og.png">
 <link rel="preload" href="assets/fonts/bricolage-grotesque-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=4993c6d060">
+<link rel="stylesheet" href="assets/css/site.css?v=e42947198b">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -70,8 +70,9 @@
         <h2>What we do not collect</h2>
         <ul>
           <li>Your source code, your files, or the contents of your project.</li>
-          <li>Your prompts or your agent's conversation history. The server runs locally inside your client; the query
-            string that reaches us is what the tool call itself carries.</li>
+          <li>Your prompts or your agent's conversation history. A tool call carries your search query to our server and
+            nothing else; that query is not stored against your account and is not written to our logs. If you run the
+            server yourself, no query reaches us at all.</li>
           <li>Advertising or cross-site tracking data. There are no ad networks on this site.</li>
         </ul>
 

@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {{ICONS}}
 <title>Pricing — ThinkUI MCP server</title>
-<meta name="description" content="ThinkUI pricing: free for personal projects, Pro at $19 a month for unlimited calls and commercial use, Team at $49 for five seats. Cancel any time.">
+<meta name="description" content="ThinkUI pricing: Starter at $9.99 a month, Pro at $19.99 a month, or $190 once for lifetime access. Unlimited tool calls and commercial use. Cancel any time.">
 <link rel="canonical" href="{{CANONICAL}}">
 <meta name="robots" content="{{ROBOTS}}">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ThinkUI">
 <meta property="og:title" content="Pricing — ThinkUI MCP server">
-<meta property="og:description" content="ThinkUI pricing: a free tier for personal projects, Pro at $19 a month for unlimited calls and commercial use, and Team at $49 for five seats. Change or cancel from your account at any time.">
+<meta property="og:description" content="ThinkUI pricing: Starter at $9.99 a month, Pro at $19.99 a month, or $190 once for lifetime access. Unlimited calls, commercial use, change or cancel from your account at any time.">
 <meta property="og:url" content="{{CANONICAL}}">
 <meta property="og:image" content="{{SITE_URL}}/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Pricing — ThinkUI MCP server">
-<meta name="twitter:description" content="ThinkUI pricing: a free tier for personal projects, Pro at $19 a month for unlimited calls and commercial use, and Team at $49 for five seats. Change or cancel from your account at any time.">
+<meta name="twitter:description" content="ThinkUI pricing: Starter at $9.99 a month, Pro at $19.99 a month, or $190 once for lifetime access. Unlimited calls, commercial use, change or cancel from your account at any time.">
 <meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
 
 <link rel="preload" href="assets/fonts/bricolage-grotesque-var.woff2" as="font" type="font/woff2" crossorigin>
@@ -32,9 +32,9 @@
   "description": "An MCP server that returns real interface references for coding agents.",
   "brand": { "@type": "Brand", "name": "ThinkUI" },
   "offers": [
-    { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "{{SITE_URL}}/signup.html" },
-    { "@type": "Offer", "name": "Pro", "price": "19", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "{{SITE_URL}}/signup.html" },
-    { "@type": "Offer", "name": "Team", "price": "49", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "{{SITE_URL}}/signup.html" }
+    { "@type": "Offer", "name": "Starter", "price": "9.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "{{SITE_URL}}/signup.html?plan=starter" },
+    { "@type": "Offer", "name": "Pro", "price": "19.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "{{SITE_URL}}/signup.html?plan=pro" },
+    { "@type": "Offer", "name": "Lifetime", "price": "190", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "{{SITE_URL}}/signup.html?plan=lifetime" }
   ]
 }
 </script>
@@ -58,22 +58,22 @@
     <div class="wrap">
       <div class="pricing">
         <article class="plan">
-          <span class="plan__name">Free</span>
-          <p class="plan__price"><b>$0</b><span>personal use</span></p>
-          <p class="plan__note">For trying it out on something of your own.</p>
+          <span class="plan__name">Starter</span>
+          <p class="plan__price"><b>$9.99</b><span>per month</span></p>
+          <p class="plan__note">For your own projects and side work.</p>
           <ul>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>200 tool calls a month</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Unlimited tool calls</li>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>All five tools</li>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Components, icons and materials</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Personal projects only</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Commercial use</li>
           </ul>
-          <a class="btn btn--block" href="signup.html">Start free</a>
+          <a class="btn btn--block" href="signup.html?plan=starter">Get Starter</a>
         </article>
 
         <article class="plan plan--best">
           <span class="plan__tag">Most popular</span>
           <span class="plan__name">Pro</span>
-          <p class="plan__price"><b>$19</b><span>per month</span></p>
+          <p class="plan__price"><b>$19.99</b><span>per month</span></p>
           <p class="plan__note">For interfaces you are actually shipping.</p>
           <ul>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Unlimited tool calls</li>
@@ -86,16 +86,16 @@
         </article>
 
         <article class="plan">
-          <span class="plan__name">Team</span>
-          <p class="plan__price"><b>$49</b><span>per month</span></p>
-          <p class="plan__note">For a small team holding one design language.</p>
+          <span class="plan__name">Lifetime</span>
+          <p class="plan__price"><b>$190</b><span>once</span></p>
+          <p class="plan__note">One payment, permanent access. No renewal, no expiry.</p>
           <ul>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Five seats, one bill</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Shared saved queries</li>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Everything in Pro</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Onboarding call for the team</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>One payment, no subscription</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Nothing to cancel or renew</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Commercial use</li>
           </ul>
-          <a class="btn btn--block" href="signup.html?plan=team">Get Team</a>
+          <a class="btn btn--block" href="signup.html?plan=lifetime">Get Lifetime</a>
         </article>
       </div>
       <p class="small" style="margin-top:24px; text-align:center">
@@ -115,20 +115,19 @@
           <thead>
             <tr>
               <th scope="col">Feature</th>
-              <th scope="col">Free</th>
+              <th scope="col">Starter</th>
               <th scope="col">Pro</th>
-              <th scope="col">Team</th>
+              <th scope="col">Lifetime</th>
             </tr>
           </thead>
           <tbody>
-            <tr><th scope="row">Tool calls</th><td>200 / month</td><td>Unlimited</td><td>Unlimited</td></tr>
+            <tr><th scope="row">Tool calls</th><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
             <tr><th scope="row">All five tools</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
             <tr><th scope="row">Components, icons, materials</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
             <tr><th scope="row">Screens returned as images</th><td>Metadata</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-            <tr><th scope="row">Commercial use</th><td class="no">Personal only</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-            <tr><th scope="row">Seats</th><td>1</td><td>1</td><td>5</td></tr>
-            <tr><th scope="row">Shared saved queries</th><td class="no">—</td><td class="no">—</td><td class="yes">Yes</td></tr>
-            <tr><th scope="row">Support</th><td>Community</td><td>Email</td><td>Email, priority</td></tr>
+            <tr><th scope="row">Commercial use</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><th scope="row">Billing</th><td>Monthly</td><td>Monthly</td><td>Once, no renewal</td></tr>
+            <tr><th scope="row">Support</th><td>Email</td><td>Email, priority</td><td>Email, priority</td></tr>
           </tbody>
         </table>
       </div>
@@ -142,9 +141,10 @@
       </div>
       <div class="faq">
         <details open>
-          <summary>Do I need a paid plan to try it?</summary>
-          <div class="answer"><p>No. The free tier gives you all five tools and 200 calls a month, which is enough to see
-            whether your agent uses them well. Upgrade whenever it starts carrying real work.</p></div>
+          <summary>Is there a free plan?</summary>
+          <div class="answer"><p>No. Starter is $9.99 a month and Pro is $19.99 — both monthly, both cancel in one
+            click, so the cheapest way to try it is one month of Starter. If you would rather pay once,
+            Lifetime is $190 and never renews.</p></div>
         </details>
         <details>
           <summary>What counts as a tool call?</summary>
@@ -153,8 +153,8 @@
         </details>
         <details>
           <summary>Can I use it for client work?</summary>
-          <div class="answer"><p>Yes on Pro and Team. Every result identifies where it came from, so your own records stay
-            in order when you hand work over.</p></div>
+          <div class="answer"><p>Yes on every plan. Every result identifies where it came from, so your own records
+            stay in order when you hand work over.</p></div>
         </details>
         <details>
           <summary>How do refunds and cancellation work?</summary>
@@ -168,7 +168,7 @@
   <section class="canvas closing">
     <div class="grain" aria-hidden="true"></div>
     <div class="wrap">
-      <h2 class="display">Start on the free tier.</h2>
+      <h2 class="display">Pick a plan and connect the server.</h2>
       <p class="lede">Connect the server to your agent and ask it something you would otherwise answer by opening ten apps.</p>
       <div class="closing__actions">
         <a class="btn btn--light btn--lg" href="signup.html">Create an account</a>
