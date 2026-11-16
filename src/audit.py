@@ -90,8 +90,11 @@ for page in PAGES:
     if canon:
         if page == "index.html":
             ok = canon.endswith("/")
+        elif page == "404.html":
+            ok = canon.endswith("/404.html")      # not indexed, kept on the file URL
         else:
-            ok = canon.endswith("/" + page)
+            # the extension-less URL is canonical; /pricing.html redirects to it
+            ok = canon.endswith("/" + page[:-5])
         check(ok, "%s: canonical points elsewhere (%s)" % (page, canon))
         check(canon.startswith("https://"), "%s: canonical is not absolute" % page)
 
@@ -138,9 +141,13 @@ print("\nlink targets")
 missing = []
 for page, refs in all_refs.items():
     for r in sorted(refs):
-        target = os.path.normpath(os.path.join(SITE, r.split("?")[0]))
+        # links are root-absolute now ("/docs"); join must not treat that as a drive path
+        target = os.path.normpath(os.path.join(SITE, r.split("?")[0].lstrip("/")))
         if not os.path.exists(target):
-            missing.append("%s -> %s" % (page, r))
+            # links are the clean URL form; the file behind /docs is docs.html
+            alt = target + ".html"
+            if not os.path.exists(alt):
+                missing.append("%s -> %s" % (page, r))
 check(not missing, "broken internal references:\n    " + "\n    ".join(missing))
 print("  checked %d distinct references, %d missing" % (len(set().union(*all_refs.values())), len(missing)))
 
@@ -153,6 +160,9 @@ try:
     for u in urls:
         rel = urllib.parse.urlparse(u).path.strip("/")   # "" for the site root
         tail = rel if rel else "index.html"
+        # sitemap entries are the clean URLs; the file behind /terms is terms.html
+        if not os.path.exists(os.path.join(SITE, tail)) and "." not in tail:
+            tail += ".html"
         check(os.path.exists(os.path.join(SITE, tail)),
               "sitemap lists %s which is not a page" % u)
     print("  %d urls: %s" % (len(urls), ", ".join(urls)))

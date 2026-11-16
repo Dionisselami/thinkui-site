@@ -101,7 +101,10 @@ def tokens(page: str) -> dict:
         "SITE_URL": SITE_URL.rstrip("/"),
         "YEAR": str(dt.date.today().year),
         "CONTACT_EMAIL": CONTACT_EMAIL,
-        "CANONICAL": "%s/%s" % (SITE_URL.rstrip("/"), "" if page == "index.html" else page),
+        "CANONICAL": "%s/%s" % (SITE_URL.rstrip("/"), ""
+                                if page == "index.html"
+                                else (page[:-5] if page.endswith(".html") and page != "404.html"
+                                      else page)),
         "ROBOTS": "noindex, follow" if page in NOINDEX else "index, follow, max-image-preview:large",
         # the browser-chrome colour is the brand ink, read from the identity rather than
         # retyped here, so a palette change cannot leave it behind
@@ -168,6 +171,23 @@ def version_assets(text: str) -> str:
     return ASSET_RE.sub(sub, text)
 
 
+_INT_LINK = re.compile(r'href="(?:\./)?([a-z0-9_-]+)\.html(#[^"]*|\?[^"]*)?"')
+
+
+def clean_links(text: str) -> str:
+    """Point internal links at the extension-less URL that the canonical names.
+
+    The pages are files on disk but the canonical (and the sitemap) say /pricing, so
+    leaving every link on /pricing.html made the site advertise a URL it then asked
+    Google not to index. Done here rather than in twenty templates so a new page cannot
+    quietly reintroduce the .html form.
+    """
+    def swap(m):
+        name, tail = m.group(1), m.group(2) or ""
+        return 'href="%s%s"' % ("/" if name == "index" else "/" + name, tail)
+    return _INT_LINK.sub(swap, text)
+
+
 def build_pages():
     made = []
     for page, title, _ in PAGES:
@@ -175,7 +195,7 @@ def build_pages():
         if not os.path.exists(src):
             print("  missing src/%s — skipped" % page)
             continue
-        text = version_assets(render(page, open(src, encoding="utf-8").read()))
+        text = clean_links(version_assets(render(page, open(src, encoding="utf-8").read())))
         out = os.path.join(SITE, page)
         open(out, "w", encoding="utf-8").write(text)
         if page == "index.html":
@@ -260,7 +280,8 @@ def build_sitemap():
     for page, _, listed in PAGES:
         if not listed:
             continue
-        loc = url + "/" if page == "index.html" else "%s/%s" % (url, page)
+        loc = url + "/" if page == "index.html" else "%s/%s" % (
+            url, page[:-5] if page.endswith(".html") else page)
         priority = "1.0" if page == "index.html" else ("0.9" if page == "pricing.html" else "0.8")
         rows.append("  <url>\n    <loc>%s</loc>\n    <lastmod>%s</lastmod>\n"
                     "    <changefreq>weekly</changefreq>\n    <priority>%s</priority>\n  </url>"
