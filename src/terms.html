@@ -38,7 +38,7 @@
         <p>ThinkUI is a Model Context Protocol server. Once connected to a compatible client, it answers requests from
           your agent with interface references drawn from ThinkUI's own reference library, screens, flows, components, fonts,
           icon sets and animated icons.</p>
-        <p>The server is hosted by ThinkUI and reached over HTTPS, or you can run it yourself. ThinkUI does not receive
+        <p>The server is hosted by ThinkUI and reached over HTTPS. ThinkUI does not receive
           your source code, your prompts or your project files in order to produce a result: a tool call carries only
           the question your agent asked.</p>
 
@@ -46,13 +46,12 @@
         <p>You need an account to use the server. Keep your account key confidential: anyone holding it can consume your
           plan. Tell us promptly at <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a> if a key is exposed and we
           will issue a new one.</p>
-        <p>You are responsible for activity under your account, including activity by team members you invite on a Team
-          plan.</p>
+        <p>You are responsible for activity under your account, including activity by anyone you share a key with.</p>
 
         <h2>3. Plans, billing and cancellation</h2>
         <ul>
           <li>Plans are billed monthly in US dollars through our payment processor.</li>
-          <li>Usage is metered per tool call. A request that returns no result is not charged.</li>
+          <li>Usage is metered per request to the server. Every request counts once, including the session handshake and any request that returns no result.</li>
           <li>You can change plan or cancel at any time from your account page.</li>
           <li>Cancelling stops future charges. Your key continues to work until the end of the period you have already
             paid for.</li>

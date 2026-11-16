@@ -405,6 +405,10 @@ h3 { font-size: 18px; letter-spacing: -0.015em; }
 }
 .code__copy:active { scale: var(--press); }
 .code__copy svg { width: 14px; height: 14px; }
+/* On a narrow phone the file name pushed the Copy button past .code's overflow:hidden,
+   so it was unreachable. Let the name shrink and ellipsise; the button never shrinks. */
+.code__bar .name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.code__copy { flex: none; }
 .code__copy:hover { background: rgba(255, 255, 255, .1); color: #fff; }
 .code__copy.is-done {
   color: var(--brand-on-ink); border-color: rgba(240, 118, 79, .5);
