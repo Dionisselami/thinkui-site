@@ -40,6 +40,22 @@
     }
   }
 
+  /* ---------------------------------------------------------------- sign-in */
+  /* Both ways in are OAuth, so a visitor who pressed "Get Pro" and then picked a
+     provider would otherwise land on the account page with no plan chosen. The plan
+     they clicked rides on the provider link; the server turns it into a checkout
+     after the callback. */
+  (function carryPlan() {
+    var qs = new URLSearchParams(location.search);
+    var plan = (qs.get("plan") || "").toLowerCase();
+    if (["starter", "pro", "lifetime"].indexOf(plan) === -1) { return; }
+    var links = doc.querySelectorAll('.oauth a[href^="/api/auth/"]');
+    Array.prototype.forEach.call(links, function (a) {
+      var href = a.getAttribute("href");
+      a.setAttribute("href", href + (href.indexOf("?") === -1 ? "?" : "&") + "plan=" + plan);
+    });
+  })();
+
   /* ------------------------------------------------------------------- copy */
   function legacyCopy(text, done) {
     try {
