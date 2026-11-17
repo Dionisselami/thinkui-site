@@ -31,7 +31,7 @@
 <meta name="twitter:image" content="https://thinkui.xyz/assets/img/og.png">
 
 <link rel="preload" href="assets/fonts/bricolage-grotesque-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=3e4b3418a9">
+<link rel="stylesheet" href="assets/css/site.css?v=8df7d96caa">
 
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -140,7 +140,7 @@
   ]
 }</script>
 </head>
-<body class="dark-top">
+<body>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="header">
@@ -153,8 +153,8 @@
       <a href="/#faq">FAQ</a>
     </nav>
     <div class="nav__cta">
-      <a class="btn" href="/login">Sign in</a>
-      <a class="btn btn--light" href="/signup">Get access</a>
+      <a class="btn btn--text" href="/login">Sign in</a>
+      <a class="btn btn--primary" href="/signup">Get access</a>
     </div>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span></button>
   </div>
@@ -163,34 +163,61 @@
 <main id="main">
 
   <!-- ============================================================ hero -->
-  <section class="canvas hero">
-    <div class="veil" aria-hidden="true"></div>
-    <div class="beam" aria-hidden="true"></div>
-    <div class="grain" aria-hidden="true"></div>
-    <canvas class="field" aria-hidden="true"></canvas>
+  <section class="hero">
     <div class="wrap">
       <div class="hero__inner">
-        <p class="hero__note">Hosted MCP server &middot; one URL to connect</p>
-        <h1 class="display">Interfaces your agent can use.</h1>
-        <p class="lede">
-          ThinkUI plugs into the coding agent you already use and answers design questions with
-          evidence: the screen, the flow it belongs to, the component itself, the typeface. Every
-          result says where it came from, so you can keep building instead of second-guessing.
-        </p>
-        <div class="hero__actions">
-          <a class="btn btn--primary btn--lg" href="/signup">
-            Get access
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
-          </a>
-          <a class="link-arrow link-arrow--on-ink" href="/docs">
-            Read the quickstart
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
-          </a>
+        <div>
+          <p class="hero__note">Hosted MCP server &middot; one URL to connect</p>
+          <h1 class="display">Interfaces your agent can use.</h1>
+          <p class="lede">
+            ThinkUI plugs into the coding agent you already use and answers design questions with
+            evidence: the screen, the flow it belongs to, the component itself, the typeface. Every
+            result says where it came from, so you can keep building instead of second-guessing.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary btn--lg" href="/signup">
+              Get access
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+            </a>
+            <a class="link-arrow" href="/docs">
+              Read the quickstart
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+            </a>
+          </div>
+          <div class="hero__meta">
+            <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Works with any MCP client</span>
+            <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Five tools, one config block</span>
+            <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Nothing about your code leaves your machine</span>
+          </div>
         </div>
-        <div class="hero__meta">
-          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Works with any MCP client</span>
-          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Five tools, one config block</span>
-          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Nothing about your code leaves your machine</span>
+
+        <div class="hero__plate">
+          <p class="hero__note">One call, one cited answer</p>
+          <div class="code">
+            <div class="code__bar">
+              <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="name">find_ui_references</span>
+            </div>
+            <pre aria-label="Example tool call and the answer it returns"><span class="c">// ask for the decision, not a keyword</span>
+<span class="k">find_ui_references</span>(
+  query=<span class="s">"paywall free-trial framing"</span>)
+
+<span class="c">1 reference</span>
+
+<span class="k">1. Paywall — across apps</span>
+   paywall · paywall · iOS
+   A paywall interrupts the user's
+   flow to present the monetization
+   model. Across apps it uses a
+   benefit-first narrative, a
+   free-vs-paid comparison, and
+   auto-renewal microcopy. Most are
+   modal overlays with a dismiss.
+   <span class="c">Patterns:</span> conversion, subscription,
+   monetization, upsell, trial, gating,
+   tiered-pricing</pre>
+            <div class="code__note">Real output, trimmed. The screenshot travels with the answer, with its licence and the page it came from.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -199,6 +226,13 @@
   <!-- ========================================================= ticker -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker__row">
+      <span>find_ui_references</span><span>find_ui_elements</span><span>find_animated_icons</span>
+      <span>find_ui_materials</span><span>corpus_stats</span><span>onboarding flows</span>
+      <span>paywall patterns</span><span>empty states</span><span>settings screens</span>
+      <span>pricing tables</span><span>loaders</span><span>toggle switches</span>
+      <span>type scales</span><span>icon sets</span><span>design systems</span>
+      <!-- the row is repeated so the -50% travel lands exactly on the seam: one copy
+           scrolling out as the next scrolls in, with no jump at the end -->
       <span>find_ui_references</span><span>find_ui_elements</span><span>find_animated_icons</span>
       <span>find_ui_materials</span><span>corpus_stats</span><span>onboarding flows</span>
       <span>paywall patterns</span><span>empty states</span><span>settings screens</span>
