@@ -26,7 +26,9 @@ cd "$REPO"
 # 301s in the vhost now
 # Every page the build wrote, not a hand-maintained list: a page added to PAGES in
 # build.py and forgotten here ships a 404 - which is exactly what happened to /examples.
-tar czf - *.html sitemap.xml robots.txt site.webmanifest assets \
+# `.well-known` carries the skills.sh discovery index and the content-addressed skill
+# archive; without it thinkui.xyz is not an installable skill source.
+tar czf - *.html sitemap.xml robots.txt site.webmanifest assets .well-known \
   | ssh "$HOST" "sudo tar xzf - -C $SITE_DIR && sudo chown -R www-data:www-data $SITE_DIR"
 
 step "3/4 vhost"

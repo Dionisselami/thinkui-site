@@ -220,29 +220,132 @@ def proof_gallery() -> str:
 
 WALL_JSON = os.path.join(HERE, "_wall.json")
 
+# The library's own taxonomy, used by the chips above the wall. One tag per screen,
+# assigned from what the screen demonstrates rather than from the app it came from —
+# the question a visitor arrives with is "what does a paywall look like", not "what
+# did Trello ship". Order here is the order the chips appear in.
+WALL_TAGS = [
+    ("paywalls",   "Paywalls & pricing"),
+    ("onboarding", "Onboarding"),
+    ("search",     "Search & browse"),
+    ("settings",   "Settings & dialogs"),
+    ("empty",      "Empty states"),
+    ("dashboards", "Dashboards"),
+    ("landing",    "Landing pages"),
+]
+
+
+def wall_tag(flow: str) -> str:
+    """The kind of screen this is, from the flow name.
+
+    Order matters: a "dashboard empty state" is an empty state first, and
+    "All notifications inbox" belongs with settings rather than dashboards.
+    The fallback is honest — a landing page is what is left.
+    """
+    f = (flow or "").lower()
+    if any(k in f for k in ("pricing", "plan", "trial", "subscription", "upgrade")):
+        return "paywalls"
+    if any(k in f for k in ("welcome", "onboard", "voice")):
+        return "onboarding"
+    if any(k in f for k in ("search", "browse")):
+        return "search"
+    if any(k in f for k in ("empty", "cart", "no results")):
+        return "empty"
+    if any(k in f for k in ("settings", "preferences", "profile", "notification")):
+        return "settings"
+    if any(k in f for k in ("dashboard", "metrics", "orders", "inbox")):
+        return "dashboards"
+    return "landing"
+
+
+def _wall_rows() -> list:
+    try:
+        return json.load(open(WALL_JSON, encoding="utf-8"))
+    except Exception:
+        return []
+
 
 def screen_wall() -> str:
-    """The library itself, as the first thing you see.
+    """The library itself, as the page's main object.
 
     A product whose value is visual should not open with a paragraph about itself.
     Every card is a real screen from the corpus, credited with the app it came from
-    and the licence it carries - the same thing the server returns.
+    and the day it was captured - the same thing the server returns. The tag is the
+    filter the chips read; it is data, not decoration.
     """
-    try:
-        rows = json.load(open(WALL_JSON, encoding="utf-8"))
-    except Exception:
-        return ""
+    rows = _wall_rows()
     esc = lambda v: htmllib.escape(str(v), quote=True)
     out = []
     for r in rows:
+        tag = wall_tag(r.get("flow", ""))
         out.append(
-            '<figure class="wall__card">'
+            '<figure class="wall__card" data-tags="%s">'
             '<img src="%s" alt="%s, %s screen" width="%d" height="%d" loading="lazy" decoding="async">'
             '<figcaption class="wall__meta"><b>%s</b><span>%s &middot; %s</span></figcaption>'
-            '</figure>' % (esc(r["file"]), esc(r["app"]), esc(r["flow"]),
+            '</figure>' % (esc(tag), esc(r["file"]), esc(r["app"]), esc(r["flow"]),
                            r.get("w", 460), r.get("h", 900),
-                           esc(r["app"]), esc(r["flow"]), esc(r["licence"])))
+                           esc(r["app"]), esc(r["flow"]),
+                           ("captured " + esc(r["captured"])) if r.get("captured") else esc(r.get("licence", ""))))
     return chr(10).join(out)
+
+
+def wall_chips() -> str:
+    """Filter chips with the count each one actually holds."""
+    rows = _wall_rows()
+    if not rows:
+        return ""
+    from collections import Counter
+    counts = Counter(wall_tag(r.get("flow", "")) for r in rows)
+    out = ['<button class="chip is-active" type="button" data-filter="all">All <span>%d</span></button>' % len(rows)]
+    for key, label in WALL_TAGS:
+        n = counts.get(key, 0)
+        if n:
+            out.append('<button class="chip" type="button" data-filter="%s">%s <span>%d</span></button>'
+                       % (key, label, n))
+    return chr(10).join(out)
+
+
+# The hero's floating library. Each slot is (left %, top %, width px, rotate deg,
+# opacity, blur px, float x, float y, duration s, delay ms). Two of the tiles sit
+# behind the headline and are blurred on purpose: the type must stay the first read.
+HERO_SLOTS = [
+    (1.5,  24, 268,  -8, .95, 0, 14, -10, 15,    0),
+    (6.0,  62, 224,   5, .80, 0, -12, -14, 18, 700),
+    (-2.0,  8, 208,  11, .45, 2, 10,  12, 21, 1400),
+    (77.0, 22, 268,   7, .95, 0, -14, -8, 17, 300),
+    (70.5, 66, 228,  -6, .80, 0, 12, -12, 19, 950),
+    (86.0,  4, 200, -11, .42, 2, -10, 10, 22, 1600),
+    (19.0, 80, 188,  -4, .48, 1, 8, -10, 20, 450),
+    (64.0, 84, 188,   5, .48, 1, -8, -9, 23, 1100),
+    (30.0,  1, 168, -12, .28, 3, 6,  10, 24, 800),
+    (57.0,  2, 168,  12, .28, 3, -6, 10, 25, 1300),
+]
+
+
+def hero_tiles() -> str:
+    """Real screens tilted around the headline, as the hero's depth of field."""
+    rows = _wall_rows()
+    if not rows:
+        return ""
+    order = [0, 10, 4, 12, 8, 16, 2, 20, 6, 22, 14, 18]
+    esc = lambda v: htmllib.escape(str(v), quote=True)
+    out = []
+    for i, (x, y, w, r, o, b, fx, fy, dur, dl) in enumerate(HERO_SLOTS):
+        row = rows[order[i % len(order)] % len(rows)]
+        out.append(
+            '<div class="tile" aria-hidden="true" style="--x:%s%%;--y:%s%%;--w:%dpx;--r:%sdeg;'
+            '--o:%s;--b:%dpx;--fx:%dpx;--fy:%dpx;--dur:%ss;--dl:%dms;--d:%.2f">'
+            '<span class="tile__bar"><i></i><i></i><i></i></span>'
+            '<img src="%s" alt="" width="460" height="288" loading="eager" decoding="async">'
+            '</div>' % (x, y, w, r, o, b, fx, fy, dur, dl, w / 240.0, esc(row["file"])))
+    return chr(10).join(out)
+
+
+def wall_count() -> str:
+    rows = _wall_rows()
+    apps = len({r.get("app") for r in rows})
+    return "%d screens &middot; %d products" % (len(rows), apps)
+
 
 
 def tokens(page: str) -> dict:
@@ -263,6 +366,9 @@ def tokens(page: str) -> dict:
         "COMPONENTS": components_mosaic(),
         "PROOF_HERO": proof_hero(),
         "WALL": screen_wall(),
+        "WALL_CHIPS": wall_chips(),
+        "WALL_COUNT": wall_count(),
+        "HERO_TILES": hero_tiles(),
         "PROOF_GALLERY": proof_gallery(),
     }
 

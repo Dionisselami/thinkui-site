@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "thinkui",
+      "type": "archive",
+      "description": "Use when a UI decision needs evidence from real products instead of invention.",
+      "url": "/.well-known/agent-skills/thinkui/a0667348a42a781fd1f7a24d832208717e67074ce4917662460330dce978f282/thinkui.zip",
+      "digest": "sha256:a0667348a42a781fd1f7a24d832208717e67074ce4917662460330dce978f282"
+    }
+  ]
+}

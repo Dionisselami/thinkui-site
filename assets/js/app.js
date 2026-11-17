@@ -108,10 +108,160 @@
     row.innerHTML += row.innerHTML;
   }
 
+  /* ---------------------------------------------------------------- motion */
+  function reduceMotion() {
+    return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }
+
+  /* Reveals. [data-reveal] is only hidden once .js is on <html> (see site.css), so a
+     browser without JS — or an error above this line — leaves the page visible.
+     A scroll check rather than an IntersectionObserver, because a jump (anchor, End,
+     find-in-page) never intersects the sections it skips and they would stay blank.
+     Anything whose top has reached the viewport is revealed, including everything
+     above it. */
+  function initReveal() {
+    var items = [].slice.call(doc.querySelectorAll("[data-reveal]"));
+    if (!items.length) { return; }
+    if (reduceMotion()) {
+      items.forEach(function (el) { el.classList.add("in"); });
+      return;
+    }
+    var check = function () {
+      var h = window.innerHeight || 800;
+      items = items.filter(function (el) {
+        if (el.getBoundingClientRect().top < h * 0.94) {
+          el.classList.add("in");
+          return false;
+        }
+        return true;
+      });
+      if (!items.length) {
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onScroll);
+      }
+    };
+    var ticking = false;
+    var onScroll = function () {
+      if (ticking) { return; }
+      ticking = true;
+      window.requestAnimationFrame(function () { ticking = false; check(); });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    check();
+    window.setTimeout(check, 350);
+  }
+
+  /* The proof numerals count up once, when the strip is first seen. The final value is
+     already in the markup: this replaces a correct number with the same number, moving. */
+  function initCounters() {
+    var nums = [].slice.call(doc.querySelectorAll("[data-count]"));
+    if (!nums.length || reduceMotion() || !("IntersectionObserver" in window)) { return; }
+    var fmt = function (n) { return n.toLocaleString("en-US"); };
+    var run = function (el) {
+      var target = parseInt(el.getAttribute("data-count"), 10) || 0;
+      var start = null, dur = 1100;
+      var step = function (ts) {
+        if (start === null) { start = ts; }
+        var p = Math.min(1, (ts - start) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(Math.round(target * eased));
+        if (p < 1) { window.requestAnimationFrame(step); } else { el.textContent = fmt(target); }
+      };
+      window.requestAnimationFrame(step);
+    };
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { run(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.35 });
+    nums.forEach(function (el) { io.observe(el); });
+  }
+
+  /* A very small parallax in the hero: the pointer moves and the room shifts behind
+     the type. Two custom properties, one rAF per frame, nothing on a touch screen. */
+  function initHeroPointer() {
+    var hero = doc.querySelector(".hero");
+    var stage = doc.querySelector(".hero__stage");
+    if (!hero || !stage || reduceMotion()) { return; }
+    if (window.matchMedia && window.matchMedia("(hover: none)").matches) { return; }
+    var raf = 0, tx = 0, ty = 0;
+    hero.addEventListener("pointermove", function (ev) {
+      var r = hero.getBoundingClientRect();
+      tx = ((ev.clientX - r.left) / r.width - 0.5) * 18;
+      ty = ((ev.clientY - r.top) / r.height - 0.5) * 12;
+      if (raf) { return; }
+      raf = window.requestAnimationFrame(function () {
+        raf = 0;
+        stage.style.setProperty("--mx", tx.toFixed(1) + "px");
+        stage.style.setProperty("--my", ty.toFixed(1) + "px");
+      });
+    });
+    hero.addEventListener("pointerleave", function () {
+      stage.style.setProperty("--mx", "0px");
+      stage.style.setProperty("--my", "0px");
+    });
+  }
+
+  /* The library: chips filter the wall by the tag the build wrote on each card, and
+     "Show more" reveals the rest. Without JS every card is visible and the chips are
+     inert buttons — a smaller library on screen, never a hidden one. */
+  function initLibrary() {
+    var wall = doc.querySelector("[data-wall]");
+    if (!wall) { return; }
+    var cards = [].slice.call(wall.querySelectorAll(".wall__card"));
+    if (!cards.length) { return; }
+    var chips = [].slice.call(doc.querySelectorAll("[data-filter]"));
+    var countEl = doc.querySelector("[data-wall-count]");
+    var more = doc.querySelector("[data-more]");
+    var STEP = 16, shown = STEP, filter = "all";
+
+    function apply() {
+      var visible = 0;
+      cards.forEach(function (card) {
+        var tags = (card.getAttribute("data-tags") || "").split(/\s+/);
+        var match = filter === "all" || tags.indexOf(filter) !== -1;
+        var within = filter !== "all" || visible < shown;
+        var show = match && within;
+        card.classList.toggle("is-hidden", !show);
+        if (show) { visible += 1; }
+      });
+      if (countEl) {
+        countEl.innerHTML = filter === "all"
+          ? "Showing " + visible + " of " + cards.length + " screens"
+          : visible + " of " + cards.length + " screens";
+      }
+      if (more) {
+        var left = cards.length - visible;
+        more.hidden = filter !== "all" || left <= 0;
+        more.textContent = "Show " + Math.max(0, left) + " more";
+      }
+    }
+
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        filter = chip.getAttribute("data-filter");
+        shown = STEP;
+        chips.forEach(function (c) { c.classList.toggle("is-active", c === chip); });
+        apply();
+      });
+    });
+    if (more) {
+      more.addEventListener("click", function () { shown += cards.length; apply(); });
+    }
+    apply();
+  }
+
   function boot() {
-    initCopy();
-    initTicker();
-    initAuth();
+    /* Each feature guards itself: one failure must not stop the rest, and the reveals
+       arm first so content is never left hidden by a later error. */
+    try { initReveal(); } catch (e) { /* the CSS failsafe still shows everything */ }
+    try { initCounters(); } catch (e) { /* the final numbers are already in the markup */ }
+    try { initHeroPointer(); } catch (e) { /* decoration only */ }
+    try { initLibrary(); } catch (e) { /* without it every card stays visible */ }
+    try { initCopy(); } catch (e) { /* the code is selectable anyway */ }
+    try { initTicker(); } catch (e) { /* no ticker on this page */ }
+    try { initAuth(); } catch (e) { /* forms still post */ }
   }
 
   // The sign-in and sign-up forms post to the account service, which answers with a
