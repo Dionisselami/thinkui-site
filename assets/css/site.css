@@ -428,8 +428,8 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
 }
 .btn--light { background: var(--cream); border-color: transparent; color: var(--cream-ink); box-shadow: var(--glow); }
 .btn--light:hover { background: var(--cream-2); border-color: transparent; color: var(--cream-ink); translate: 0 -1px; }
-.btn--ghost { background: rgba(255, 255, 255, .03); border-color: var(--line-2); color: var(--text); }
-.btn--ghost:hover { background: rgba(255, 255, 255, .07); border-color: var(--line-3); }
+.btn--ghost { background: rgba(255, 255, 255, .03); border-color: rgba(255, 255, 255, .24); color: var(--text); }
+.btn--ghost:hover { background: rgba(255, 255, 255, .08); border-color: var(--line-3); }
 .btn--block { width: 100%; }
 .btn--lg { min-height: 50px; padding: 0 26px; font-size: 16px; }
 .btn--text { background: transparent; border-color: transparent; color: var(--text-soft); padding-inline: 10px; }
@@ -846,14 +846,14 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
   /* On a phone the tiles sit close to the copy, so the copy gets its own dark halo:
      the type keeps a clean field to read on without hiding the library entirely. */
   .hero__inner::before {
-    content: ""; position: absolute; inset: -32px -18px; z-index: -1;
-    background: radial-gradient(closest-side, rgba(20, 20, 20, .92), rgba(20, 20, 20, .55) 62%, transparent 100%);
+    content: ""; position: absolute; inset: -40px -24px; z-index: -1;
+    background: radial-gradient(closest-side, rgba(20, 20, 20, .97), rgba(20, 20, 20, .72) 66%, rgba(20, 20, 20, .18) 100%);
   }
   /* Keep two or three tiles at phone width, push the rest off. Anything still
      visible moves behind the copy and loses contrast. */
   .tile:nth-child(n+6) { display: none; }
   .tile { width: calc(var(--w, 240px) * .62); }
-  .hero__stage { opacity: .4; }
+  .hero__stage { opacity: .3; filter: saturate(.85) blur(1px); }
 }
 @media (max-width: 560px) {
   h2 { max-width: none; }
