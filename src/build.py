@@ -225,13 +225,11 @@ WALL_JSON = os.path.join(HERE, "_wall.json")
 # the question a visitor arrives with is "what does a paywall look like", not "what
 # did Trello ship". Order here is the order the chips appear in.
 WALL_TAGS = [
-    ("paywalls",   "Paywalls & pricing"),
-    ("onboarding", "Onboarding"),
-    ("search",     "Search & browse"),
-    ("settings",   "Settings & dialogs"),
-    ("empty",      "Empty states"),
-    ("dashboards", "Dashboards"),
-    ("landing",    "Landing pages"),
+    ("product",  "Product & work"),
+    ("devdata",  "Developer & data"),
+    ("life",     "Life & travel"),
+    ("commerce", "Commerce & marketing"),
+    ("ai",       "AI & design"),
 ]
 
 
@@ -243,19 +241,16 @@ def wall_tag(flow: str) -> str:
     The fallback is honest — a landing page is what is left.
     """
     f = (flow or "").lower()
-    if any(k in f for k in ("pricing", "plan", "trial", "subscription", "upgrade")):
-        return "paywalls"
-    if any(k in f for k in ("welcome", "onboard", "voice")):
-        return "onboarding"
-    if any(k in f for k in ("search", "browse")):
-        return "search"
-    if any(k in f for k in ("empty", "cart", "no results")):
-        return "empty"
-    if any(k in f for k in ("settings", "preferences", "profile", "notification")):
-        return "settings"
-    if any(k in f for k in ("dashboard", "metrics", "orders", "inbox")):
-        return "dashboards"
-    return "landing"
+    for key, words in (
+        ("product",  ("productivity", "project management", "notes", "collaboration", "hr", "finance")),
+        ("devdata",  ("developer", "infrastructure", "data & databases", "security", "analytics")),
+        ("commerce", ("commerce", "marketing", "cms")),
+        ("ai",       ("ai", "design tools", "media")),
+        ("life",     ("travel", "health", "social", "education", "other")),
+    ):
+        if any(w in f for w in words):
+            return key
+    return "life"
 
 
 def _wall_rows() -> list:
@@ -277,7 +272,7 @@ def screen_wall() -> str:
     esc = lambda v: htmllib.escape(str(v), quote=True)
     out = []
     for r in rows:
-        tag = wall_tag(r.get("flow", ""))
+        tag = r.get("tag") or wall_tag(r.get("flow", ""))
         out.append(
             '<figure class="wall__card" data-tags="%s">'
             '<img src="%s" alt="%s, %s screen" width="%d" height="%d" loading="lazy" decoding="async">'
@@ -295,13 +290,13 @@ def wall_chips() -> str:
     if not rows:
         return ""
     from collections import Counter
-    counts = Counter(wall_tag(r.get("flow", "")) for r in rows)
+    counts = Counter(r.get("tag") or wall_tag(r.get("flow", "")) for r in rows)
     out = ['<button class="chip is-active" type="button" data-filter="all">All <span>%d</span></button>' % len(rows)]
-    for key, label in WALL_TAGS:
-        n = counts.get(key, 0)
+    labels = dict(WALL_TAGS)
+    for key, n in counts.most_common():
         if n:
             out.append('<button class="chip" type="button" data-filter="%s">%s <span>%d</span></button>'
-                       % (key, label, n))
+                       % (key, labels.get(key, key.title()), n))
     return chr(10).join(out)
 
 
@@ -309,10 +304,10 @@ def wall_chips() -> str:
 # opacity, blur px, float x, float y, duration s, delay ms). Two of the tiles sit
 # behind the headline and are blurred on purpose: the type must stay the first read.
 HERO_SLOTS = [
-    (1.5,  24, 268,  -8, .95, 0, 14, -10, 15,    0),
+    (1.5,  24, 268,  -8, .82, 0, 14, -10, 15,    0),
     (6.0,  62, 224,   5, .80, 0, -12, -14, 18, 700),
     (-2.0,  8, 208,  11, .45, 2, 10,  12, 21, 1400),
-    (77.0, 22, 268,   7, .95, 0, -14, -8, 17, 300),
+    (77.0, 22, 268,   7, .78, 0, -14, -8, 17, 300),
     (70.5, 66, 228,  -6, .80, 0, 12, -12, 19, 950),
     (86.0,  4, 200, -11, .42, 2, -10, 10, 22, 1600),
     (19.0, 80, 188,  -4, .48, 1, 8, -10, 20, 450),
@@ -348,11 +343,51 @@ def wall_count() -> str:
 
 
 
+def _corpus_stats():
+    """The local corpus, if it is importable at build time (else None)."""
+    mcp_dir = os.environ.get("THINKUI_MCP_DIR") or os.path.join(
+        os.path.dirname(os.path.dirname(HERE)), "appvault-mcp")
+    try:
+        if mcp_dir not in sys.path:
+            sys.path.insert(0, mcp_dir)
+        import corpus as thinkui_corpus  # noqa: PLC0415
+        return thinkui_corpus.get_corpus().stats()
+    except Exception as exc:  # noqa: BLE001 — the site must build without the corpus
+        print("[build] corpus unavailable (%s: %s)" % (type(exc).__name__, exc))
+        return None
+
+
+def corpus_stats_text() -> str:
+    """Quote the server's own corpus_stats(), generated so the page cannot go stale.
+
+    The examples page used to carry a hand-pasted sample from when the corpus held
+    650 references; by the time it was 1,639 that page was teaching readers a number
+    the server would contradict. Import the server, call the tool, wrap for width.
+    """
+    import textwrap
+    mcp_dir = os.environ.get("THINKUI_MCP_DIR") or os.path.join(
+        os.path.dirname(os.path.dirname(HERE)), "appvault-mcp")
+    try:
+        if mcp_dir not in sys.path:
+            sys.path.insert(0, mcp_dir)
+        import server as thinkui_server  # noqa: PLC0415 — optional build-time dependency
+        text = thinkui_server.corpus_stats()
+    except Exception as exc:  # noqa: BLE001 — the site must still build without the corpus
+        print("[build] corpus_stats() unavailable (%s: %s)" % (type(exc).__name__, exc))
+        return "corpus_stats() — run it against your ThinkUI key for live counts."
+    return "\n".join(textwrap.wrap(" ".join(text.split()), 78))
+
+
 def tokens(page: str) -> dict:
+    stats = _corpus_stats() or {}
+    refs = stats.get("references")
     return {
         "SITE_URL": SITE_URL.rstrip("/"),
         "YEAR": str(dt.date.today().year),
         "CONTACT_EMAIL": CONTACT_EMAIL,
+        "CORPUS_STATS": corpus_stats_text(),
+        "REFERENCE_COUNT": format(refs, ",") if refs else "thousands of",
+        "REFERENCE_COUNT_NUM": str(refs) if refs else "0",
         "CANONICAL": "%s/%s" % (SITE_URL.rstrip("/"), ""
                                 if page == "index.html"
                                 else (page[:-5] if page.endswith(".html") and page != "404.html"

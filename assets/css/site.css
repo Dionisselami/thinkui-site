@@ -600,6 +600,7 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
 .wall__card.is-hidden { display: none; }
 .wall__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s4); margin-top: var(--s5); }
 .wall__foot .btn[hidden] { display: none; }
+.wall__note { margin-top: var(--s5); max-width: 74ch; font-size: 13px; color: var(--text-mute); }
 
 /* ------------------------------------------------------------- 10 pricing */
 .pricing { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); align-items: stretch; }

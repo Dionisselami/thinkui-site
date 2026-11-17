@@ -119,8 +119,8 @@
       <div class="wall__head">
         <p class="eyebrow">In the library</p>
         <h2>The interfaces your agent has only ever guessed at.</h2>
-        <p class="lede">Screens captured from live products, each named after the product and
-          the moment it was taken. The server returns the same provenance with every answer.</p>
+        <p class="lede">Screens captured from live products, each named after the product it came
+          from and the day it was captured. The server returns the same provenance with every answer.</p>
       </div>
       <div class="chips" role="group" aria-label="Filter screens by kind">
 {{WALL_CHIPS}}
@@ -135,6 +135,10 @@
       <p class="price-line"><b>From $9.99/mo</b>
         <span>&middot;</span> cancel in one click <span>&middot;</span> works with any MCP client</p>
     </div>
+    <div class="wrap">
+      <p class="small wall__note">Every screen is a capture of a live product and remains that
+        product's property. The server returns the source with every result.</p>
+    </div>
   </section>
 
   <!-- ========================================================== proof -->
@@ -145,7 +149,7 @@
         <div><b class="mono" data-count="262">262</b><span>products covered</span></div>
         <div><b class="mono" data-count="3802">3,802</b><span>ready-made components</span></div>
         <div><b class="mono" data-count="1698">1,698</b><span>animated icons</span></div>
-        <div><b class="mono" data-count="650">650</b><span>written design references</span></div>
+        <div><b class="mono" data-count="{{REFERENCE_COUNT_NUM}}">{{REFERENCE_COUNT}}</b><span>written design references</span></div>
         <div><b class="mono" data-count="118">118</b><span>fonts, icon sets and systems</span></div>
       </div>
       <p class="small" style="margin-top:18px;--rd:80ms" data-reveal>
