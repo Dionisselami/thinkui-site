@@ -1,0 +1,54 @@
+{
+ "elements": [
+  {
+   "query": "primary button",
+   "name": "new dog 56",
+   "category": "Buttons",
+   "label": "Button",
+   "licence": "MIT \u2014 https://github.com/uiverse-io/galaxy/blob/main/LICENSE",
+   "page": "https://uiverse.io/ArturCodeCraft/new-dog-56",
+   "code": "<button class=\"primary-button\">\n  Primary button\n</button>\n<style>\n/* From Uiverse.io by ArturCodeCraft - Tags: button, hover, btn, hover effect, hoverme, hover button, diia, Primary button */\n/* <reset-style> ============================ */\nbutton {\n  border: none;\n  background: none;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  font-family: inherit;\n}\n/* <main-style> ============================ */\n.primary-button {\n  min-width: 111px;\n  height: 56px;\n  border-radius: 40px;\n  background: #000;\n  padding: 16px 40px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  color: #fff;\n  font-size: 16px;\n  font-weight: 400;\n  line-height: 1.5;\n  letter-spacing: -0.32px;\n  transition: background .2s ease-in-out, color .2s ease-in-out;\n  position: relative;\n}\n\n.primary-button::before {\n  content: '';\n  width: 100%;\n  height: 100%;\n  border-radius: 40px;\n  background: linear-gradient(69deg, #c3aab2 -4.77%, #9ec 46.72%, #80c0c8 90.23%, #4B8bfa 134.46%);\n  position: absolute;\n  top: 0;\n  left: 0;\n  opacity: 0;\n  z-index: -1;\n  transition: opacity .2s ease-in-out;\n}\n\n.primary-button:hover {\n  background: transparent;\n  color: #000;\n}\n\n.primary-button:hover::before {\n  opacity: 1;\n}\n</style>\n\nPaste the markup and the <style> block together \u2014 the component is self-contained. Credit the named author and note the MIT licence."
+  },
+  {
+   "query": "text input",
+   "name": "mean wolverine 8",
+   "category": "Inputs",
+   "label": "Input",
+   "licence": "MIT \u2014 https://github.com/uiverse-io/galaxy/blob/main/LICENSE",
+   "page": "https://uiverse.io/SanthoshSJ-Dev/mean-wolverine-8",
+   "code": "<div class=\"input-wrapper\">\n  <input class=\"input-box\" type=\"text\" placeholder=\"Enter your text\">\n  <span class=\"underline\"></span>\n</div>\n\n<style>\n/* From Uiverse.io by SanthoshSJ-Dev - Tags: simple, material design, input, animated, line, text */\n.input-wrapper {\n  position: relative;\n  width: 200px;\n  margin: 50px auto;\n}\n\n.input-box {\n  font-size: 16px;\n  padding: 10px 0;\n  border: none;\n  border-bottom: 2px solid #ccc;\n  color: #08AEEA;\n  width: 100%;\n  background-color: transparent;\n  transition: border-color 0.3s ease-in-out;\n}\n\n.underline {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 2px;\n  background-color: #08AEEA;\n  transform: scaleX(0);\n  transition: transform 0.3s ease-in-out;\n}\n\n.input-box:focus {\n  border-color: #08AEEA;\n  outline: none;\n}\n\n.input-box:focus + .underline {\n  transform: scaleX(1);\n}\n\n</style>\n\nPaste the markup and the <style> block together \u2014 the component is self-contained. Credit the named author and note the MIT licence."
+  },
+  {
+   "query": "checkbox",
+   "name": "tame owl 66",
+   "category": "Checkboxes",
+   "label": "Checkbox",
+   "licence": "MIT \u2014 https://github.com/uiverse-io/galaxy/blob/main/LICENSE",
+   "page": "https://uiverse.io/KhaledMatalkah/tame-owl-66",
+   "code": "<label class=\"custom-checkbox\">\n  <input name=\"dummy\" type=\"checkbox\">\n  <span class=\"checkmark\"></span>\n</label>\n\n<style>\n/* From Uiverse.io by KhaledMatalkah - Tags: checkbox, flip, transition, cool checkbox */\n.custom-checkbox {\n  display: inline-flex;\n  align-items: center;\n  cursor: pointer;\n  user-select: none;\n  font-size: 16px;\n  color: #333;\n  transition: color 0.3s;\n}\n\n.custom-checkbox input[type=\"checkbox\"] {\n  display: none;\n}\n\n.custom-checkbox .checkmark {\n  width: 24px;\n  height: 24px;\n  border: 2px solid #333;\n  border-radius: 4px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 10px;\n  transition: background-color 0.3s, border-color 0.3s, transform 0.3s;\n  transform-style: preserve-3d;\n}\n\n.custom-checkbox .checkmark::before {\n  content: \"\\2713\";\n  font-size: 16px;\n  color: transparent;\n  transition: color 0.3s, transform 0.3s;\n}\n\n.custom-checkbox input[type=\"checkbox\"]:checked + .checkmark {\n  background-color: #333;\n  border-color: #333;\n  transform: scale(1.1) rotateZ(360deg) rotateY(360deg);\n}\n\n.custom-checkbox input[type=\"checkbox\"]:checked + .checkmark::before {\n  color: #fff;\n}\n\n.custom-checkbox:hover {\n  color: #666;\n}\n\n.custom-checkbox:hover .checkmark {\n  border-color: #666;\n  background-color: #f0f0f0;\n  transform: scale(1.05);\n}\n\n.custom-checkbox input[type=\"checkbox\"]:focus + .checkmark {\n  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);\n  outline: none;\n}\n\n.custom-checkbox .checkmark,\n.custom-checkbox input[type=\"checkbox\"]:checked + .checkmark {\n  transition: background-color 1.3s, border-color 1.3s, color 1.3s, transform 0.3s;\n}\n\n</style>\n\nPaste the markup and the <style> block together \u2014 the component is self-contained. Credit the named author and note the MIT licence."
+  }
+ ],
+ "icons": [
+  {
+   "query": "loading spinner",
+   "name": "loading",
+   "set": "EOS Icons \u00b7 eos-icons",
+   "licence": "MIT \u2014 https://gitlab.com/SUSE-UIUX/eos-icons/-/blob/master/LICENSE",
+   "svg": "<svg> markup:\n   <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z\" opacity=\".5\"/><path fill=\"currentColor\" d=\"M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z\"><animateTransform attributeName=\"transform\" dur=\"1s\" from=\"0 12 12\" repeatCount=\"indefinite\" to=\"360 12 12\" type=\"rotate\"/></path></svg>"
+  },
+  {
+   "query": "heart",
+   "name": "heart",
+   "set": "Material Line Icons \u00b7 line-md",
+   "licence": "MIT \u2014 https://github.com/cyberalien/line-md/blob/main/license.txt",
+   "svg": "<svg> markup:\n   <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><path fill=\"none\" stroke=\"currentColor\" stroke-dasharray=\"30\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 8c0 0 0 0 -0.76 -1c-0.88 -1.16 -2.18 -2 -3.74 -2c-2.49 0 -4.5 2.01 -4.5 4.5c0 0.93 0.28 1.79 0.76 2.5c0.81 1.21 8.24 9 8.24 9M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9\"><animate fill=\"freeze\" attributeName=\"stroke-dashoffset\" dur=\"0.6s\" values=\"30;0\"/></path></svg>"
+  },
+  {
+   "query": "menu",
+   "name": "menu",
+   "set": "Material Line Icons \u00b7 line-md",
+   "licence": "MIT \u2014 https://github.com/cyberalien/line-md/blob/main/license.txt",
+   "svg": "<svg> markup:\n   <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\"><g fill=\"none\" stroke=\"currentColor\" stroke-dasharray=\"16\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M5 5h14\"><animate fill=\"freeze\" attributeName=\"stroke-dashoffset\" dur=\"0.3s\" values=\"16;0\"/></path><path stroke-dashoffset=\"16\" d=\"M5 12h14\"><animate fill=\"freeze\" attributeName=\"stroke-dashoffset\" begin=\"0.3s\" dur=\"0.3s\" to=\"0\"/></path><path stroke-dashoffset=\"16\" d=\"M5 19h14\"><animate fill=\"freeze\" attributeName=\"stroke-dashoffset\" begin=\"0.6s\" dur=\"0.3s\" to=\"0\"/></path></g></svg>"
+  }
+ ]
+}

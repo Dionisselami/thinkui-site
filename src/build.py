@@ -20,6 +20,7 @@ import datetime as dt
 import hashlib
 import html
 import json
+import html as htmllib
 import os
 import re
 import subprocess
@@ -97,6 +98,87 @@ ICONS = """<link rel="icon" href="assets/img/favicon.ico" sizes="any">
 <meta name="apple-mobile-web-app-title" content="ThinkUI">"""
 
 
+COMPONENTS_JSON = os.path.join(HERE, "_components.json")
+
+
+def _solo(code: str) -> str:
+    """Keep one element and the CSS that dresses it.
+
+    A snippet from the corpus often carries a row of demo variants ("Paste the markup
+    and the…") after the component itself. Shrunk into a 260px frame those extra
+    siblings show up as clipped fragments, which reads as a broken page rather than a
+    component. One element plus every style block is what the caption claims.
+    """
+    styles = re.findall(r"<style.*?</style>", code, re.S)
+    body = re.sub(r"<style.*?</style>", "", code, flags=re.S)
+    m = re.match(r"\s*(<([a-zA-Z][\w-]*)[^>]*>.*?</>)", body, re.S)
+    return ("".join(styles) + (m.group(1) if m else body)).strip()
+
+
+def _zoom(code: str) -> float:
+    """A component written for a full-width demo section has to be shrunk to sit in a
+    260px frame; clipping it looks broken, and a third of a button is worse than a
+    small one."""
+    n = len(code)
+    if n >= 2400:
+        return 0.5
+    if n >= 1500:
+        return 0.62
+    if n >= 900:
+        return 0.75
+    return 1.0
+
+
+def components_mosaic() -> str:
+    """The product's own output, rendered on the page instead of described.
+
+    Each element arrives with global CSS (`button { ... }`), so it cannot go into this
+    document: one component's reset would restyle every button on the site. srcdoc plus
+    sandbox gives each one its own document - which is also exactly how a buyer should
+    isolate a paste.
+
+    Captions use the CATEGORY, not the element's own name. The corpus names are
+    generated handles ("new dog 56", "wicked bear 73") and on a sales page they read as
+    placeholder test data.
+    """
+    try:
+        data = json.load(open(COMPONENTS_JSON, encoding="utf-8"))
+    except Exception:
+        return ""
+    esc = lambda v: htmllib.escape(str(v), quote=True)
+    cells = []
+    # Only compact, self-contained categories: a full card or a toggle with display
+    # type cannot be shown at phone scale in a fixed frame without looking broken.
+    keep = set()   # see note: demo snippets, not clean controls
+    shown = [e for e in data.get("elements", [])
+             if e.get("category") in keep][:1]
+    for el in shown:
+        doc = ('<!doctype html><meta charset="utf-8"><style>'
+               'html,body{height:100%;margin:0;display:grid;place-items:center;'
+               'padding:12px;font-family:system-ui,-apple-system,sans-serif;'
+               'background:transparent;color:#1a1613}*{box-sizing:border-box}</style>'
+               + ('<div style="zoom:%.2f">' % _zoom(el.get("code", ""))) + re.sub(r"<script.*?</script>", "", el["code"], flags=re.S) + "</div>")
+        names = {"Buttons": "Button", "Toggle-switches": "Toggle", "loaders": "Loader",
+                 "Inputs": "Input", "Cards": "Card", "Checkboxes": "Checkbox",
+                 "Tooltips": "Tooltip"}
+        label = names.get(el["category"], (el["category"] or el["name"]).replace("-", " "))
+        cells.append(
+            '<figure class="mosaic__cell">'
+            '<iframe class="mosaic__frame" title="%s, rendered from the server" '
+            'scrolling="no" srcdoc="%s"></iframe>'
+            '<figcaption class="mosaic__cap">%s <span>MIT</span></figcaption>'
+            '</figure>' % (esc(label), esc(doc), esc(label)))
+
+    icons = data.get("icons", [])[:3]
+    if icons:
+        cells.append(
+            '<div class="mosaic__cell">'
+            '<div class="mosaic__icons">%s</div>'
+            '<div class="mosaic__cap">Icon <span>MIT</span></div>'
+            '</div>' % "".join(i["svg"] for i in icons))
+    return chr(10).join(cells)
+
+
 def tokens(page: str) -> dict:
     return {
         "SITE_URL": SITE_URL.rstrip("/"),
@@ -112,6 +194,7 @@ def tokens(page: str) -> dict:
         "ICONS": ICONS.replace("__THEME__", identity()["ink"]),
         "LOGO": inline_logo("logo.svg", "lg-nav"),
         "LOGO_INVERSE": inline_logo("logo-inverse.svg", "lg-foot"),
+        "COMPONENTS": components_mosaic(),
     }
 
 
