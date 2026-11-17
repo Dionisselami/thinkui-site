@@ -93,43 +93,41 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero__inner">
-        <div>
-          <p class="hero__note">Hosted MCP server &middot; one URL to connect</p>
-          <h1 class="display">UI references for your coding agent.</h1>
-          <p class="lede">
-            Your agent asks how a paywall frames a trial, or how an empty state asks for the next
-            step, and gets the screens and components other products actually shipped — each with
-            the project it came from and the licence it carries.
-          </p>
-          <div class="hero__actions">
-            <a class="btn btn--primary btn--lg" href="signup.html">
-              Get access
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
-            </a>
-            <a class="link-arrow" href="docs.html">
-              Read the quickstart
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
-            </a>
-          </div>
-          <p class="price-line"><b>From $9.99/mo</b> <span>&middot;</span> cancel in one click
-            <span>&middot;</span> Google or GitHub sign-in</p>
-          <div class="hero__meta">
-            <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Works with any MCP client</span>
-            <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Five tools, one config block</span>
-            <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Your code stays put - only the question is sent</span>
-          </div>
-        </div>
-
-        <div class="hero__plate">
-          <p class="hero__note">Returned by the server &middot; MIT</p>
-          <div class="mosaic">
-{{COMPONENTS}}
-          </div>
-          <p class="mosaic__note">Three of 1,698 animated icons, drawn live from markup the server
-            returned — self-contained SVG, MIT.
-            <a class="link-arrow" href="examples.html">See the raw output</a></p>
+        <p class="hero__note">Hosted MCP server &middot; one URL to connect</p>
+        <h1 class="display">UI references for your coding agent.</h1>
+        <p class="lede">
+          Ask how a paywall frames a trial; get the screens other products shipped, with the
+          project and the licence attached.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary btn--lg" href="signup.html">
+            Get access
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+          </a>
+          <a class="link-arrow" href="examples.html">
+            See what the tools return
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+          </a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ========================================================== library -->
+  <section class="wall-section">
+    <div class="wrap">
+      <div class="wall__head">
+        <p class="eyebrow">In the library</p>
+        <p class="small">Screens from open-source products, each credited with the licence it
+          carries. The server returns the same attribution with every answer.</p>
+      </div>
+    </div>
+    <div class="wall">
+{{WALL}}
+    </div>
+    <div class="wrap">
+      <p class="price-line" style="margin-top:var(--s4)"><b>From $9.99/mo</b>
+        <span>&middot;</span> cancel in one click <span>&middot;</span> Google or GitHub sign-in
+        <span>&middot;</span> works with any MCP client</p>
     </div>
   </section>
 
@@ -278,6 +276,8 @@
       </div>
     </div>
   </section>
+
+  
 
   <!-- ======================================================= pricing -->
   <section class="section--soft" id="pricing">

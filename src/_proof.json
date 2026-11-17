@@ -1,0 +1,46 @@
+[
+ {
+  "app": "Actual Budget",
+  "title": "dashboard",
+  "caption": "wide/landscape screen (1000x700) \u00b7 components: cta button \u00b7 palette 6, mostly #141520 (dark) at 38%",
+  "licence": "MIT",
+  "credit": "Actual Budget \u2014 Actual Budget (dark)",
+  "source": "https://github.com/actualbudget/actual/blob/HEAD/LICENSE.txt",
+  "file": "assets/img/proof/actual-budget.jpg",
+  "w": 1000,
+  "h": 700
+ },
+ {
+  "app": "Supabase Studio",
+  "title": "table",
+  "caption": "wide/landscape screen (1860x970) \u00b7 components: cta button \u00b7 palette 6, mostly #101010 (dark) at 57%",
+  "licence": "MIT",
+  "credit": "Supabase \u2014 Supabase Studio",
+  "source": "https://github.com/supabase/supabase/blob/HEAD/LICENSE",
+  "file": "assets/img/proof/supabase-studio.jpg",
+  "w": 1000,
+  "h": 522
+ },
+ {
+  "app": "tabler",
+  "title": "web",
+  "caption": "web interface from tabler/tabler, MIT \u00b7 2880x2088",
+  "licence": "MIT",
+  "credit": "tabler/tabler (MIT)",
+  "source": "https://github.com/tabler/tabler/blob/HEAD/LICENSE",
+  "file": "assets/img/proof/tabler.jpg",
+  "w": 1000,
+  "h": 725
+ },
+ {
+  "app": "vue-element-admin",
+  "title": "web",
+  "caption": "web interface from PanJiaChen/vue-element-admin, MIT \u00b7 1857x905",
+  "licence": "MIT",
+  "credit": "PanJiaChen/vue-element-admin (MIT)",
+  "source": "https://github.com/PanJiaChen/vue-element-admin/blob/HEAD/LICENSE",
+  "file": "assets/img/proof/vue-element-admin.jpg",
+  "w": 1000,
+  "h": 487
+ }
+]

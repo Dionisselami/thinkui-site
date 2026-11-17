@@ -179,6 +179,72 @@ def components_mosaic() -> str:
     return chr(10).join(cells)
 
 
+PROOF_JSON = os.path.join(HERE, "_proof.json")
+
+
+def _proof() -> list:
+    try:
+        return json.load(open(PROOF_JSON, encoding="utf-8"))
+    except Exception:
+        return []
+
+
+def _shot(r: dict, big: bool = False) -> str:
+    esc = lambda v: htmllib.escape(str(v), quote=True)
+    cap = r.get("caption") or ""
+    lic = r.get("licence") or "see source"
+    return (
+        '<figure class="shot%s">'
+        '<img src="%s" alt="%s interface, %s" width="%d" height="%d" loading="%s" decoding="async">'
+        '<figcaption class="shot__cap">'
+        '<span class="shot__app">%s</span>'
+        '<span class="shot__meta">%s%s &middot; %s</span>'
+        '</figcaption></figure>' % (
+            " shot--big" if big else "",
+            esc(r["file"]), esc(r["app"]), esc(r["title"]), r.get("w", 1000), r.get("h", 600),
+            "eager" if big else "lazy",
+            esc(r["app"]), esc(r["title"]), "", esc(lic)))
+
+
+def proof_hero() -> str:
+    """The first thing a buyer sees should be the thing being sold: a real screen,
+    with the project it came from and the licence it carries."""
+    rows = _proof()
+    return _shot(rows[0], big=True) if rows else ""
+
+
+def proof_gallery() -> str:
+    rows = _proof()[1:]
+    return chr(10).join(_shot(r) for r in rows)
+
+
+WALL_JSON = os.path.join(HERE, "_wall.json")
+
+
+def screen_wall() -> str:
+    """The library itself, as the first thing you see.
+
+    A product whose value is visual should not open with a paragraph about itself.
+    Every card is a real screen from the corpus, credited with the app it came from
+    and the licence it carries - the same thing the server returns.
+    """
+    try:
+        rows = json.load(open(WALL_JSON, encoding="utf-8"))
+    except Exception:
+        return ""
+    esc = lambda v: htmllib.escape(str(v), quote=True)
+    out = []
+    for r in rows:
+        out.append(
+            '<figure class="wall__card">'
+            '<img src="%s" alt="%s, %s screen" width="%d" height="%d" loading="lazy" decoding="async">'
+            '<figcaption class="wall__meta"><b>%s</b><span>%s &middot; %s</span></figcaption>'
+            '</figure>' % (esc(r["file"]), esc(r["app"]), esc(r["flow"]),
+                           r.get("w", 460), r.get("h", 900),
+                           esc(r["app"]), esc(r["flow"]), esc(r["licence"])))
+    return chr(10).join(out)
+
+
 def tokens(page: str) -> dict:
     return {
         "SITE_URL": SITE_URL.rstrip("/"),
@@ -195,6 +261,9 @@ def tokens(page: str) -> dict:
         "LOGO": inline_logo("logo.svg", "lg-nav"),
         "LOGO_INVERSE": inline_logo("logo-inverse.svg", "lg-foot"),
         "COMPONENTS": components_mosaic(),
+        "PROOF_HERO": proof_hero(),
+        "WALL": screen_wall(),
+        "PROOF_GALLERY": proof_gallery(),
     }
 
 
