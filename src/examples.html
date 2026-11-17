@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ICONS}}
+<title>What the ThinkUI tools actually return</title>
+<meta name="description" content="Four real MCP responses quoted verbatim: a cited reference, a component's own markup, an animated icon's SVG, and the corpus counts.">
+<link rel="canonical" href="{{CANONICAL}}">
+<meta name="robots" content="{{ROBOTS}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="What the ThinkUI tools actually return">
+<meta property="og:description" content="Four real MCP responses quoted verbatim, with the licences and source pages attached to each.">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="{{SITE_URL}}/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What the ThinkUI tools actually return">
+<meta name="twitter:description" content="Four real MCP responses quoted verbatim, with the licences and source pages attached to each.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+{{>nav}}
+<main id="main">
+
+  <div class="wrap">
+    <div class="doc-head">
+      <p class="eyebrow">Examples</p>
+      <h1>What comes back.</h1>
+      <p class="lede">Four calls to the live server, printed as they arrived. Where a block is cut
+        short it says so and says what was removed. Every result names the project it came from and
+        the licence it carries.</p>
+      <p class="updated">Captured from https://thinkui.xyz/mcp</p>
+    </div>
+
+    <div class="prose">
+
+      <h2>1. A reference, with its reasoning</h2>
+      <p>The question you would otherwise answer by opening ten apps. This is the whole first result;
+        the second one is named below it.</p>
+
+      <div class="code">
+        <div class="code__bar"><span class="name">find_ui_references(query="how a paywall frames its free trial")</span></div>
+        <pre>2 references for 'how a paywall frames its free trial'
+
+1. Paywall — across apps
+   paywall · paywall · iOS
+   A paywall screen interrupts the user's natural flow to present the app's
+   monetization model. Across apps, it consistently uses a benefit-first
+   narrative, a visual comparison of free vs. paid tiers, a prominent CTA in
+   the app's accent color, and legally-required microcopy about auto-renewal.
+   Most paywalls are modal overlays (bottom sheets on iOS, dialogs on Android)
+   with a dismiss option, and they deploy urgency cues such as trial countdowns
+   or limited-time offer badges to reduce abandonment.
+   Patterns: conversion, subscription, monetization, upsell, trial, gating,
+   tiered-pricing
+
+2. Miro — Productivity
+   productivity · productivity · iOS
+   …</pre>
+        <div class="code__note">Trimmed: the second result's body, and nothing else. Note what the
+          second hit is — a productivity app, not a paywall. The tool returns its nearest match and
+          names it, rather than pretending every hit is a good one.</div>
+      </div>
+
+      <p>Two things to notice. The first result is a <em>flow</em>, not a screenshot: it is indexed by
+        the decision it demonstrates. And the second result is a weak match that the ranking still
+        surfaced — so you can discount it, but you are not told a lie by omission.</p>
+
+      <h2>2. A component, in its own markup</h2>
+      <p>find_ui_elements answers in two steps on purpose: the first call is cheap and returns ranked
+        digests, then you ask for the one you chose and get its source. This is both steps.</p>
+
+      <div class="code">
+        <div class="code__bar"><span class="name">find_ui_elements(query="primary button")</span></div>
+        <pre>1 UI element for 'primary button'
+
+1. new dog 56  [Buttons]
+   From Uiverse.io by ArturCodeCraft
+   Behaviour: transitions on hover or focus
+   Touches CSS: align-items, background, border, border-radius, color,
+   content, cursor, display, font-family, font-size
+   Tags: button, hover, btn, hover effect, hoverme, hover button, diia,
+   primary button
+   Licence: MIT — https://github.com/uiverse-io/galaxy/blob/main/LICENSE
+   Page: https://uiverse.io/ArturCodeCraft/new-dog-56
+   Markup: 1219 bytes, not attached — call again with
+   slug='ArturCodeCraft_new-dog-56' and include_source=true</pre>
+      </div>
+
+      <div class="code">
+        <div class="code__bar"><span class="name">find_ui_elements(query="primary button", slug="ArturCodeCraft_new-dog-56", include_source=true)</span></div>
+        <pre>1. new dog 56  [Buttons]
+   Licence: MIT — https://github.com/uiverse-io/galaxy/blob/main/LICENSE
+   Code:
+   &lt;button class="primary-button"&gt;
+  Primary button
+&lt;/button&gt;
+&lt;style&gt;
+/* From Uiverse.io by ArturCodeCraft - Tags: button, hover, btn, diia */
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-family: inherit;
+  …
+</pre>
+        <div class="code__note">Markup and stylesheet cut after the reset block; the rest is the
+          component's own rules. 1,219 bytes, MIT, paste it and it works.</div>
+      </div>
+
+      <h2>3. An icon that actually animates</h2>
+      <p>No icon font, no JavaScript runtime, no install. The animation is inside the SVG.</p>
+
+      <div class="code">
+        <div class="code__bar"><span class="name">find_animated_icons(query="loading spinner")</span></div>
+        <pre>3 animated icons for 'loading spinner'
+
+1. loading  [EOS Icons · eos-icons]
+   Depicts: loading
+   Motion: animates transform · duration 1s · loops indefinitely
+   Licence: MIT — https://gitlab.com/SUSE-UIUX/eos-icons/-/blob/master/LICENSE
+   Source: https://icon-sets.iconify.design/eos-icons/loading/
+   Size: 418 bytes, self-contained (no CSS or JS needed)
+
+   &lt;svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+        viewBox="0 0 24 24"&gt;&lt;path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10
+        0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z" opacity=".5"/&gt;&lt;path
+        fill="currentColor" d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z"&gt;&lt;animateTransform
+        attributeName="transform" dur="1s" from="0 12 12" repeatCount="indefinite"
+        to="360 12 12" type="rotate"/&gt;&lt;/path&gt;&lt;/svg&gt;</pre>
+        <div class="code__note">Wrapped for width; the markup is one line and 418 bytes.</div>
+      </div>
+
+      <h2>4. What is in there</h2>
+      <p>Ask the server rather than trusting a landing page — including this one.</p>
+
+      <div class="code">
+        <div class="code__bar"><span class="name">corpus_stats()</span></div>
+        <pre>650 references across 63 flows and 79 categories; 118 materials;
+1698 animated icons across 6 sets (real SVG assets, MIT);
+3802 ready-made UI elements (HTML+CSS, MIT);
+1483 screenshots across 262 products — 417 permissively licensed,
+1066 shown as research and comparison references, 15 schematic renders
+kept as structure records but never attached.
+Reference kinds: component=10, flow=262, screen=378.</pre>
+        <div class="code__note">Wrapped for width. Nothing removed.</div>
+      </div>
+
+      <h2>What this is not</h2>
+      <p>These are evidence, not templates. The server tells your agent as much on every call: use one
+        to settle the decision it answers, then design for the product in hand. Copying a reference's
+        layout is both a licence problem and a bad idea — the point is the reasoning, not the pixels.</p>
+      <p>Ready to call it yourself? <a href="docs.html">Connect your client</a> or
+        <a href="pricing.html">see the plans</a>.</p>
+
+    </div>
+  </div>
+
+</main>
+{{>footer}}
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

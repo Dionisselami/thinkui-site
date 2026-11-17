@@ -24,8 +24,9 @@ step "2/4 ship pages and assets"
 cd "$REPO"
 # no _redirects: that file was for Cloudflare Pages, and the old corpus addresses are
 # 301s in the vhost now
-tar czf - index.html pricing.html docs.html login.html signup.html terms.html \
-         privacy.html 404.html sitemap.xml robots.txt site.webmanifest assets \
+# Every page the build wrote, not a hand-maintained list: a page added to PAGES in
+# build.py and forgotten here ships a 404 - which is exactly what happened to /examples.
+tar czf - *.html sitemap.xml robots.txt site.webmanifest assets \
   | ssh "$HOST" "sudo tar xzf - -C $SITE_DIR && sudo chown -R www-data:www-data $SITE_DIR"
 
 step "3/4 vhost"

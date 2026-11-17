@@ -44,6 +44,7 @@ PAGES = [
     ("index.html",    "ThinkUI — UI references for your coding agent, over MCP",       True),
     ("pricing.html",  "Pricing — ThinkUI MCP server",                                  True),
     ("docs.html",     "Quickstart — connecting the ThinkUI MCP server",                True),
+    ("examples.html", "What the ThinkUI tools actually return — real MCP responses",   True),
     ("login.html",    "Sign in — ThinkUI",                                             False),
     ("signup.html",   "Create your account — ThinkUI",                                 False),
     ("404.html",      "Page not found — ThinkUI",                                      False),
@@ -399,7 +400,7 @@ def build_og():
     d.line([(84, 520), (W - 84, 520)], fill=(255, 255, 255, 40), width=1)
     d.text((84, 552), urllib.parse.urlparse(SITE_URL).netloc,
            font=font(24, "B"), fill=(255, 255, 255, 220))
-    d.text((W - 424, 552), "Runs locally over stdio · Any MCP client",
+    d.text((W - 424, 552), "Hosted · one URL · any MCP client",
            font=font(22), fill=hx(ident["on_ink_soft"]) + (255,))
 
     out = os.path.join(SITE, "assets", "img", "og.png")

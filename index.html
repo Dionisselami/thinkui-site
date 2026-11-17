@@ -31,7 +31,7 @@
 <meta name="twitter:image" content="https://thinkui.xyz/assets/img/og.png">
 
 <link rel="preload" href="assets/fonts/bricolage-grotesque-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=fe126e4b03">
+<link rel="stylesheet" href="assets/css/site.css?v=1f6af0a9a2">
 
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -66,7 +66,7 @@
           "name": "Starter",
           "price": "9.99",
           "priceCurrency": "USD",
-          "description": "Unlimited tool calls and commercial use."
+          "description": "Unlimited tool calls on a paid plan. Components and icons are MIT; each screenshot keeps its own licence and many are study-only."
         },
         {
           "@type": "Offer",
@@ -116,7 +116,7 @@
           "name": "What happens when it does not know something?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It returns nothing and tells you what it does hold. Ask for a navigation bar or a page footer and you get an empty result with the categories that exist, rather than the nearest component that happens to share a word with your question."
+            "text": "find_ui_elements returns no component and lists the categories that do exist. find_ui_references returns its nearest match and shows why it matched, so a weak hit is visible as a weak hit instead of passing for an answer."
           }
         },
         {
@@ -124,7 +124,7 @@
           "name": "Can I use what it returns in commercial work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes on a paid plan. Every result the server returns identifies where it came from, so your own records stay in order when you ship."
+            "text": "Components, icons and materials are MIT and yours to ship. Screenshots are mixed: 417 of 1,483 are permissively licensed and the rest are study-only, marked do not ship in the result that returns them. Every result names its source and its licence, so you can tell which is which before you use it."
           }
         },
         {
@@ -132,7 +132,7 @@
           "name": "How do I cancel?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "From your account page, in one click. Cancelling stops the next charge; your key keeps working until the end of the period you already paid for."
+            "text": "From the billing portal in your account. Cancelling stops the next charge and your key keeps working until the end of the period you paid for. Partial periods are not refunded; if the server returns nothing useful in your first week, write to us and we refund that month."
           }
         }
       ]
@@ -146,17 +146,20 @@
 <header class="header">
   <div class="wrap header__inner">
     <a class="brand" href="/"><svg class="brand__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.99 26.00" width="90.99" height="26.00" role="img" aria-label="ThinkUI"><defs><linearGradient id="lg-nav-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d4431d"/><stop offset="1" stop-color="#a52f11"/></linearGradient><linearGradient id="lg-nav-s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".2"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><title>ThinkUI</title><g transform="translate(0 0) scale(0.406250)"><rect width="64" height="64" rx="15" fill="url(#lg-nav-g)"/><rect width="64" height="64" rx="15" fill="url(#lg-nav-s)"/><rect x="1" y="1" width="62" height="62" rx="14.2" fill="none" stroke="#ffffff" stroke-opacity=".16" stroke-width="1.2"/><rect x="14.00" y="17.00" width="36.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="28.75" width="26.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="40.50" width="16.00" height="6.50" rx="3.25" fill="#ffffff"/></g><g transform="translate(34.6771 19.0938) scale(0.016785)"><path fill="#0c0c0d" d="M211.8086954727769 0.0V-660.0H338.81083170324564V0.0ZM19.23781331628561 -552.4268827885389V-660.0H531.9055335558951V-552.4268827885389ZM594.9040309377015 0.0V-310.4764055609703L594.7611767016351 -705.9766075499356H722.1680050827563V-548.643482029438Q722.1680050827563 -528.072092693299 720.5846535842866 -503.8219989594072Q719.0013020858169 -479.57190522551537 715.7512635756284 -453.7384411022067Q712.5012250654399 -427.90497697889805 708.9178735669702 -401.8453623447567Q705.3345220685005 -375.7857477106154 701.2868826761842 -351.261990506202H719.5250345878303Q732.5725940540433 -411.5715317539871 754.858254570514 -452.66683451645076Q777.1439150869846 -493.76213727891445 812.584400722757 -514.881251744926Q848.0248863585293 -536.0003662109375 899.2155209481716 -536.0003662109375Q988.858471095562 -536.0003662109375 1033.0370788536966 -473.03601292334497Q1077.2156866118312 -410.07165963575244 1077.2156866118312 -282.3808782733977V0.0H950.2849774993956V-266.5472266897559Q950.2849774993956 -349.80858939513564 925.868528816849 -389.0226912740618Q901.4520801343024 -428.23679315298796 852.0476655513048 -428.23679315298796Q810.5480041541159 -428.23679315298796 782.3934827577323 -402.52265058271587Q754.2389613613486 -376.8085080124438 738.9534272737801 -331.7253309022635Q723.6678931862116 -286.64215379208326 721.0490344837308 -226.9755699597299V0.0ZM1180.1659168079495 0.0V-522.5241379514337H1306.3109203539789V0.0ZM1243.3574611134827 -598.7375895157456Q1204.8026305550416 -598.7375895157456 1184.6628959719876 -614.9010055632772Q1164.5231613889337 -631.0644216108087 1164.5231613889337 -662.1952872584786Q1164.5231613889337 -693.5981625848267 1184.757823819347 -709.847192980759Q1204.9924862497605 -726.0962233766913 1243.2645764331478 -726.0962233766913Q1282.3686685770435 -726.0962233766913 1302.5778446543804 -709.7984037846327Q1322.7870207317173 -693.500584192574 1322.7870207317173 -662.1734107714911Q1322.7870207317173 -631.3695702401823 1302.515935204147 -615.053579877964Q1282.2448496765767 -598.7375895157456 1243.3574611134827 -598.7375895157456ZM1415.9040309377015 0.0V-309.9760102927685L1415.7611767016351 -522.5241379514337H1522.500778928399L1518.3106195405126 -349.16675386577845H1534.8344450481236Q1546.8581557534635 -412.4525262787938 1570.1200299970806 -453.8454539012164Q1593.3819042406976 -495.23838152363896 1630.3104974664748 -515.6193738672882Q1667.239090692252 -536.0003662109375 1718.024921234697 -536.0003662109375Q1806.8583969809115 -536.0003662109375 1852.5370417963713 -473.5122499037534Q1898.2156866118312 -411.0241335965693 1898.2156866118312 -280.9047822654247V0.0H1771.2849774993956V-268.1187192052603Q1771.2849774993956 -350.73730033263564 1746.8208843376487 -389.3680042102933Q1722.356791175902 -427.99870808795094 1673.4047502800822 -427.99870808795094Q1631.5241713784635 -427.99870808795094 1602.5720905158669 -401.4275207519531Q1573.6200096532702 -374.8563334159553 1558.3582938089967 -328.7613525427878Q1543.096577964723 -282.6663716696203 1542.0490344837308 -223.02356394007802V0.0ZM2000.9040309377015 0.0V-706.5004272460938H2125.167992003262V-312.9293023981154Q2160.3105861134827 -332.78642927110195 2191.357862200588 -358.0958455428481Q2222.4051382876933 -383.40526181459427 2248.107184998691 -411.54800052009523Q2273.809231709689 -439.6907392255962 2292.868523729965 -468.1430736742914Q2311.9278157502413 -496.59540812298656 2323.165881924331 -522.6669921875H2468.144465852529Q2453.239904489368 -484.61931355670094 2428.109157010913 -446.86929103173316Q2402.9784095324576 -409.11926850676537 2369.0142437089235 -376.60735720582306Q2335.0500778853893 -344.09544590488076 2292.669025234878 -320.2859061099589Q2250.287972584367 -296.476366315037 2201.287554062903 -286.3096531443298V-272.8095703125Q2262.9785911887884 -281.5241146981716 2304.85972231254 -267.90520222857594Q2346.740853436291 -254.28628975898027 2374.5740908570588 -225.8458956759423Q2402.4073282778263 -197.40550159290433 2420.9427344836295 -159.79840741865337Q2439.4781406894326 -122.19131324440241 2454.2158290296793 -82.2628551647067L2480.001268658787 0.0H2341.7609470896423L2326.142258413136 -54.929042272269726Q2310.1190025620162 -102.7621227428317 2291.0480775292963 -139.4761635903269Q2271.9771524965763 -176.1902044378221 2242.084684090689 -197.16624378040433Q2212.1922156848013 -218.14228312298656 2162.7161821611226 -218.21371024101973L2125.167992003262 -218.2851373590529V0.0ZM2823.3807750865817 13.547655377537012Q2765.856756299734 13.547655377537012 2720.1066407691687 1.4761912021785975Q2674.3565252386034 -10.595272973179817 2640.2612399142236 -33.76199050247669Q2606.1659545898438 -56.92870803177357 2583.6183151975274 -89.89304896816611Q2561.070675805211 -122.85738990455866 2549.7135431207716 -164.7621845062822Q2538.356410436332 -206.66697910800576 2538.356410436332 -256.40508015826344V-660.0H2665.358546666801V-261.3813374824822Q2665.358546666801 -207.47691417485476 2682.929800853133 -171.42960103042424Q2700.5010550394654 -135.38228788599372 2735.464984714985 -117.56106857955456Q2770.4289143905044 -99.7398492731154 2822.8569553904235 -99.7398492731154Q2876.618309378624 -99.7398492731154 2911.415582560003 -117.4658392034471Q2946.2128557413816 -135.1918291337788 2963.6174534335732 -171.29865155555308Q2981.022051125765 -207.40547397732735 2981.022051125765 -261.3813374824822V-660.0H3107.4289405420423V-256.40508015826344Q3107.4289405420423 -127.71446155384183 3035.5717213917524 -57.08340308815241Q2963.7145022414625 13.547655377537012 2823.3807750865817 13.547655377537012ZM3226.4040018729866 0.0V-660.0H3354.9299577996135V0.0Z"/></g></svg></a>
-    <nav class="nav" aria-label="Main">
-      <a href="/#how">How it works</a>
+    <nav class="nav" aria-label="Main" id="site-nav">
+      <a href="/examples">Examples</a>
       <a href="/docs">Docs</a>
       <a href="/pricing">Pricing</a>
-      <a href="/#faq">FAQ</a>
+      <a href="/#how">How it works</a>
+      <!-- Inside the nav on purpose: on a phone the sheet IS the nav, so the actions have
+           to travel with it. As a header sibling they wrapped inside a 64px bar and pushed
+           "Sign in" off the top edge at 320px. -->
+      <div class="nav__cta">
+        <a class="btn btn--text" href="/login">Sign in</a>
+        <a class="btn btn--primary" href="/signup">Get access</a>
+      </div>
     </nav>
-    <div class="nav__cta">
-      <a class="btn btn--text" href="/login">Sign in</a>
-      <a class="btn btn--primary" href="/signup">Get access</a>
-    </div>
-    <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span></button>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><span></span></button>
   </div>
 </header>
 
@@ -168,12 +171,11 @@
       <div class="hero__inner">
         <div>
           <p class="hero__note">Hosted MCP server &middot; one URL to connect</p>
-          <h1 class="display">Interfaces your agent can use.</h1>
+          <h1 class="display">UI references for your coding agent.</h1>
           <p class="lede">
-            ThinkUI plugs into the coding agent you already use and answers design questions with
-            evidence: the screen, the flow it belongs to, the component itself, the typeface. Every
-            result says where it came from, so you can keep building instead of second-guessing
-            the design.
+            Your agent asks how a paywall frames a trial, or how an empty state asks for the next
+            step, and gets the screens and components other products actually shipped — each with
+            the project it came from and the licence it carries.
           </p>
           <div class="hero__actions">
             <a class="btn btn--primary btn--lg" href="/signup">
@@ -185,62 +187,46 @@
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
             </a>
           </div>
+          <p class="price-line"><b>From $9.99/mo</b> <span>&middot;</span> cancel in one click
+            <span>&middot;</span> Google or GitHub sign-in</p>
           <div class="hero__meta">
             <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Works with any MCP client</span>
             <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Five tools, one config block</span>
-            <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Nothing about your code leaves your machine</span>
+            <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Your code stays put - only the question is sent</span>
           </div>
         </div>
 
         <div class="hero__plate">
-          <p class="hero__note">One call, one cited answer</p>
-          <div class="code">
-            <div class="code__bar">
-              <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="name">find_ui_references</span>
+          <p class="hero__note">A real call, verbatim</p>
+          <div class="plate">
+            <div class="plate__head">
+              <b>find_ui_references</b>
+              <span class="dot" aria-hidden="true"></span>
+              <span>2 references</span>
+              <span class="dot" aria-hidden="true"></span>
+              <span>iOS &middot; paywall</span>
             </div>
-            <pre aria-label="Example tool call and the answer it returns"><span class="c">// ask for the decision, not a keyword</span>
-<span class="k">find_ui_references</span>(
-  query=<span class="s">"paywall free-trial framing"</span>)
-
-<span class="c">1 reference</span>
-
-<span class="k">1. Paywall — across apps</span>
-   paywall · paywall · iOS
-   A paywall interrupts the user's
-   flow to present the monetization
-   model. Across apps it uses a
-   benefit-first narrative, a
-   free-vs-paid comparison, and
-   auto-renewal microcopy. Most are
-   modal overlays with a dismiss.
-   <span class="c">Patterns:</span> conversion, subscription,
-   monetization, upsell, trial, gating,
-   tiered-pricing</pre>
-            <div class="code__note">Real output, trimmed. The screenshot travels with the answer, with its licence and the page it came from.</div>
+            <div class="plate__body">
+              <p class="q">query: "how a paywall frames its free trial"</p>
+              <p><span class="ref">1. Paywall &mdash; across apps</span><br>
+                <span class="facet">paywall &middot; paywall &middot; iOS</span><br>
+                A paywall screen interrupts the user's natural flow to present the app's
+                monetization model. Across apps it uses a benefit-first narrative, a visual
+                comparison of free vs. paid tiers, a prominent CTA in the app's accent color,
+                and legally-required microcopy about auto-renewal.</p>
+              <p class="q">Patterns: conversion, subscription, monetization, upsell, trial,
+                gating, tiered-pricing</p>
+            </div>
+            <div class="plate__foot">
+              Verbatim from the live server, trimmed to the first of the two results it returned.
+              <b>Every result names its source</b>; screenshots travel with their licence, and not
+              every query comes back with one.
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- ========================================================= ticker -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker__row">
-      <span>find_ui_references</span><span>find_ui_elements</span><span>find_animated_icons</span>
-      <span>find_ui_materials</span><span>corpus_stats</span><span>onboarding flows</span>
-      <span>paywall patterns</span><span>empty states</span><span>settings screens</span>
-      <span>pricing tables</span><span>loaders</span><span>toggle switches</span>
-      <span>type scales</span><span>icon sets</span><span>design systems</span>
-      <!-- the row is repeated so the -50% travel lands exactly on the seam: one copy
-           scrolling out as the next scrolls in, with no jump at the end -->
-      <span>find_ui_references</span><span>find_ui_elements</span><span>find_animated_icons</span>
-      <span>find_ui_materials</span><span>corpus_stats</span><span>onboarding flows</span>
-      <span>paywall patterns</span><span>empty states</span><span>settings screens</span>
-      <span>pricing tables</span><span>loaders</span><span>toggle switches</span>
-      <span>type scales</span><span>icon sets</span><span>design systems</span>
-    </div>
-  </div>
 
   <!-- ========================================================== proof -->
   <section class="section--tight">
@@ -281,8 +267,9 @@
         <article class="card card--lift card--glow">
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h13"/></svg></div>
           <h3>Components you can paste</h3>
-          <p>Buttons, loaders, cards, forms, inputs, switches, tooltips and patterns, returned as the component's own
-            markup and stylesheet, not a description of one.</p>
+          <p>Buttons, loaders, cards, forms, inputs, switches and tooltips. The first call returns
+            ranked digests with size and licence; call again with the slug it gives you and the
+            component's own markup and stylesheet come back.</p>
           <div class="card__foot">find_ui_elements</div>
         </article>
 
@@ -304,9 +291,10 @@
 
         <article class="card card--lift card--glow">
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 4 3.5 19h17z"/><path d="M12 10v4M12 16.5v.5"/></svg></div>
-          <h3>It refuses when it should</h3>
-          <p>Asked for a navigation bar or a page footer, it returns nothing and tells you what it does hold. A confident
-            wrong answer costs more than no answer.</p>
+          <h3>It tells you when it has nothing</h3>
+          <p>Ask find_ui_elements for a navigation bar and you get no result plus the categories
+            that do exist. find_ui_references will return its nearest match instead - and show you
+            why it matched, so you can discount it.</p>
           <div class="card__foot">no invented results</div>
         </article>
 
@@ -390,7 +378,7 @@
   <section class="section--soft" id="pricing">
     <div class="wrap">
       <div class="head">
-        <h2>Same server, same tools. Pay for the volume you use.</h2>
+        <h2>Same server, same five tools on every plan.</h2>
         <p class="lede">Pick the plan that fits the work. Monthly plans change or cancel from your account at any time,
           and lifetime is a single payment.</p>
       </div>
@@ -399,11 +387,12 @@
         <article class="plan">
           <span class="plan__name">Starter</span>
           <p class="plan__price"><b>$9.99</b><span>per month</span></p>
-          <p class="plan__note">For trying it on a side project.</p>
+          <p class="plan__note">Everything the server does, for one project at a time.</p>
           <ul>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Unlimited tool calls</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>All five tools</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Components and icons</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>All five tools, every category</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>MIT components, icons and materials</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Email support</li>
           </ul>
           <a class="btn btn--block" href="/signup?plan=starter">Get Starter</a>
         </article>
@@ -412,12 +401,11 @@
           <span class="plan__tag">Most popular</span>
           <span class="plan__name">Pro</span>
           <p class="plan__price"><b>$19.99</b><span>per month</span></p>
-          <p class="plan__note">For work you are actually shipping.</p>
+          <p class="plan__note">For work you are shipping under a deadline.</p>
           <ul>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Unlimited tool calls</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Commercial use, including client work</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Screens returned as images</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Priority when new sources land</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Everything in Starter</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Priority support</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>New sources land for you first</li>
           </ul>
           <a class="btn btn--primary btn--block" href="/signup?plan=pro">Get Pro</a>
         </article>
@@ -425,11 +413,11 @@
         <article class="plan">
           <span class="plan__name">Lifetime</span>
           <p class="plan__price"><b>$190</b><span>once</span></p>
-          <p class="plan__note">One payment, permanent access.</p>
+          <p class="plan__note">One payment; access for as long as the service runs.</p>
           <ul>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Everything in Pro</li>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>No renewal, ever</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Commercial use</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Same terms as Pro</li>
           </ul>
           <a class="btn btn--block" href="/signup?plan=lifetime">Get Lifetime</a>
         </article>
@@ -472,23 +460,27 @@
         <details>
           <summary>What happens when it does not know something?</summary>
           <div class="answer">
-            <p>It returns nothing and tells you what it does hold. Ask for a navigation bar or a page footer and you get
-              an empty result with the categories that exist, rather than the nearest component that happens to share a
-              word with your question.</p>
+            <p>find_ui_elements returns no component and lists the categories that do exist.
+              find_ui_references returns its nearest match and shows why it matched, so a weak hit is
+              visible as a weak hit instead of passing for an answer.</p>
           </div>
         </details>
         <details>
           <summary>Can I use what it returns in commercial work?</summary>
           <div class="answer">
-            <p>Yes on a paid plan. Every result the server returns identifies where it came from, so your own records
-              stay in order when you ship.</p>
+            <p>Components, icons and materials are MIT and yours to ship. Screenshots are mixed:
+              417 of 1,483 are permissively licensed and the rest are study-only, marked
+              <em>do not ship</em> in the result that returns them. Every result names its source and
+              its licence, so you can tell which is which before you use it.</p>
           </div>
         </details>
         <details>
           <summary>How do I cancel?</summary>
           <div class="answer">
-            <p>From your account page, in one click. Cancelling stops the next charge; your key keeps working until the
-              end of the period you already paid for.</p>
+            <p>From the billing portal in your account. Cancelling stops the next charge and your
+              key keeps working until the end of the period you paid for. Partial periods are not
+              refunded; if the server returns nothing useful in your first week, write to us and we
+              refund that month.</p>
           </div>
         </details>
       </div>
@@ -497,8 +489,6 @@
 
   <!-- ======================================================= closing -->
   <section class="canvas closing">
-    <div class="veil" aria-hidden="true"></div>
-    <div class="grain" aria-hidden="true"></div>
     <div class="wrap">
       <h2 class="display">Stop describing interfaces to your agent. Show it some.</h2>
       <p class="lede">Connect ThinkUI and give it something real to work from.</p>
@@ -507,7 +497,7 @@
         <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
       </div>
       <p class="small" style="color:var(--on-ink-mute); margin-top:22px">
-        No free tier. Starter is $9.99 a month, Pro $19.99, or $190 once for lifetime access.
+        Starter is $9.99 a month, Pro $19.99, or $190 once for lifetime access.
       </p>
     </div>
   </section>
@@ -526,6 +516,7 @@
         <ul>
           <li><a href="/pricing">Pricing</a></li>
           <li><a href="/docs">Docs</a></li>
+          <li><a href="/examples">Examples</a></li>
           <li><a href="/#how">How it works</a></li>
           <li><a href="/#faq">FAQ</a></li>
         </ul>
@@ -535,6 +526,7 @@
         <ul>
           <li><a href="/login">Sign in</a></li>
           <li><a href="/signup">Create account</a></li>
+          <li><a href="/account">Account &amp; keys</a></li>
         </ul>
       </div>
       <div>

@@ -25,9 +25,18 @@ import xml.etree.ElementTree as ET
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(HERE)
 
+# Routes answered by the account service behind nginx, not by a file in this repo.
+# A link checker that only looks at the filesystem calls every one of these broken.
+SERVER_ROUTES = {"/account", "/api/", "/login", "/signup", "/mcp"}
+
+
+def is_server_route(ref: str) -> bool:
+    return any(ref == r or ref.startswith(r) for r in SERVER_ROUTES if r.endswith("/")) or ref in SERVER_ROUTES
+
+
 PAGES = [
     "index.html", "pricing.html", "docs.html", "login.html",
-    "signup.html", "404.html", "terms.html", "privacy.html",
+    "signup.html", "404.html", "terms.html", "privacy.html", "examples.html",
 ]
 
 # words that must not appear on the product surface
@@ -145,6 +154,8 @@ for page, refs in all_refs.items():
         target = os.path.normpath(os.path.join(SITE, r.split("?")[0].lstrip("/")))
         if not os.path.exists(target):
             # links are the clean URL form; the file behind /docs is docs.html
+            if is_server_route(r):
+                continue
             alt = target + ".html"
             if not os.path.exists(alt):
                 missing.append("%s -> %s" % (page, r))
