@@ -82,8 +82,8 @@
       <div class="head">
         <span class="eyebrow">Step 1</span>
         <h2>Get your key.</h2>
-        <p class="lede">Create an account, pick a plan, then copy the key from <a href="/account">your account page</a> (sign in with Google or GitHub). The key is the only credential you need,
-          and it goes in one place: the <span class="mono">Authorization</span> header of the server entry, written as
+        <p class="lede">Create an account, pick a plan, then copy the key from <a href="/account">your account page</a> (sign in with Google or GitHub). A key is one of two ways in: clients that can present OAuth connect with
+          a sign-in and a consent screen instead, and the key is what the rest use. Either way it goes in one place: the <span class="mono">Authorization</span> header of the server entry, written as
           <span class="mono">Bearer your-key</span>.</p>
       </div>
 
@@ -143,6 +143,35 @@
       </div>
 
       
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">OAuth</span>
+        <h2>Clients that sign in instead of pasting a key.</h2>
+        <p class="lede">ChatGPT connectors, Claude's web connectors and anything else that speaks
+          only OAuth can connect too. There is no key to copy: the client registers itself, sends
+          you through a consent screen, and receives a token for your account.</p>
+      </div>
+      <div class="grid grid--2" style="gap:26px; align-items:start">
+        <div class="card">
+          <h3 style="margin-bottom:14px">What happens</h3>
+          <p class="small">The client reads
+            <span class="mono">/.well-known/oauth-protected-resource</span>, registers itself at
+            <span class="mono">/oauth/register</span>, opens <span class="mono">/oauth/authorize</span>
+            where you sign in with Google or GitHub and approve one permission, then exchanges the
+            code for a token at <span class="mono">/oauth/token</span>. Authorization code with PKCE,
+            no client secret.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:14px">What it grants</h3>
+          <p class="small"><span class="mono">mcp:read</span> &mdash; read-only access to the same five
+            tools, counted against the plan on that account. Remove the connector to revoke it; the
+            token dies with the connection.</p>
+        </div>
+      </div>
     </div>
   </section>
 

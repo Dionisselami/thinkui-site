@@ -652,10 +652,14 @@ def build_llms():
 ## Connect
 
 - Endpoint: {url}/mcp (streamable HTTP)
-- Auth: `Authorization: Bearer <key>`. Create an account at {url}/signup and copy the
-  key from {url}/account. No OAuth, no local install, no package to add.
-- Clients: Claude Code, Claude Desktop, Cursor, VS Code with Copilot (agent mode),
-  Windsurf, Zed, Codex, and any client that supports remote MCP servers.
+- Auth: two ways. OAuth 2.1 for connectors that sign users in (ChatGPT, Claude web,
+  Cursor): discovery at {url}/.well-known/oauth-protected-resource, authorization
+  server at {url}/.well-known/oauth-authorization-server, dynamic client
+  registration, authorization code + PKCE. Or an API key sent as
+  `Authorization: Bearer <key>`, issued at {url}/account after signing up at {url}/signup.
+- Clients: ChatGPT connectors and Claude web connectors (OAuth), Claude Code, Claude
+  Desktop, Cursor, VS Code with Copilot (agent mode), Windsurf, Zed, Codex, and any
+  client that supports remote MCP servers.
 - Skill: `npx skills add {url} --skill thinkui -y` installs the companion SKILL.md
   that tells an agent when to call the tools.
 
@@ -746,7 +750,11 @@ def build_wellknown_mcp():
                         "components, fonts and animated icons."),
         "endpoint": url + "/mcp",
         "transport": "streamable-http",
-        "authentication": "api-key",
+        "authentication": "oauth2-or-api-key",
+        "oauth": {
+            "protected_resource_metadata": url + "/.well-known/oauth-protected-resource",
+            "authorization_server_metadata": url + "/.well-known/oauth-authorization-server",
+        },
         "website": url,
         "documentation": url + "/docs",
         "pricing": url + "/pricing",

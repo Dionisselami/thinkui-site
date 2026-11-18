@@ -8,10 +8,14 @@
 ## Connect
 
 - Endpoint: https://thinkui.xyz/mcp (streamable HTTP)
-- Auth: `Authorization: Bearer <key>`. Create an account at https://thinkui.xyz/signup and copy the
-  key from https://thinkui.xyz/account. No OAuth, no local install, no package to add.
-- Clients: Claude Code, Claude Desktop, Cursor, VS Code with Copilot (agent mode),
-  Windsurf, Zed, Codex, and any client that supports remote MCP servers.
+- Auth: two ways. OAuth 2.1 for connectors that sign users in (ChatGPT, Claude web,
+  Cursor): discovery at https://thinkui.xyz/.well-known/oauth-protected-resource, authorization
+  server at https://thinkui.xyz/.well-known/oauth-authorization-server, dynamic client
+  registration, authorization code + PKCE. Or an API key sent as
+  `Authorization: Bearer <key>`, issued at https://thinkui.xyz/account after signing up at https://thinkui.xyz/signup.
+- Clients: ChatGPT connectors and Claude web connectors (OAuth), Claude Code, Claude
+  Desktop, Cursor, VS Code with Copilot (agent mode), Windsurf, Zed, Codex, and any
+  client that supports remote MCP servers.
 - Skill: `npx skills add https://thinkui.xyz --skill thinkui -y` installs the companion SKILL.md
   that tells an agent when to call the tools.
 

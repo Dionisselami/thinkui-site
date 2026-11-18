@@ -3,7 +3,11 @@
   "description": "UI references for coding agents: real screens, flows, ready-made components, fonts and animated icons.",
   "endpoint": "https://thinkui.xyz/mcp",
   "transport": "streamable-http",
-  "authentication": "api-key",
+  "authentication": "oauth2-or-api-key",
+  "oauth": {
+    "protected_resource_metadata": "https://thinkui.xyz/.well-known/oauth-protected-resource",
+    "authorization_server_metadata": "https://thinkui.xyz/.well-known/oauth-authorization-server"
+  },
   "website": "https://thinkui.xyz",
   "documentation": "https://thinkui.xyz/docs",
   "pricing": "https://thinkui.xyz/pricing",
