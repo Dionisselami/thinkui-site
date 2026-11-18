@@ -13,3 +13,8 @@ venv/
 .DS_Store
 Thumbs.db
 *.log
+
+# scratch previews: root-level _*.html files are hand-made, not built pages, and the
+# deploy tars *.html — one of these shipped live at /_preview_account.html before
+# anybody noticed. Underscore means local-only.
+_*.html
