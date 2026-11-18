@@ -292,18 +292,6 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
 }
 .hero h1 { margin: 0 auto var(--s4); max-width: 21ch; }
 .hero .lede { margin: 0 auto; max-width: 54ch; }
-.hero__note {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 7px 14px; margin-bottom: var(--s5);
-  border: 1px solid var(--line-2); border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, .03);
-  font: 500 11px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase;
-  color: var(--text-soft);
-}
-.hero__note::before {
-  content: ""; width: 6px; height: 6px; border-radius: 50%; flex: none;
-  background: var(--cream); box-shadow: 0 0 0 3px rgba(240, 220, 200, .14);
-}
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--s3); margin-top: var(--s6); }
 .hero__micro {
   margin-top: var(--s5); font: 500 12px/1.6 var(--mono); letter-spacing: .08em;
