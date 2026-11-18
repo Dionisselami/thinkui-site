@@ -728,6 +728,36 @@ def build_indexnow():
     return INDEXNOW_KEY
 
 
+def build_wellknown_mcp():
+    """/.well-known/mcp.json — the proof-of-control file open directories look for.
+
+    mcpub.dev (and any directory that adopts the same check) refuses a submission
+    without it; the content itself is a descriptor, so make it a true one rather than
+    an empty object: an agent that reads it should get the endpoint, the transport and
+    where the documentation lives.
+    """
+    url = SITE_URL.rstrip("/")
+    doc = {
+        "name": "ThinkUI",
+        "description": ("UI references for coding agents: real screens, flows, ready-made "
+                        "components, fonts and animated icons."),
+        "endpoint": url + "/mcp",
+        "transport": "streamable-http",
+        "authentication": "api-key",
+        "website": url,
+        "documentation": url + "/docs",
+        "pricing": url + "/pricing",
+        "registry": "io.github.Dionisselami/thinkui",
+        "repository": "https://github.com/Dionisselami/thinkui",
+    }
+    path = os.path.join(SITE, ".well-known", "mcp.json")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
+        json.dump(doc, fh, indent=2)
+        fh.write("\n")
+    return path
+
+
 def build_og():
     """A 1200x630 social card, drawn rather than screenshotted so it stays crisp."""
     try:
@@ -846,6 +876,8 @@ def main():
     print("  robots.txt     written")
     print("  llms.txt       %d lines" % build_llms())
     print("  indexnow key   /%s.txt" % build_indexnow())
+    build_wellknown_mcp()
+    print("  well-known     /.well-known/mcp.json")
     build_og()
     return 0
 

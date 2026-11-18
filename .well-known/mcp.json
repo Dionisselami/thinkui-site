@@ -1,0 +1,12 @@
+{
+  "name": "ThinkUI",
+  "description": "UI references for coding agents: real screens, flows, ready-made components, fonts and animated icons.",
+  "endpoint": "https://thinkui.xyz/mcp",
+  "transport": "streamable-http",
+  "authentication": "api-key",
+  "website": "https://thinkui.xyz",
+  "documentation": "https://thinkui.xyz/docs",
+  "pricing": "https://thinkui.xyz/pricing",
+  "registry": "io.github.Dionisselami/thinkui",
+  "repository": "https://github.com/Dionisselami/thinkui"
+}
