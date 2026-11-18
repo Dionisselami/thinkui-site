@@ -331,7 +331,7 @@ def hero_tiles() -> str:
             '<div class="tile" aria-hidden="true" style="--x:%s%%;--y:%s%%;--w:%dpx;--r:%sdeg;'
             '--o:%s;--b:%dpx;--fx:%dpx;--fy:%dpx;--dur:%ss;--dl:%dms;--d:%.2f">'
             '<span class="tile__bar"><i></i><i></i><i></i></span>'
-            '<img src="%s" alt="" width="460" height="288" loading="eager" decoding="async">'
+            '<img src="%s" alt="" width="640" height="400" loading="eager" decoding="async">'
             '</div>' % (x, y, w, r, o, b, fx, fy, dur, dl, w / 240.0, esc(row["file"])))
     return chr(10).join(out)
 

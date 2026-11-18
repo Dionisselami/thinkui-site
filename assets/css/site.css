@@ -319,7 +319,7 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
 }
 .tile__bar { display: flex; align-items: center; gap: 4px; height: 20px; padding: 0 8px; background: rgba(255, 255, 255, .05); border-bottom: 1px solid rgba(255, 255, 255, .07); }
 .tile__bar i { width: 4px; height: 4px; border-radius: 50%; background: rgba(255, 255, 255, .24); display: block; }
-.tile img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; display: block; }
+.tile img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; display: block; }
 
 @keyframes drift {
   from { translate: calc(var(--px, 0px) + var(--mx, 0px) * var(--d, 1)) calc(var(--py, 0px) + var(--my, 0px) * var(--d, 1)); }
@@ -578,7 +578,11 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
   border-radius: var(--r-lg); overflow: hidden;
   transition: border-color var(--d-2) var(--ease), translate var(--d-2) var(--ease), box-shadow var(--d-2) var(--ease);
 }
-.wall__card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; display: block; transition: scale var(--d-3) var(--ease-out); }
+/* height:auto is load-bearing: the width/height attributes on the img are presentational
+   hints, so without it a 640x400 capture is laid out at its 400px attribute height inside
+   a ~320px card and object-fit:cover crops the sides off the page. The attribute stays for
+   layout stability; the CSS wins. */
+.wall__card img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; display: block; transition: scale var(--d-3) var(--ease-out); }
 .wall__card:hover { border-color: var(--line-2); translate: 0 -4px; box-shadow: var(--sh-card); }
 .wall__card:hover img { scale: 1.03; }
 .wall__meta { display: flex; flex-direction: column; gap: 3px; padding: 12px 14px; border-top: 1px solid var(--line); font-size: 11.5px; line-height: 1.35; color: var(--text-mute); }
