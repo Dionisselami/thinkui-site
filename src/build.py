@@ -96,11 +96,14 @@ def inline_logo(name: str, uid: str) -> str:
     return svg.replace("<svg ", '<svg class="brand__logo" ', 1)
 
 
-ICONS = """<link rel="icon" href="assets/img/favicon.ico" sizes="any">
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
-<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+# Icons live under assets/img/app-icons/ so a changed mark can ship at a new URL: these files
+# are served immutable for 30 days, and reusing the old paths kept the previous tile in
+# browsers and at the edge.
+ICONS = """<link rel="icon" href="assets/img/app-icons/favicon.ico" sizes="any">
+<link rel="icon" href="assets/img/app-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/app-icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/app-icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/img/app-icons/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="__THEME__">
 <meta name="apple-mobile-web-app-title" content="ThinkUI">"""
@@ -805,29 +808,28 @@ def build_og():
                 continue
         return ImageFont.load_default()
 
-    # the mark: same geometry as the SVG, scaled from the shared numbers
+    # The mark: a cream tile holding the cloud drawn by brand/build_mark.py. Same six
+    # lobes and one thought, so the social card and the favicon cannot disagree.
     tile, tx, ty = 52, 84, 76
-    k = tile / ident["grid"]
-    # the tile in the brand's own accent, deeper at the bottom: the same one-hue depth the
-    # logo has, drawn line by line because Pillow has no gradient
-    ta, tb = hx(ident["tile_a"]), hx(ident["tile_b"])
-    for i in range(tile):
-        t = i / float(tile - 1)
-        col = tuple(int(ta[c] + (tb[c] - ta[c]) * t) for c in range(3))
-        d.line([(tx, ty + i), (tx + tile, ty + i)], fill=col)
+    lobes = [(25, 28, 12.0), (39, 25, 9.0), (46, 33, 7.0), (38, 40, 9.0), (25, 40, 9.5), (33, 33, 10.5)]
+    dot = (12.2, 51.6, 4.6)
+    stretch = lambda cx: (cx - 32) * 1.1 + 32
+    left = min([stretch(cx) - r for cx, _, r in lobes] + [stretch(dot[0]) - dot[2]])
+    right = max([stretch(cx) + r for cx, _, r in lobes] + [stretch(dot[0]) + dot[2]])
+    top = min([cy - r for _, cy, r in lobes] + [dot[1] - dot[2]])
+    bot = max([cy + r for _, cy, r in lobes] + [dot[1] + dot[2]])
     d.rounded_rectangle([(tx, ty), (tx + tile, ty + tile)],
-                        radius=ident["tile_radius"] * k, outline=(255, 255, 255, 70), width=2)
-    stack_top = (ident["grid"] - ident["ink_h"]) / 2.0
-    gap = (ident["ink_h"] - 3 * ident["tile_t"]) / 2.0
-    y = ty + stack_top * k
-    for w in ident["bars"]:
-        bh = ident["tile_t"] * k
-        d.rounded_rectangle([(tx + ident["bar_x"] * k, y),
-                             (tx + (ident["bar_x"] + w) * k, y + bh)],
-                            radius=bh / 2.0, fill=(255, 255, 255, 240))
-        y += (ident["tile_t"] + gap) * k
-    d.text((152, 86), ident["word"], font=font(38, "B"), fill=(255, 255, 255, 245))
-    d.text((152, 128), "MCP server", font=font(20), fill=hx(ident["on_ink_soft"]) + (255,))
+                        radius=tile * 15 / 64, fill=hx("#f0dcc8") + (255,))
+    s = (tile * 0.76) / max(right - left, bot - top)
+    ox = tx + (tile - (right - left) * s) / 2 - left * s
+    oy = ty + (tile - (bot - top) * s) / 2 - top * s
+    ink = hx("#141414") + (255,)
+    for cx, cy, r in lobes + [dot]:
+        x = stretch(cx)
+        d.ellipse([(ox + (x - r) * s, oy + (cy - r) * s),
+                   (ox + (x + r) * s, oy + (cy + r) * s)], fill=ink)
+    d.text((162, 86), ident["word"], font=font(38, "B"), fill=(255, 255, 255, 245))
+    d.text((162, 128), "MCP server", font=font(20), fill=hx(ident["on_ink_soft"]) + (255,))
 
     # headline, wrapped
     head = "Interface references your agent can actually use."

@@ -26,6 +26,10 @@ from PIL import Image, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 IMG = os.path.abspath(os.path.join(HERE, "..", "assets", "img"))
+# Icons live in their own folder so a new mark ships at new URLs. nginx serves
+# .svg/.png with a 30-day immutable cache; reusing favicon.svg meant the old tile
+# stayed in browsers and at the edge for a month after the mark changed.
+ICONS = os.path.join(IMG, "app-icons")
 
 GRID = 64
 # The silhouette, before the 1.1x horizontal stretch that was chosen as "Wide".
@@ -44,8 +48,8 @@ ON_DARK = "#faf9f7"
 # The wordmark is the existing drawing, not re-typed: same path, same baseline, so the
 # lockup keeps the letterforms the brand already shipped.
 WORD_PATH = None
-WORD_X, WORD_Y, WORD_SCALE = 38.0, 19.0938, 0.016785
-LOCK_W = 94.31
+WORD_X, WORD_Y, WORD_SCALE = 40.0, 19.0938, 0.016785
+LOCK_W = 96.31
 LOCK_H = 26.0
 
 
@@ -89,7 +93,7 @@ def extents(dot=DOT):
 def block_svg(mark_fill: str = INK, tile: str = CREAM) -> str:
     """The app icon: a cream tile with the mark inset to a ~10% safe area."""
     x0, y0, x1, y1 = extents(DOT_ICON)
-    s = (GRID * 0.80) / max(x1 - x0, y1 - y0)
+    s = (GRID * 0.76) / max(x1 - x0, y1 - y0)
     tx = (GRID - (x1 - x0) * s) / 2 - x0 * s
     ty = (GRID - (y1 - y0) * s) / 2 - y0 * s
     body = mark_svg(mark_fill, f"translate({tx:.2f} {ty:.2f}) scale({s:.5f})", DOT_ICON)
@@ -103,9 +107,11 @@ def block_svg(mark_fill: str = INK, tile: str = CREAM) -> str:
 
 
 def lockup_svg(mark_fill: str, word_fill: str) -> str:
-    s = LOCK_H / 43.0
+    # 24 of the 26 units, one unit down: the mark's trailing thought pulls its optical
+    # centre low, so matching the cap height exactly makes it look oversized.
+    s = 24.0 / 43.0
     tx = -6.45 * s
-    ty = -13.0 * s
+    ty = 1.0 - 13.0 * s
     mark = mark_svg(mark_fill, f"translate({tx:.3f} {ty:.3f}) scale({s:.5f})")
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {LOCK_W} {LOCK_H}" '
@@ -125,7 +131,7 @@ def raster(size: int, tile: str | None, mark_fill: str, ss: int = 8) -> Image.Im
     dot = DOT_ICON if tile else DOT
     x0, y0, x1, y1 = extents(dot)
     if tile:
-        s = (S * 0.80) / max(x1 - x0, y1 - y0)
+        s = (S * 0.76) / max(x1 - x0, y1 - y0)
         off_x = (S - (x1 - x0) * s) / 2 - x0 * s
         off_y = (S - (y1 - y0) * s) / 2 - y0 * s
     else:
@@ -164,25 +170,26 @@ def write_ico(path: str, sizes=(16, 32, 48, 64)) -> None:
 
 def main() -> None:
     os.makedirs(IMG, exist_ok=True)
+    os.makedirs(ICONS, exist_ok=True)
     files = {
         "mark.svg": (
             f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" '
             f'role="img" aria-label="ThinkUI"><title>ThinkUI</title>{mark_svg("currentColor")}</svg>'
         ),
         "mark-block.svg": block_svg(),
-        "favicon.svg": block_svg(),
         "logo.svg": lockup_svg(LIGHT_INK, LIGHT_INK),
         "logo-inverse.svg": lockup_svg(CREAM, ON_DARK),
     }
     for name, text in files.items():
         open(os.path.join(IMG, name), "w", encoding="utf-8").write(text)
+    open(os.path.join(ICONS, "favicon.svg"), "w", encoding="utf-8").write(block_svg())
 
     for size in (16, 32, 48, 64, 128, 256, 512):
-        raster(size, CREAM, INK).save(os.path.join(IMG, "favicon-%d.png" % size), "PNG", optimize=True)
+        raster(size, CREAM, INK).save(os.path.join(ICONS, "favicon-%d.png" % size), "PNG", optimize=True)
     # Apple applies its own mask: full-bleed, opaque, no pre-rounded corners.
-    raster(180, CREAM, INK).convert("RGB").save(os.path.join(IMG, "apple-touch-icon.png"), "PNG", optimize=True)
-    write_ico(os.path.join(IMG, "favicon.ico"))
-    print("wrote mark, block, favicon, lockups, PNGs and .ico into", IMG)
+    raster(180, CREAM, INK).convert("RGB").save(os.path.join(ICONS, "apple-touch-icon.png"), "PNG", optimize=True)
+    write_ico(os.path.join(ICONS, "favicon.ico"))
+    print("wrote mark and lockups into", IMG, "and icons into", ICONS)
 
 
 if __name__ == "__main__":
