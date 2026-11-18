@@ -51,6 +51,14 @@ PAGES = [
     ("404.html",      "Page not found — ThinkUI",                                      False),
     ("terms.html",    "Terms of service — ThinkUI",                                    True),
     ("privacy.html",  "Privacy — ThinkUI",                                             True),
+    # Discovery cluster: one page per query a buyer actually types. Each links back to
+    # /pricing, /docs and to its siblings, and the footer links all of them from every
+    # page, so a crawler that has already indexed the homepage reaches them on its next
+    # visit instead of waiting for them to be found by accident.
+    ("mcp-server-for-ui-design.html",  "MCP server for UI design: real screens in your agent",  True),
+    ("claude-code-ui-design.html",     "Claude Code UI design: real references over MCP",       True),
+    ("cursor-ui-design.html",          "Cursor UI design: give the agent real screens",         True),
+    ("figma-mcp-alternative.html",     "Figma MCP alternative: references beyond your files",   True),
 ]
 
 # pages that must never be indexed (auth surfaces) vs. the 404 (noindex too)
@@ -381,11 +389,15 @@ def corpus_stats_text() -> str:
 def tokens(page: str) -> dict:
     stats = _corpus_stats() or {}
     refs = stats.get("references")
+    brief = "real products"
+    if stats.get("flows") and stats.get("categories"):
+        brief = "%s flows and %s categories" % (stats["flows"], stats["categories"])
     return {
         "SITE_URL": SITE_URL.rstrip("/"),
         "YEAR": str(dt.date.today().year),
         "CONTACT_EMAIL": CONTACT_EMAIL,
         "CORPUS_STATS": corpus_stats_text(),
+        "CORPUS_STATS_BRIEF": brief,
         "REFERENCE_COUNT": format(refs, ",") if refs else "thousands of",
         "REFERENCE_COUNT_NUM": str(refs) if refs else "0",
         "CANONICAL": "%s/%s" % (SITE_URL.rstrip("/"), ""
@@ -576,7 +588,10 @@ def build_sitemap():
             continue
         loc = url + "/" if page == "index.html" else "%s/%s" % (
             url, page[:-5] if page.endswith(".html") else page)
-        priority = "1.0" if page == "index.html" else ("0.9" if page == "pricing.html" else "0.8")
+        priority = "1.0" if page == "index.html" else (
+            "0.9" if page in ("pricing.html", "mcp-server-for-ui-design.html",
+                              "claude-code-ui-design.html", "cursor-ui-design.html",
+                              "figma-mcp-alternative.html") else "0.8")
         rows.append("  <url>\n    <loc>%s</loc>\n    <lastmod>%s</lastmod>\n"
                     "    <changefreq>weekly</changefreq>\n    <priority>%s</priority>\n  </url>"
                     % (loc, last_change(os.path.join(HERE, page)), priority))
@@ -599,6 +614,118 @@ def build_robots():
            "Sitemap: %s/sitemap.xml\n" % url)
     open(os.path.join(SITE, "robots.txt"), "w", encoding="utf-8").write(txt)
     return txt.count("Sitemap:")
+
+
+def build_llms():
+    """llms.txt — the briefing an assistant quotes verbatim.
+
+    Not a ranking factor, but it is read by answer engines, so every line has to be
+    something we would stand behind on the pricing page. The counts come from the
+    corpus at build time rather than being typed here, and the price table carries the
+    same numbers checkout charges. Sweep this file in the same commit as any price or
+    plan change.
+    """
+    url = SITE_URL.rstrip("/")
+    s = _corpus_stats() or {}
+    def n(k):
+        v = s.get(k)
+        return format(v, ",") if isinstance(v, int) else "a growing library of"
+    refs = n("references")
+    imgs = n("images")
+    lic = n("images_licensed")
+    els = n("ui_elements")
+    icons = n("animated_icons")
+    mats = n("materials")
+    flows = n("flows")
+    cats = n("categories")
+
+    text = """# ThinkUI
+
+> ThinkUI is a hosted MCP (Model Context Protocol) server that gives coding agents
+> interface references from real, shipped products: screens, flows, ready-made
+> components, animated icons and typefaces. It is evidence for design decisions, not
+> a component library to copy.
+
+## Connect
+
+- Endpoint: {url}/mcp (streamable HTTP)
+- Auth: `Authorization: Bearer <key>`. Create an account at {url}/signup and copy the
+  key from {url}/account. No OAuth, no local install, no package to add.
+- Clients: Claude Code, Claude Desktop, Cursor, VS Code with Copilot (agent mode),
+  Windsurf, Zed, Codex, and any client that supports remote MCP servers.
+- Skill: `npx skills add {url} --skill thinkui -y` installs the companion SKILL.md
+  that tells an agent when to call the tools.
+
+## Tools
+
+| tool | answers | returns |
+|---|---|---|
+| find_ui_references | how a screen, flow or pattern is actually designed | screens and flows with the app they came from, the patterns used, the components involved |
+| find_ui_elements | what a component should look like | the component's markup and stylesheet, ready to paste (MIT) |
+| find_animated_icons | which animated icon fits an action | working animated SVG, no runtime, no icon font (MIT) |
+| find_ui_materials | which typeface, icon set or design system to use for a role | candidates with maintenance state and source |
+| corpus_stats | what the server holds | counts by category, so an empty result is explained rather than silent |
+
+## Prices (USD)
+
+| plan | price | billing | what the buyer gets |
+|---|---|---|---|
+| Starter | $9.99 | monthly, cancel anytime | unlimited tool calls, all five tools, components/icons/materials, email support |
+| Pro | $19.99 | monthly, cancel anytime | everything in Starter plus priority support and priority when new sources are added |
+| Lifetime | $190 | one-time, never renews | everything in Pro, permanent access |
+
+The library and the tools are identical on every plan; only support and seats differ.
+Prices are quoted from {url}/pricing.
+
+## Library (generated at build time)
+
+- {refs} interface references across {flows} flows and {cats} categories
+- {imgs} screenshots across products; {lic} are permissively licensed, the rest are
+  research and comparison references that may not be republished
+- {els} ready-made UI elements (HTML + CSS, MIT)
+- {icons} animated icons in 6 sets (SVG, MIT)
+- {mats} materials: typefaces, icon sets and design systems (open licences)
+
+## Key pages
+
+- {url}/ — what it is and what the tools return
+- {url}/pricing — plans, billing and refunds
+- {url}/docs — connecting each client, in one config block
+- {url}/examples — real tool responses
+- {url}/mcp-server-for-ui-design — what a UI-reference MCP server is, and how it
+  differs from the Figma MCP server
+- {url}/claude-code-ui-design — Claude Code setup (server + skill)
+- {url}/cursor-ui-design — Cursor setup
+- {url}/figma-mcp-alternative — comparison with the Figma MCP server
+
+## What it does not do
+
+- It does not draw or generate final interfaces. The agent writes the code; ThinkUI
+  returns the evidence and the assets.
+- It does not grant rights it does not hold. Screenshots keep their own licences and
+  study-only screens are marked "do not ship or republish" in the result.
+- It does not approximate an answer. A query the library cannot answer returns empty
+  and says what the library does hold.
+
+## Contact
+
+support@thinkui.xyz
+""".format(url=url, refs=refs, imgs=imgs, lic=lic, els=els, icons=icons,
+           mats=mats, flows=flows, cats=cats)
+    open(os.path.join(SITE, "llms.txt"), "w", encoding="utf-8", newline="\n").write(text)
+    return len(text.splitlines())
+
+
+# IndexNow: Bing and Yandex accept URLs without any account, which is the only instant
+# submission path that exists for a site nobody has registered anywhere yet. The key is
+# public by design — it proves control of the host by being served at /<key>.txt.
+INDEXNOW_KEY = "9c41f7b2d8a34e6f0b5a91c73e2d6084"
+
+
+def build_indexnow():
+    path = os.path.join(SITE, INDEXNOW_KEY + ".txt")
+    open(path, "w", encoding="utf-8", newline="\n").write(INDEXNOW_KEY + "\n")
+    return INDEXNOW_KEY
 
 
 def build_og():
@@ -717,6 +844,8 @@ def main():
     print("  sitemap.xml    %d URLs" % build_sitemap())
     build_robots()
     print("  robots.txt     written")
+    print("  llms.txt       %d lines" % build_llms())
+    print("  indexnow key   /%s.txt" % build_indexnow())
     build_og()
     return 0
 

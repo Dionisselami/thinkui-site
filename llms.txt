@@ -1,0 +1,71 @@
+# ThinkUI
+
+> ThinkUI is a hosted MCP (Model Context Protocol) server that gives coding agents
+> interface references from real, shipped products: screens, flows, ready-made
+> components, animated icons and typefaces. It is evidence for design decisions, not
+> a component library to copy.
+
+## Connect
+
+- Endpoint: https://thinkui.xyz/mcp (streamable HTTP)
+- Auth: `Authorization: Bearer <key>`. Create an account at https://thinkui.xyz/signup and copy the
+  key from https://thinkui.xyz/account. No OAuth, no local install, no package to add.
+- Clients: Claude Code, Claude Desktop, Cursor, VS Code with Copilot (agent mode),
+  Windsurf, Zed, Codex, and any client that supports remote MCP servers.
+- Skill: `npx skills add https://thinkui.xyz --skill thinkui -y` installs the companion SKILL.md
+  that tells an agent when to call the tools.
+
+## Tools
+
+| tool | answers | returns |
+|---|---|---|
+| find_ui_references | how a screen, flow or pattern is actually designed | screens and flows with the app they came from, the patterns used, the components involved |
+| find_ui_elements | what a component should look like | the component's markup and stylesheet, ready to paste (MIT) |
+| find_animated_icons | which animated icon fits an action | working animated SVG, no runtime, no icon font (MIT) |
+| find_ui_materials | which typeface, icon set or design system to use for a role | candidates with maintenance state and source |
+| corpus_stats | what the server holds | counts by category, so an empty result is explained rather than silent |
+
+## Prices (USD)
+
+| plan | price | billing | what the buyer gets |
+|---|---|---|---|
+| Starter | $9.99 | monthly, cancel anytime | unlimited tool calls, all five tools, components/icons/materials, email support |
+| Pro | $19.99 | monthly, cancel anytime | everything in Starter plus priority support and priority when new sources are added |
+| Lifetime | $190 | one-time, never renews | everything in Pro, permanent access |
+
+The library and the tools are identical on every plan; only support and seats differ.
+Prices are quoted from https://thinkui.xyz/pricing.
+
+## Library (generated at build time)
+
+- 1,639 interface references across 97 flows and 111 categories
+- 1,483 screenshots across products; 417 are permissively licensed, the rest are
+  research and comparison references that may not be republished
+- 3,802 ready-made UI elements (HTML + CSS, MIT)
+- 1,698 animated icons in 6 sets (SVG, MIT)
+- 118 materials: typefaces, icon sets and design systems (open licences)
+
+## Key pages
+
+- https://thinkui.xyz/ — what it is and what the tools return
+- https://thinkui.xyz/pricing — plans, billing and refunds
+- https://thinkui.xyz/docs — connecting each client, in one config block
+- https://thinkui.xyz/examples — real tool responses
+- https://thinkui.xyz/mcp-server-for-ui-design — what a UI-reference MCP server is, and how it
+  differs from the Figma MCP server
+- https://thinkui.xyz/claude-code-ui-design — Claude Code setup (server + skill)
+- https://thinkui.xyz/cursor-ui-design — Cursor setup
+- https://thinkui.xyz/figma-mcp-alternative — comparison with the Figma MCP server
+
+## What it does not do
+
+- It does not draw or generate final interfaces. The agent writes the code; ThinkUI
+  returns the evidence and the assets.
+- It does not grant rights it does not hold. Screenshots keep their own licences and
+  study-only screens are marked "do not ship or republish" in the result.
+- It does not approximate an answer. A query the library cannot answer returns empty
+  and says what the library does hold.
+
+## Contact
+
+support@thinkui.xyz

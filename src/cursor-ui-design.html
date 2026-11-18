@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ICONS}}
+<title>Cursor UI design: give the agent real screens</title>
+<meta name="description" content="Add a UI reference library to Cursor over MCP: one JSON block, five tools, and real screens from shipped products instead of the model's average.">
+<link rel="canonical" href="{{CANONICAL}}">
+<meta name="robots" content="{{ROBOTS}}">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="Cursor UI design: give the agent real screens">
+<meta property="og:description" content="One JSON block adds five tools that answer design questions with real screens instead of the model's average.">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="{{SITE_URL}}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cursor UI design: give the agent real screens">
+<meta name="twitter:description" content="One JSON block adds five tools that answer design questions with real screens instead of the model's average.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
+
+<link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HowTo",
+      "name": "Add the ThinkUI MCP server to Cursor",
+      "description": "Configure a remote MCP server in Cursor so its agent designs from real interfaces.",
+      "step": [
+        { "@type": "HowToStep", "name": "Get a key", "text": "Create a ThinkUI account and copy the key from the account page." },
+        { "@type": "HowToStep", "name": "Edit the config", "text": "Add the thinkui entry with the URL and Authorization header to .cursor/mcp.json." },
+        { "@type": "HowToStep", "name": "Restart Cursor", "text": "Cursor reads MCP config at start-up. Reopen the app and check the server is green in Cursor Settings, MCP." },
+        { "@type": "HowToStep", "name": "Use Agent mode", "text": "Ask a design question in Agent mode and watch for a tool call." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Where do I put the MCP config in Cursor?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Project scope is .cursor/mcp.json at the repository root; user scope is ~/.cursor/mcp.json so every project gets it. The same object goes in either file, under an mcpServers key." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the server not showing up?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Cursor reads MCP configuration at start-up, so a server added while the app is open does not appear until you restart it. A red dot in Cursor Settings, MCP means the JSON did not parse or the URL is wrong." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do the tools work in Ask mode?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Tools belong to agent behaviour. Use Agent mode; in Ask mode the model may describe what it would call without calling anything." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I commit the config to a shared repo?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, if the key is not in it. Write the header value as a variable Cursor expands from the environment and document the variable in the project README." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body class="dark-top">
+<a class="skip" href="#main">Skip to content</a>
+{{>nav}}
+<main id="main">
+
+  <section class="canvas band">
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Cursor</span>
+      <h1 class="display">Cursor writes the median interface.</h1>
+      <p class="lede">An editor gives the agent your code but not your taste. Ask for a settings screen and you get
+        the same card grid every other Cursor project ships. One JSON block gives it somewhere to look.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Why</span>
+        <h2>The code is in front of it. The design is not.</h2>
+      </div>
+      <p>Cursor is excellent at what it can see: your components, your styles, your conventions. The moment a
+        screen does not exist yet, it falls back on the most common pattern in its training data — the three-card
+        feature row, the rounded pill button, the empty state with a single centred illustration.</p>
+      <p>A reference library changes the input, not the model. Your agent calls a tool, gets back named screens
+        and flows from products that shipped them, and designs from what it just read. The mechanism is the same
+        <a href="/mcp-server-for-ui-design">UI-reference MCP server</a> that works in any client.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Setup</span>
+        <h2>One object, two possible files.</h2>
+        <p class="lede">Your key comes from <a href="/account">your account page</a>. There is nothing to install
+          locally: the server is hosted and speaks streamable HTTP.</p>
+      </div>
+      <div class="code">
+        <div class="code__bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="name">.cursor/mcp.json · or ~/.cursor/mcp.json</span>
+          <button class="code__copy" type="button" data-copy aria-label="Copy configuration">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+<pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"thinkui"</span>: {
+      <span class="k">"url"</span>: <span class="s">"https://thinkui.xyz/mcp"</span>,
+      <span class="k">"headers"</span>: { <span class="k">"Authorization"</span>: <span class="s">"Bearer your-key"</span> }
+    }
+  }
+}</pre>
+        <div class="code__note">Project scope is <span class="mono">.cursor/mcp.json</span> at the repo root;
+          user scope is <span class="mono">~/.cursor/mcp.json</span>. Then restart Cursor — the config is read at
+          start-up, so a server added while the app is open will not appear.</div>
+      </div>
+
+      <div class="grid grid--3" style="gap:22px; margin-top:26px">
+        <div class="card">
+          <h3 style="margin-bottom:12px">Check it</h3>
+          <p class="small">Cursor Settings → MCP. The entry must be green. Red means the JSON did not parse or the
+            URL is wrong, and Cursor will not tell you which beyond the error line.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">Use it</h3>
+          <p class="small">Agent mode, not Ask. Tools are called by the agent loop; in Ask mode the model may
+            describe the call without making it.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">Share it</h3>
+          <p class="small">Commit the project file with the header written as an environment variable, and say in
+            the README which one to set. A committed key is a leaked key.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Use</span>
+        <h2>Ask in terms of a decision.</h2>
+      </div>
+      <div class="grid grid--2" style="gap:26px; align-items:start">
+        <div class="card">
+          <h3 style="margin-bottom:14px">Better</h3>
+          <p class="mono" style="font-size:14px; color:var(--text-soft)">"Look up how dashboards frame an empty
+            first-run state before you build the home screen."</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"Find a pricing table that
+            does not look like a SaaS template, then build the billing page."</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:14px">Worse</h3>
+          <p class="mono" style="font-size:14px; color:var(--text-soft)">"Make it beautiful."</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"Use a modern design."</p>
+          <p class="small" style="margin-top:14px">Neither names a decision, so there is nothing for the library to
+            match and nothing for the agent to cite.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <h2>Questions this page gets.</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>Where do I put the MCP config in Cursor?</summary>
+          <div class="answer"><p>Project scope is <span class="mono">.cursor/mcp.json</span> at the repository root;
+            user scope is <span class="mono">~/.cursor/mcp.json</span> so every project gets it. The same object
+            goes in either file, under an <span class="mono">mcpServers</span> key.</p></div>
+        </details>
+        <details>
+          <summary>Why is the server not showing up?</summary>
+          <div class="answer"><p>Cursor reads MCP configuration at start-up, so a server added while the app is
+            open does not appear until you restart it. A red dot in Cursor Settings → MCP means the JSON did not
+            parse or the URL is wrong.</p></div>
+        </details>
+        <details>
+          <summary>Do the tools work in Ask mode?</summary>
+          <div class="answer"><p>Tools belong to agent behaviour. Use Agent mode; in Ask mode the model may
+            describe what it would call without calling anything.</p></div>
+        </details>
+        <details>
+          <summary>Can I commit the config to a shared repo?</summary>
+          <div class="answer"><p>Yes, if the key is not in it. Write the header value as a variable Cursor expands
+            from the environment and document the variable in the project README.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="canvas closing">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="display">Something to look at, in one block.</h2>
+      <p class="lede">Create an account, paste the object, restart Cursor, and ask for a screen you have opinions
+        about.</p>
+      <div class="closing__actions">
+        <a class="btn btn--light btn--lg" href="/signup">Get access</a>
+        <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
+      </div>
+    </div>
+  </section>
+</main>
+{{>footer}}
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

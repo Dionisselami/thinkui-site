@@ -745,7 +745,7 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
 
 /* --------------------------------------------------------------- 14 footer */
 .footer { background: var(--bg-deep); color: var(--on-ink-soft); padding: clamp(48px, 6vw, 72px) 0 var(--s6); border-top: 1px solid var(--line); }
-.footer__grid { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: var(--s6); }
+.footer__grid { display: grid; grid-template-columns: 1.6fr repeat(4, 1fr); gap: var(--s5); }
 .footer h4 { color: var(--text-mute); font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; margin-bottom: var(--s4); }
 .footer ul { list-style: none; display: flex; flex-direction: column; gap: 2px; }
 .footer a { display: inline-flex; align-items: center; min-height: 34px; color: var(--on-ink-soft); font-size: 14px; transition: color var(--d-1) var(--ease); }

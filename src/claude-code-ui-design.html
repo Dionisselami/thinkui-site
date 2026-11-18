@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ICONS}}
+<title>Claude Code UI design: real references over MCP</title>
+<meta name="description" content="Give Claude Code a UI reference library: one MCP config block, one skill install, and five tools that stop it inventing screens from memory.">
+<link rel="canonical" href="{{CANONICAL}}">
+<meta name="robots" content="{{ROBOTS}}">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="Claude Code UI design: real references over MCP">
+<meta property="og:description" content="One MCP config block plus one skill install, and Claude Code stops inventing interfaces from memory.">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="{{SITE_URL}}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Claude Code UI design: real references over MCP">
+<meta name="twitter:description" content="One MCP config block plus one skill install, and Claude Code stops inventing interfaces from memory.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
+
+<link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HowTo",
+      "name": "Add a UI reference library to Claude Code",
+      "description": "Connect the ThinkUI MCP server and its skill to Claude Code so it designs from real interfaces.",
+      "step": [
+        { "@type": "HowToStep", "name": "Get a key", "text": "Create a ThinkUI account and copy the key from the account page." },
+        { "@type": "HowToStep", "name": "Add the server", "text": "Run claude mcp add with the transport, the endpoint and the Authorization header." },
+        { "@type": "HowToStep", "name": "Add the skill", "text": "Run npx skills add https://thinkui.xyz --skill thinkui -y so the agent knows when to reach for the tools." },
+        { "@type": "HowToStep", "name": "Verify", "text": "Run claude mcp list, then ask a design question and watch for a tool call." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does Claude Code invent interfaces?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It has no visual context of its own. In a terminal there is no design file to open and no browser to compare against, so the model produces the most common pattern in its training data and presents it as a choice." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the skill replace the MCP server?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The server holds the references; the skill is the habit of asking for them. Without the skill the tools exist but get used rarely; without the server the skill has nothing to call. Install both." }
+        },
+        {
+          "@type": "Question",
+          "name": "Where does the MCP config live in Claude Code?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Two options. The claude mcp add command writes it for you, or you put the same entry in .mcp.json at the repository root so the whole team inherits it. Project scope needs the file committed; user scope lives in your home directory." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know it is connected?",
+          "acceptedAnswer": { "@type": "Answer", "text": "claude mcp list shows the server with its status. In a session, /mcp prints the connected servers and their tools. If the entry is red the command or URL is wrong; if calls fail after connecting, the Authorization header is missing or the key is wrong." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work in Claude Desktop and claude.ai?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The same endpoint works in Claude Desktop's config. On claude.ai, custom connectors accept OAuth or no-auth servers only, so an API-key server like this one is added through the desktop or the CLI instead." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body class="dark-top">
+<a class="skip" href="#main">Skip to content</a>
+{{>nav}}
+<main id="main">
+
+  <section class="canvas band">
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Claude Code</span>
+      <h1 class="display">Teaching Claude Code what good looks like.</h1>
+      <p class="lede">Claude Code will write you a settings page, a pricing table and an empty state in one sitting.
+        It will also make all three look like the average of the internet, because a terminal gives it no way to
+        look at anything. Two commands fix that.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Why</span>
+        <h2>The model is not being lazy. It is being blind.</h2>
+      </div>
+      <p>Ask Claude Code to build a checkout and it will produce one — with three fields, a blue button, a
+        reassuring lock icon and a summary card. It does that because that is what most checkouts in its training
+        data look like. The same request from a designer starts with a different question: what do the checkouts
+        that convert actually do, and what do the hostile ones do that I should avoid?</p>
+      <p>That question needs evidence. A reference library gives it to the agent in the one format it can use
+        mid-task: a tool call that returns named screens, flows, components and licences. See
+        <a href="/mcp-server-for-ui-design">what a UI-reference MCP server is</a> if you want the longer version.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Setup</span>
+        <h2>Two commands, in this order.</h2>
+        <p class="lede">The key comes from <a href="/account">your account page</a> after you sign up. Nothing is
+          installed locally; the server is hosted.</p>
+      </div>
+
+      <div class="grid grid--2" style="gap:26px; align-items:start">
+        <div class="code">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">1 · the server</span>
+            <button class="code__copy" type="button" data-copy aria-label="Copy configuration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+<pre>claude mcp add --transport http thinkui \
+  https://thinkui.xyz/mcp \
+  --header <span class="s">"Authorization: Bearer your-key"</span></pre>
+          <div class="code__note">For a team, write the same entry into
+            <span class="mono">.mcp.json</span> at the repository root and commit it without the key —
+            the file is a config, not a secret store.</div>
+        </div>
+
+        <div class="code">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">2 · the skill</span>
+            <button class="code__copy" type="button" data-copy aria-label="Copy command">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+<pre>npx skills add https://thinkui.xyz --skill thinkui -y</pre>
+          <div class="code__note">Installs a single <span class="mono">SKILL.md</span> that tells the agent what
+            the tools answer and when to reach for them. It lands under
+            <span class="mono">.agents/skills/thinkui/</span>.</div>
+        </div>
+      </div>
+
+      <div class="grid grid--2" style="gap:26px; margin-top:26px; align-items:start">
+        <div class="code">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">.mcp.json · project scope</span>
+          </div>
+<pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"thinkui"</span>: {
+      <span class="k">"type"</span>: <span class="s">"http"</span>,
+      <span class="k">"url"</span>: <span class="s">"https://thinkui.xyz/mcp"</span>,
+      <span class="k">"headers"</span>: { <span class="k">"Authorization"</span>: <span class="s">"Bearer ${THINKUI_KEY}"</span> }
+    }
+  }
+}</pre>
+          <div class="code__note">Claude Code expands <span class="mono">${VAR}</span> from the environment, so
+            the committed file holds no secret.</div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom:14px">Verify before you trust it</h3>
+          <p class="small"><span class="mono">claude mcp list</span> — the server should appear with a connected
+            status.</p>
+          <p class="small" style="margin-top:10px"><span class="mono">/mcp</span> inside a session — prints the
+            servers and the tools each one exposes. Five tools is correct.</p>
+          <p class="small" style="margin-top:10px">A red entry means the URL or command is wrong. A connected
+            entry whose calls fail means the header or the key is wrong, and the error says which.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Use</span>
+        <h2>What to say to it.</h2>
+        <p class="lede">The skill makes the tools discoverable; a request that names a decision makes them
+          useful.</p>
+      </div>
+      <div class="grid grid--2" style="gap:26px; align-items:start">
+        <div class="card">
+          <h3 style="margin-bottom:14px">Prompts that get evidence</h3>
+          <p class="mono" style="font-size:14px; color:var(--text-soft)">"Before you write the upgrade screen, check how
+            paywalls frame a free trial. Build the calm version."</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"Find how good products show
+            an empty search, then use that pattern in the results page."</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"What typeface holds up in a
+            dense table? Use one from the library."</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:14px">What it will not do for you</h3>
+          <p class="small">It will not copy a screenshot into your product. The corpus states each screen's
+            licence, and where it is study-only the result forbids republishing — the agent is told to design
+            from the reasoning, not ship the pixels.</p>
+          <p class="small" style="margin-top:12px">That constraint is deliberate. It is also why results carry a
+            source name: you can go and look at the original.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <h2>Questions this page gets.</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>Why does Claude Code invent interfaces?</summary>
+          <div class="answer"><p>It has no visual context of its own. In a terminal there is no design file to open
+            and no browser to compare against, so the model produces the most common pattern in its training data
+            and presents it as a choice.</p></div>
+        </details>
+        <details>
+          <summary>Does the skill replace the MCP server?</summary>
+          <div class="answer"><p>No. The server holds the references; the skill is the habit of asking for them.
+            Without the skill the tools exist but get used rarely; without the server the skill has nothing to
+            call. Install both.</p></div>
+        </details>
+        <details>
+          <summary>Where does the MCP config live in Claude Code?</summary>
+          <div class="answer"><p>Two options. The <span class="mono">claude mcp add</span> command writes it for
+            you, or you put the same entry in <span class="mono">.mcp.json</span> at the repository root so the
+            whole team inherits it. Project scope needs the file committed; user scope lives in your home
+            directory.</p></div>
+        </details>
+        <details>
+          <summary>How do I know it is connected?</summary>
+          <div class="answer"><p><span class="mono">claude mcp list</span> shows the server with its status. In a
+            session, <span class="mono">/mcp</span> prints the connected servers and their tools. If the entry is
+            red the command or URL is wrong; if calls fail after connecting, the Authorization header is missing or
+            the key is wrong.</p></div>
+        </details>
+        <details>
+          <summary>Does this work in Claude Desktop and claude.ai?</summary>
+          <div class="answer"><p>The same endpoint works in Claude Desktop's config. On claude.ai, custom
+            connectors accept OAuth or no-auth servers only, so an API-key server like this one is added through
+            the desktop or the CLI instead.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="canvas closing">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="display">Give it something to look at.</h2>
+      <p class="lede">Create an account, run the two commands, and ask for a screen you have opinions about.</p>
+      <div class="closing__actions">
+        <a class="btn btn--light btn--lg" href="/signup">Get access</a>
+        <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
+      </div>
+    </div>
+  </section>
+</main>
+{{>footer}}
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

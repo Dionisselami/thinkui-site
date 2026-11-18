@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ICONS}}
+<title>Figma MCP alternative: references beyond your files</title>
+<meta name="description" content="The Figma MCP server reads the files you already have. When no design exists yet, you need outside evidence — what changes, and how to run both servers.">
+<link rel="canonical" href="{{CANONICAL}}">
+<meta name="robots" content="{{ROBOTS}}">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="Figma MCP alternative: references beyond your files">
+<meta property="og:description" content="Figma MCP reads the files you already have. When no design exists yet, you need outside evidence.">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="{{SITE_URL}}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Figma MCP alternative: references beyond your files">
+<meta name="twitter:description" content="Figma MCP reads the files you already have. When no design exists yet, you need outside evidence.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
+
+<link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Figma MCP alternative: references beyond your files",
+      "description": "How a UI-reference MCP server complements the Figma MCP server, and when each is the right tool.",
+      "author": { "@type": "Organization", "name": "ThinkUI" },
+      "publisher": { "@type": "Organization", "name": "ThinkUI" },
+      "mainEntityOfPage": "{{CANONICAL}}"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is ThinkUI a replacement for the Figma MCP server?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Figma's server reads your own design files and turns selected frames into code; ThinkUI holds interfaces from products you do not own. One is your source of truth, the other is outside evidence. They run side by side in the same client." }
+        },
+        {
+          "@type": "Question",
+          "name": "What can a reference library do that Figma MCP cannot?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Answer questions about interfaces that do not exist in your Figma account yet: how competitors frame a paywall, what a good empty state looks like, which typeface survives a dense table. Figma can only report what someone has already drawn." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a paid Figma seat to use Figma MCP?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The remote server works on every plan but is rate limited by seat: view and collaborator seats get a small monthly allowance, while full and dev seats get a few hundred calls a day on paid plans. Writing to the canvas needs a full seat and a paid plan." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can both servers be connected at once?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. MCP clients take a list of servers, and the agent chooses between them per request. A practical split is Figma for implementing an existing design and ThinkUI for deciding what the screen should be." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which is cheaper?",
+          "acceptedAnswer": { "@type": "Answer", "text": "They are different purchases. Figma is a design tool with an MCP endpoint attached; ThinkUI is $9.99 or $19.99 a month, or $190 once for lifetime access, and needs no design tool at all." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body class="dark-top">
+<a class="skip" href="#main">Skip to content</a>
+{{>nav}}
+<main id="main">
+
+  <section class="canvas band">
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Comparison</span>
+      <h1 class="display">A Figma MCP alternative for the half of the job Figma cannot see.</h1>
+      <p class="lede">Figma's MCP server is genuinely useful, and it answers exactly one kind of question: how do I
+        turn a design I already have into code. The harder question is the one before it — what should this screen
+        be — and no file in your account contains the answer.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Where Figma wins</span>
+        <h2>When somebody has already drawn it.</h2>
+      </div>
+      <p>If a designer has produced the frame, Figma's server is the right tool and nothing else comes close. It
+        reads the layers you select, carries variables and component structure into your IDE, and with Code Connect
+        it can point at the component you already ship instead of generating a lookalike. It can also write back to
+        the canvas on paid plans.</p>
+      <p>That is a source-of-truth workflow: one team, one file, one set of decisions already made. Use it and keep
+        using it.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Where it cannot help</span>
+        <h2>When the file is empty.</h2>
+        <p class="lede">A new screen has no frame yet. A competitor's onboarding is not in your library. The
+          question "what do the good ones do here" has no answer inside Figma, because Figma only knows what you
+          have drawn.</p>
+      </div>
+      <div class="grid grid--3" style="gap:22px">
+        <div class="card">
+          <h3 style="margin-bottom:12px">Greenfield screens</h3>
+          <p class="small">The agent is asked to build something nobody has designed. With no design file it falls
+            back on the average of its training data — which looks like every other generated app.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">Competitive parity</h3>
+          <p class="small">"How does a modern expenses tool frame approvals?" Your Figma account has your product
+            in it. The answer lives in other products' shipped interfaces.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">Pattern questions</h3>
+          <p class="small">Empty states, error recovery, paywall framing, destructive confirmations — the decisions
+            designers argue about. Evidence beats opinion, and evidence has to come from outside.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Side by side</span>
+        <h2>The two servers, honestly compared.</h2>
+      </div>
+      <div class="cmp__wrap">
+        <table class="cmp">
+          <caption>Different sources, different questions.</caption>
+          <thead>
+            <tr><th scope="col"></th><th scope="col">Figma MCP server</th><th scope="col">ThinkUI</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">What it reads</th>
+                <td>The frames, components and variables in your own files</td>
+                <td>{{REFERENCE_COUNT}} interface references from products you do not own</td></tr>
+            <tr><th scope="row">The question</th>
+                <td>"Code this design"</td>
+                <td>"What should this screen be?"</td></tr>
+            <tr><th scope="row">Requires</th>
+                <td>A Figma account, a design file, and a client on Figma's MCP catalogue</td>
+                <td>A key. No design tool, no local install</td></tr>
+            <tr><th scope="row">Output</th>
+                <td>Design context for code generation; canvas writes on paid plans</td>
+                <td>Named screens, flows, patterns, licences, MIT components and icons</td></tr>
+            <tr><th scope="row">Asset rights</th>
+                <td>Your own components</td>
+                <td>MIT for components, icons and materials; screenshots keep their own licence</td></tr>
+            <tr><th scope="row">Price</th>
+                <td>Included with Figma seats, rate limited by seat tier</td>
+                <td>$9.99 or $19.99 per month, or $190 once</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Both</span>
+        <h2>Run them together.</h2>
+        <p class="lede">An MCP client takes a list. The agent picks the server that matches the request, so the
+          practical setup is both entries in the same file.</p>
+      </div>
+      <div class="code">
+        <div class="code__bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="name">.mcp.json · two servers, one client</span>
+          <button class="code__copy" type="button" data-copy aria-label="Copy configuration">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+<pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"thinkui"</span>: {
+      <span class="k">"type"</span>: <span class="s">"http"</span>,
+      <span class="k">"url"</span>: <span class="s">"https://thinkui.xyz/mcp"</span>,
+      <span class="k">"headers"</span>: { <span class="k">"Authorization"</span>: <span class="s">"Bearer your-key"</span> }
+    }
+  }
+}</pre>
+        <div class="code__note">Add Figma's server from its own documentation next to this entry. The split that
+          works in practice: Figma for implementing a design that exists, ThinkUI for deciding what the screen
+          should contain before anyone draws it.</div>
+      </div>
+      <p style="margin-top:22px">Setup per client:
+        <a href="/claude-code-ui-design">Claude Code</a> ·
+        <a href="/cursor-ui-design">Cursor</a> ·
+        <a href="/docs">everything else</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <h2>Questions this page gets.</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>Is ThinkUI a replacement for the Figma MCP server?</summary>
+          <div class="answer"><p>No. Figma's server reads your own design files and turns selected frames into
+            code; ThinkUI holds interfaces from products you do not own. One is your source of truth, the other is
+            outside evidence. They run side by side in the same client.</p></div>
+        </details>
+        <details>
+          <summary>What can a reference library do that Figma MCP cannot?</summary>
+          <div class="answer"><p>Answer questions about interfaces that do not exist in your Figma account yet: how
+            competitors frame a paywall, what a good empty state looks like, which typeface survives a dense table.
+            Figma can only report what someone has already drawn.</p></div>
+        </details>
+        <details>
+          <summary>Do I need a paid Figma seat to use Figma MCP?</summary>
+          <div class="answer"><p>The remote server works on every plan but is rate limited by seat: view and
+            collaborator seats get a small monthly allowance, while full and dev seats get a few hundred calls a
+            day on paid plans. Writing to the canvas needs a full seat and a paid plan.</p></div>
+        </details>
+        <details>
+          <summary>Can both servers be connected at once?</summary>
+          <div class="answer"><p>Yes. MCP clients take a list of servers, and the agent chooses between them per
+            request. A practical split is Figma for implementing an existing design and ThinkUI for deciding what
+            the screen should be.</p></div>
+        </details>
+        <details>
+          <summary>Which is cheaper?</summary>
+          <div class="answer"><p>They are different purchases. Figma is a design tool with an MCP endpoint
+            attached; ThinkUI is $9.99 or $19.99 a month, or $190 once for lifetime access, and needs no design
+            tool at all.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="canvas closing">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="display">Evidence for the screen that does not exist yet.</h2>
+      <p class="lede">Connect the server and ask the question your design file cannot answer.</p>
+      <div class="closing__actions">
+        <a class="btn btn--light btn--lg" href="/signup">Get access</a>
+        <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
+      </div>
+    </div>
+  </section>
+</main>
+{{>footer}}
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

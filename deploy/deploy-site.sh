@@ -28,7 +28,7 @@ cd "$REPO"
 # build.py and forgotten here ships a 404 - which is exactly what happened to /examples.
 # `.well-known` carries the skills.sh discovery index and the content-addressed skill
 # archive; without it thinkui.xyz is not an installable skill source.
-tar czf - *.html sitemap.xml robots.txt site.webmanifest assets .well-known \
+tar czf - *.html *.txt sitemap.xml site.webmanifest assets .well-known \
   | ssh "$HOST" "sudo tar xzf - -C $SITE_DIR && sudo chown -R www-data:www-data $SITE_DIR"
 
 step "3/4 vhost"

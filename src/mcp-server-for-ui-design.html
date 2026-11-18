@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ICONS}}
+<title>MCP server for UI design: real screens in your agent</title>
+<meta name="description" content="What a UI-reference MCP server does, what it returns, and how it differs from the Figma MCP — with the config block for Claude Code, Cursor and VS Code.">
+<link rel="canonical" href="{{CANONICAL}}">
+<meta name="robots" content="{{ROBOTS}}">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="MCP server for UI design: real screens in your agent">
+<meta property="og:description" content="What a UI-reference MCP server does, what it returns, and how it differs from the Figma MCP server.">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="{{SITE_URL}}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MCP server for UI design: real screens in your agent">
+<meta name="twitter:description" content="What a UI-reference MCP server does, what it returns, and how it differs from the Figma MCP server.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png">
+
+<link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "MCP server for UI design: real screens in your agent",
+      "description": "What a UI-reference MCP server does, what it returns, and how it differs from the Figma MCP server.",
+      "author": { "@type": "Organization", "name": "ThinkUI" },
+      "publisher": { "@type": "Organization", "name": "ThinkUI" },
+      "mainEntityOfPage": "{{CANONICAL}}"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an MCP server for UI design?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It is a Model Context Protocol server that gives a coding agent evidence about interfaces: real screens, the flows they belong to, the components they use, typefaces and animated icons. The agent calls it while it works, the same way it would call a search or a file tool." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this the same as the Figma MCP server?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The Figma MCP server reads the files in your own Figma account and turns them into code. A reference library like ThinkUI shows what other products shipped, so it answers a different question: what should this screen look like when nobody has drawn it yet. The two are complementary." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an MCP client to use it?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. ThinkUI connects to any client that supports remote MCP servers over streamable HTTP, including Claude Code, Claude Desktop, Cursor, VS Code with Copilot, Windsurf, Zed and Codex. The server is hosted, so there is nothing to install locally." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does a call actually return?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A result names the app and the flow a screen came from, what the screen demonstrates, the patterns it uses, the components involved and its licence. Where the corpus holds a screenshot it is attached; where the licence is study-only the result says so and forbids republishing." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can my agent use the components commercially?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The components, animated icons and materials ThinkUI returns are MIT licensed. Screenshots are not: each keeps its own licence, and only the permissively licensed share may be shipped. Every result states which it is." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does a query that finds nothing return an approximation?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. An empty query returns an empty result and says what the library does hold. Approximating would turn an honest gap into an invented answer, which is the failure the server exists to prevent." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body class="dark-top">
+<a class="skip" href="#main">Skip to content</a>
+{{>nav}}
+<main id="main">
+
+  <section class="canvas band">
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Guide</span>
+      <h1 class="display">An MCP server for UI design work.</h1>
+      <p class="lede">Your coding agent can produce a working screen in a minute. What it cannot do on its own is
+        know what a good one looks like. ThinkUI answers that from a library of real interfaces, over the Model
+        Context Protocol — the same protocol your agent already uses for files and search.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">The problem</span>
+        <h2>Every agent ships the same screen.</h2>
+        <p class="lede">Ask three different agents for a settings page and you get three versions of the same page:
+          a heading, a card grid, a few toggles, generous padding. That is not a style. It is the median of the
+          training data, reproduced confidently.</p>
+      </div>
+      <p>Design has always worked by looking at what other people solved. A designer opens five competitors before
+        drawing anything. Your agent has no such habit: it has no way to check, so it guesses, and the guess is
+        fluent enough that nobody notices until the interface is in front of a customer.</p>
+      <p>The fix is not a better prompt. It is giving the agent access to the evidence a designer would have used —
+        what a checkout looks like when it is not hostile, how a dashboard frames an empty state, which typeface
+        actually holds up in a dense table — and letting it cite what it used.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">What it is</span>
+        <h2>A reference library, exposed as tools.</h2>
+        <p class="lede">ThinkUI is a hosted MCP server. Your agent connects to one URL, sends your key in a header,
+          and gets five tools it can call mid-conversation.</p>
+      </div>
+      <div class="cmp__wrap">
+        <table class="cmp">
+          <caption>ThinkUI tools. Every result names the project or component it came from.</caption>
+          <thead>
+            <tr><th scope="col">Tool</th><th scope="col">Answers</th><th scope="col">Returns</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row" class="mono">find_ui_references</th>
+                <td>How a screen, a flow or a pattern is actually designed</td>
+                <td>Screens and flows with the app they came from, the patterns they use and the components involved</td></tr>
+            <tr><th scope="row" class="mono">find_ui_elements</th>
+                <td>What a component should look like</td>
+                <td>The component's own markup and stylesheet, ready to paste</td></tr>
+            <tr><th scope="row" class="mono">find_animated_icons</th>
+                <td>Which animated icon fits an action</td>
+                <td>Working animated SVG, no runtime and no icon font</td></tr>
+            <tr><th scope="row" class="mono">find_ui_materials</th>
+                <td>Which typeface, icon set or design system to use for a role</td>
+                <td>Candidates with their maintenance state and their source</td></tr>
+            <tr><th scope="row" class="mono">corpus_stats</th>
+                <td>What the server actually holds</td>
+                <td>Counts by category, so an empty result is never a mystery</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top:18px">The library behind the tools currently holds
+        {{REFERENCE_COUNT}} references across {{CORPUS_STATS_BRIEF}}, plus MIT-licensed components, icons and
+        materials. <span class="mono">corpus_stats</span> reports the live numbers, so your agent can check
+        coverage before claiming something exists.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Query craft</span>
+        <h2>Ask for a decision, not a keyword.</h2>
+        <p class="lede">The library is indexed by what a screen demonstrates. A topic word returns a category.
+          A decision returns evidence.</p>
+      </div>
+      <div class="grid grid--2" style="gap:26px; align-items:start">
+        <div class="card">
+          <h3 style="margin-bottom:14px">Do this</h3>
+          <p class="mono" style="font-size:14px; color:var(--text-soft)">"how a paywall frames its free trial"</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"empty state for a search with no results"</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"an onboarding checklist that does not nag"</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:14px">Not this</h3>
+          <p class="mono" style="font-size:14px; color:var(--text-soft)">"paywall"</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"design system"</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"make it modern"</p>
+          <p class="small" style="margin-top:16px">The second column returns a category record or nothing. That is
+            the server being honest, not broken.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Position</span>
+        <h2>How it differs from the Figma MCP server.</h2>
+        <p class="lede">Both are MCP servers, both are about interfaces, and they answer opposite questions. Knowing
+          which one you need is most of the decision.</p>
+      </div>
+      <div class="cmp__wrap">
+        <table class="cmp">
+          <caption>The two servers, side by side.</caption>
+          <thead>
+            <tr><th scope="col"></th><th scope="col">Figma MCP server</th><th scope="col">ThinkUI</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Source</th>
+                <td>The files in your own Figma account</td>
+                <td>Interfaces shipped by other products</td></tr>
+            <tr><th scope="row">Answers</th>
+                <td>"How is this frame built, and how do I code it?"</td>
+                <td>"How do good products solve this screen?"</td></tr>
+            <tr><th scope="row">Best moment</th>
+                <td>A design exists and needs to become code</td>
+                <td>No design exists yet, and the agent would otherwise guess</td></tr>
+            <tr><th scope="row">Sees competitors</th>
+                <td>No</td>
+                <td>Yes — that is the whole library</td></tr>
+            <tr><th scope="row">Writes to a canvas</th>
+                <td>Yes, on paid plans with a Full seat</td>
+                <td>No. It returns evidence, not edits</td></tr>
+            <tr><th scope="row">Assets</th>
+                <td>Your components and variables</td>
+                <td>MIT components, icons and materials; screenshots under their own licences</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top:18px">Most teams should run both. Figma is the source of truth for what
+        you have already decided; ThinkUI is the outside evidence for what you have not. If you want the longer
+        version, it has its own page: <a href="/figma-mcp-alternative">ThinkUI as a Figma MCP alternative</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Connect</span>
+        <h2>One URL, one header.</h2>
+        <p class="lede">There is no package to install and no daemon to keep alive. Your key comes from
+          <a href="/account">your account page</a> after you sign up.</p>
+      </div>
+      <div class="grid grid--2" style="gap:26px">
+        <div class="code">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">Claude Code</span>
+          </div>
+<pre>claude mcp add --transport http thinkui \
+  https://thinkui.xyz/mcp \
+  --header <span class="s">"Authorization: Bearer your-key"</span></pre>
+          <div class="code__note">Project-scoped alternative: the same entry in
+            <span class="mono">.mcp.json</span> at the repo root.</div>
+        </div>
+        <div class="code">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">.cursor/mcp.json · .vscode/mcp.json</span>
+          </div>
+<pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"thinkui"</span>: {
+      <span class="k">"url"</span>: <span class="s">"https://thinkui.xyz/mcp"</span>,
+      <span class="k">"headers"</span>: { <span class="k">"Authorization"</span>: <span class="s">"Bearer your-key"</span> }
+    }
+  }
+}</pre>
+          <div class="code__note">VS Code puts the entry under a <span class="mono">"servers"</span> key instead.
+            Restart the app after saving; clients read their config at start-up.</div>
+        </div>
+      </div>
+      <p style="margin-top:22px">Client-specific walkthroughs:
+        <a href="/claude-code-ui-design">Claude Code</a> ·
+        <a href="/cursor-ui-design">Cursor</a> ·
+        <a href="/docs">all clients</a>.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Limits</span>
+        <h2>What it will not do.</h2>
+      </div>
+      <div class="grid grid--3" style="gap:22px">
+        <div class="card">
+          <h3 style="margin-bottom:12px">Draw the interface</h3>
+          <p class="small">It returns evidence and assets; your agent writes the code. ThinkUI is not a canvas and
+            does not pretend to be one.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">Grant rights it does not have</h3>
+          <p class="small">Screenshots keep their own licences. Where a screen is study-only, the result says
+            <span class="mono">do not ship or republish</span> and names the owner.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">Fill gaps with guesses</h3>
+          <p class="small">A query the corpus cannot answer comes back empty, with a note about what it does hold.
+            That is the feature.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <h2>Questions this page gets.</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>What is an MCP server for UI design?</summary>
+          <div class="answer"><p>It is a Model Context Protocol server that gives a coding agent evidence about
+            interfaces: real screens, the flows they belong to, the components they use, typefaces and animated
+            icons. The agent calls it while it works, the same way it would call a search or a file tool.</p></div>
+        </details>
+        <details>
+          <summary>Is this the same as the Figma MCP server?</summary>
+          <div class="answer"><p>No. The Figma MCP server reads the files in your own Figma account and turns them
+            into code. A reference library like ThinkUI shows what other products shipped, so it answers a
+            different question: what should this screen look like when nobody has drawn it yet. The two are
+            complementary.</p></div>
+        </details>
+        <details>
+          <summary>Do I need an MCP client to use it?</summary>
+          <div class="answer"><p>Yes. ThinkUI connects to any client that supports remote MCP servers over
+            streamable HTTP, including Claude Code, Claude Desktop, Cursor, VS Code with Copilot, Windsurf, Zed and
+            Codex. The server is hosted, so there is nothing to install locally.</p></div>
+        </details>
+        <details>
+          <summary>What does a call actually return?</summary>
+          <div class="answer"><p>A result names the app and the flow a screen came from, what the screen
+            demonstrates, the patterns it uses, the components involved and its licence. Where the corpus holds a
+            screenshot it is attached; where the licence is study-only the result says so and forbids
+            republishing.</p></div>
+        </details>
+        <details>
+          <summary>Can my agent use the components commercially?</summary>
+          <div class="answer"><p>The components, animated icons and materials ThinkUI returns are MIT licensed.
+            Screenshots are not: each keeps its own licence, and only the permissively licensed share may be
+            shipped. Every result states which it is.</p></div>
+        </details>
+        <details>
+          <summary>Does a query that finds nothing return an approximation?</summary>
+          <div class="answer"><p>No. An empty query returns an empty result and says what the library does hold.
+            Approximating would turn an honest gap into an invented answer, which is the failure the server exists
+            to prevent.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="canvas closing">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="display">Stop the guess.</h2>
+      <p class="lede">Connect the server, then ask a design question you already know the answer to. The difference
+        is immediate.</p>
+      <div class="closing__actions">
+        <a class="btn btn--light btn--lg" href="/signup">Get access</a>
+        <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
+      </div>
+    </div>
+  </section>
+</main>
+{{>footer}}
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

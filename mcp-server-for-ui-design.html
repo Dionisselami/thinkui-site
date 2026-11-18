@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/img/favicon.ico" sizes="any">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0c0c0d">
+<meta name="apple-mobile-web-app-title" content="ThinkUI">
+<title>MCP server for UI design: real screens in your agent</title>
+<meta name="description" content="What a UI-reference MCP server does, what it returns, and how it differs from the Figma MCP — with the config block for Claude Code, Cursor and VS Code.">
+<link rel="canonical" href="https://thinkui.xyz/mcp-server-for-ui-design">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="MCP server for UI design: real screens in your agent">
+<meta property="og:description" content="What a UI-reference MCP server does, what it returns, and how it differs from the Figma MCP server.">
+<meta property="og:url" content="https://thinkui.xyz/mcp-server-for-ui-design">
+<meta property="og:image" content="https://thinkui.xyz/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MCP server for UI design: real screens in your agent">
+<meta name="twitter:description" content="What a UI-reference MCP server does, what it returns, and how it differs from the Figma MCP server.">
+<meta name="twitter:image" content="https://thinkui.xyz/assets/img/og.png">
+
+<link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=2fccab3f7a">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "MCP server for UI design: real screens in your agent",
+      "description": "What a UI-reference MCP server does, what it returns, and how it differs from the Figma MCP server.",
+      "author": { "@type": "Organization", "name": "ThinkUI" },
+      "publisher": { "@type": "Organization", "name": "ThinkUI" },
+      "mainEntityOfPage": "https://thinkui.xyz/mcp-server-for-ui-design"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an MCP server for UI design?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It is a Model Context Protocol server that gives a coding agent evidence about interfaces: real screens, the flows they belong to, the components they use, typefaces and animated icons. The agent calls it while it works, the same way it would call a search or a file tool." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this the same as the Figma MCP server?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The Figma MCP server reads the files in your own Figma account and turns them into code. A reference library like ThinkUI shows what other products shipped, so it answers a different question: what should this screen look like when nobody has drawn it yet. The two are complementary." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an MCP client to use it?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. ThinkUI connects to any client that supports remote MCP servers over streamable HTTP, including Claude Code, Claude Desktop, Cursor, VS Code with Copilot, Windsurf, Zed and Codex. The server is hosted, so there is nothing to install locally." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does a call actually return?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A result names the app and the flow a screen came from, what the screen demonstrates, the patterns it uses, the components involved and its licence. Where the corpus holds a screenshot it is attached; where the licence is study-only the result says so and forbids republishing." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can my agent use the components commercially?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The components, animated icons and materials ThinkUI returns are MIT licensed. Screenshots are not: each keeps its own licence, and only the permissively licensed share may be shipped. Every result states which it is." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does a query that finds nothing return an approximation?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. An empty query returns an empty result and says what the library does hold. Approximating would turn an honest gap into an invented answer, which is the failure the server exists to prevent." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body class="dark-top">
+<a class="skip" href="#main">Skip to content</a>
+<header class="header">
+  <div class="wrap header__inner">
+    <a class="brand" href="/"><svg class="brand__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.99 26.00" width="90.99" height="26.00" role="img" aria-label="ThinkUI"><defs><linearGradient id="lg-foot-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0764f"/><stop offset="1" stop-color="#d4431d"/></linearGradient><linearGradient id="lg-foot-s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".2"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><title>ThinkUI</title><g transform="translate(0 0) scale(0.406250)"><rect width="64" height="64" rx="15" fill="url(#lg-foot-g)"/><rect width="64" height="64" rx="15" fill="url(#lg-foot-s)"/><rect x="1" y="1" width="62" height="62" rx="14.2" fill="none" stroke="#ffffff" stroke-opacity=".16" stroke-width="1.2"/><rect x="14.00" y="17.00" width="36.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="28.75" width="26.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="40.50" width="16.00" height="6.50" rx="3.25" fill="#ffffff"/></g><g transform="translate(34.6771 19.0938) scale(0.016785)"><path fill="#faf9f7" d="M211.8086954727769 0.0V-660.0H338.81083170324564V0.0ZM19.23781331628561 -552.4268827885389V-660.0H531.9055335558951V-552.4268827885389ZM594.9040309377015 0.0V-310.4764055609703L594.7611767016351 -705.9766075499356H722.1680050827563V-548.643482029438Q722.1680050827563 -528.072092693299 720.5846535842866 -503.8219989594072Q719.0013020858169 -479.57190522551537 715.7512635756284 -453.7384411022067Q712.5012250654399 -427.90497697889805 708.9178735669702 -401.8453623447567Q705.3345220685005 -375.7857477106154 701.2868826761842 -351.261990506202H719.5250345878303Q732.5725940540433 -411.5715317539871 754.858254570514 -452.66683451645076Q777.1439150869846 -493.76213727891445 812.584400722757 -514.881251744926Q848.0248863585293 -536.0003662109375 899.2155209481716 -536.0003662109375Q988.858471095562 -536.0003662109375 1033.0370788536966 -473.03601292334497Q1077.2156866118312 -410.07165963575244 1077.2156866118312 -282.3808782733977V0.0H950.2849774993956V-266.5472266897559Q950.2849774993956 -349.80858939513564 925.868528816849 -389.0226912740618Q901.4520801343024 -428.23679315298796 852.0476655513048 -428.23679315298796Q810.5480041541159 -428.23679315298796 782.3934827577323 -402.52265058271587Q754.2389613613486 -376.8085080124438 738.9534272737801 -331.7253309022635Q723.6678931862116 -286.64215379208326 721.0490344837308 -226.9755699597299V0.0ZM1180.1659168079495 0.0V-522.5241379514337H1306.3109203539789V0.0ZM1243.3574611134827 -598.7375895157456Q1204.8026305550416 -598.7375895157456 1184.6628959719876 -614.9010055632772Q1164.5231613889337 -631.0644216108087 1164.5231613889337 -662.1952872584786Q1164.5231613889337 -693.5981625848267 1184.757823819347 -709.847192980759Q1204.9924862497605 -726.0962233766913 1243.2645764331478 -726.0962233766913Q1282.3686685770435 -726.0962233766913 1302.5778446543804 -709.7984037846327Q1322.7870207317173 -693.500584192574 1322.7870207317173 -662.1734107714911Q1322.7870207317173 -631.3695702401823 1302.515935204147 -615.053579877964Q1282.2448496765767 -598.7375895157456 1243.3574611134827 -598.7375895157456ZM1415.9040309377015 0.0V-309.9760102927685L1415.7611767016351 -522.5241379514337H1522.500778928399L1518.3106195405126 -349.16675386577845H1534.8344450481236Q1546.8581557534635 -412.4525262787938 1570.1200299970806 -453.8454539012164Q1593.3819042406976 -495.23838152363896 1630.3104974664748 -515.6193738672882Q1667.239090692252 -536.0003662109375 1718.024921234697 -536.0003662109375Q1806.8583969809115 -536.0003662109375 1852.5370417963713 -473.5122499037534Q1898.2156866118312 -411.0241335965693 1898.2156866118312 -280.9047822654247V0.0H1771.2849774993956V-268.1187192052603Q1771.2849774993956 -350.73730033263564 1746.8208843376487 -389.3680042102933Q1722.356791175902 -427.99870808795094 1673.4047502800822 -427.99870808795094Q1631.5241713784635 -427.99870808795094 1602.5720905158669 -401.4275207519531Q1573.6200096532702 -374.8563334159553 1558.3582938089967 -328.7613525427878Q1543.096577964723 -282.6663716696203 1542.0490344837308 -223.02356394007802V0.0ZM2000.9040309377015 0.0V-706.5004272460938H2125.167992003262V-312.9293023981154Q2160.3105861134827 -332.78642927110195 2191.357862200588 -358.0958455428481Q2222.4051382876933 -383.40526181459427 2248.107184998691 -411.54800052009523Q2273.809231709689 -439.6907392255962 2292.868523729965 -468.1430736742914Q2311.9278157502413 -496.59540812298656 2323.165881924331 -522.6669921875H2468.144465852529Q2453.239904489368 -484.61931355670094 2428.109157010913 -446.86929103173316Q2402.9784095324576 -409.11926850676537 2369.0142437089235 -376.60735720582306Q2335.0500778853893 -344.09544590488076 2292.669025234878 -320.2859061099589Q2250.287972584367 -296.476366315037 2201.287554062903 -286.3096531443298V-272.8095703125Q2262.9785911887884 -281.5241146981716 2304.85972231254 -267.90520222857594Q2346.740853436291 -254.28628975898027 2374.5740908570588 -225.8458956759423Q2402.4073282778263 -197.40550159290433 2420.9427344836295 -159.79840741865337Q2439.4781406894326 -122.19131324440241 2454.2158290296793 -82.2628551647067L2480.001268658787 0.0H2341.7609470896423L2326.142258413136 -54.929042272269726Q2310.1190025620162 -102.7621227428317 2291.0480775292963 -139.4761635903269Q2271.9771524965763 -176.1902044378221 2242.084684090689 -197.16624378040433Q2212.1922156848013 -218.14228312298656 2162.7161821611226 -218.21371024101973L2125.167992003262 -218.2851373590529V0.0ZM2823.3807750865817 13.547655377537012Q2765.856756299734 13.547655377537012 2720.1066407691687 1.4761912021785975Q2674.3565252386034 -10.595272973179817 2640.2612399142236 -33.76199050247669Q2606.1659545898438 -56.92870803177357 2583.6183151975274 -89.89304896816611Q2561.070675805211 -122.85738990455866 2549.7135431207716 -164.7621845062822Q2538.356410436332 -206.66697910800576 2538.356410436332 -256.40508015826344V-660.0H2665.358546666801V-261.3813374824822Q2665.358546666801 -207.47691417485476 2682.929800853133 -171.42960103042424Q2700.5010550394654 -135.38228788599372 2735.464984714985 -117.56106857955456Q2770.4289143905044 -99.7398492731154 2822.8569553904235 -99.7398492731154Q2876.618309378624 -99.7398492731154 2911.415582560003 -117.4658392034471Q2946.2128557413816 -135.1918291337788 2963.6174534335732 -171.29865155555308Q2981.022051125765 -207.40547397732735 2981.022051125765 -261.3813374824822V-660.0H3107.4289405420423V-256.40508015826344Q3107.4289405420423 -127.71446155384183 3035.5717213917524 -57.08340308815241Q2963.7145022414625 13.547655377537012 2823.3807750865817 13.547655377537012ZM3226.4040018729866 0.0V-660.0H3354.9299577996135V0.0Z"/></g></svg></a>
+    <nav class="nav" aria-label="Main" id="site-nav">
+      <a href="/examples">Examples</a>
+      <a href="/docs">Docs</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/#how">How it works</a>
+      <!-- Inside the nav on purpose: on a phone the sheet IS the nav, so the actions have
+           to travel with it. As a header sibling they wrapped inside a 64px bar and pushed
+           "Sign in" off the top edge at 320px. -->
+      <div class="nav__cta">
+        <a class="btn btn--text" href="/login">Sign in</a>
+        <a class="btn btn--primary" href="/signup">Get access</a>
+      </div>
+    </nav>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><span></span></button>
+  </div>
+</header>
+<main id="main">
+
+  <section class="canvas band">
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Guide</span>
+      <h1 class="display">An MCP server for UI design work.</h1>
+      <p class="lede">Your coding agent can produce a working screen in a minute. What it cannot do on its own is
+        know what a good one looks like. ThinkUI answers that from a library of real interfaces, over the Model
+        Context Protocol — the same protocol your agent already uses for files and search.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">The problem</span>
+        <h2>Every agent ships the same screen.</h2>
+        <p class="lede">Ask three different agents for a settings page and you get three versions of the same page:
+          a heading, a card grid, a few toggles, generous padding. That is not a style. It is the median of the
+          training data, reproduced confidently.</p>
+      </div>
+      <p>Design has always worked by looking at what other people solved. A designer opens five competitors before
+        drawing anything. Your agent has no such habit: it has no way to check, so it guesses, and the guess is
+        fluent enough that nobody notices until the interface is in front of a customer.</p>
+      <p>The fix is not a better prompt. It is giving the agent access to the evidence a designer would have used —
+        what a checkout looks like when it is not hostile, how a dashboard frames an empty state, which typeface
+        actually holds up in a dense table — and letting it cite what it used.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">What it is</span>
+        <h2>A reference library, exposed as tools.</h2>
+        <p class="lede">ThinkUI is a hosted MCP server. Your agent connects to one URL, sends your key in a header,
+          and gets five tools it can call mid-conversation.</p>
+      </div>
+      <div class="cmp__wrap">
+        <table class="cmp">
+          <caption>ThinkUI tools. Every result names the project or component it came from.</caption>
+          <thead>
+            <tr><th scope="col">Tool</th><th scope="col">Answers</th><th scope="col">Returns</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row" class="mono">find_ui_references</th>
+                <td>How a screen, a flow or a pattern is actually designed</td>
+                <td>Screens and flows with the app they came from, the patterns they use and the components involved</td></tr>
+            <tr><th scope="row" class="mono">find_ui_elements</th>
+                <td>What a component should look like</td>
+                <td>The component's own markup and stylesheet, ready to paste</td></tr>
+            <tr><th scope="row" class="mono">find_animated_icons</th>
+                <td>Which animated icon fits an action</td>
+                <td>Working animated SVG, no runtime and no icon font</td></tr>
+            <tr><th scope="row" class="mono">find_ui_materials</th>
+                <td>Which typeface, icon set or design system to use for a role</td>
+                <td>Candidates with their maintenance state and their source</td></tr>
+            <tr><th scope="row" class="mono">corpus_stats</th>
+                <td>What the server actually holds</td>
+                <td>Counts by category, so an empty result is never a mystery</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top:18px">The library behind the tools currently holds
+        1,639 references across 97 flows and 111 categories, plus MIT-licensed components, icons and
+        materials. <span class="mono">corpus_stats</span> reports the live numbers, so your agent can check
+        coverage before claiming something exists.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Query craft</span>
+        <h2>Ask for a decision, not a keyword.</h2>
+        <p class="lede">The library is indexed by what a screen demonstrates. A topic word returns a category.
+          A decision returns evidence.</p>
+      </div>
+      <div class="grid grid--2" style="gap:26px; align-items:start">
+        <div class="card">
+          <h3 style="margin-bottom:14px">Do this</h3>
+          <p class="mono" style="font-size:14px; color:var(--text-soft)">"how a paywall frames its free trial"</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"empty state for a search with no results"</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"an onboarding checklist that does not nag"</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:14px">Not this</h3>
+          <p class="mono" style="font-size:14px; color:var(--text-soft)">"paywall"</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"design system"</p>
+          <p class="mono" style="font-size:14px; color:var(--text-soft); margin-top:10px">"make it modern"</p>
+          <p class="small" style="margin-top:16px">The second column returns a category record or nothing. That is
+            the server being honest, not broken.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Position</span>
+        <h2>How it differs from the Figma MCP server.</h2>
+        <p class="lede">Both are MCP servers, both are about interfaces, and they answer opposite questions. Knowing
+          which one you need is most of the decision.</p>
+      </div>
+      <div class="cmp__wrap">
+        <table class="cmp">
+          <caption>The two servers, side by side.</caption>
+          <thead>
+            <tr><th scope="col"></th><th scope="col">Figma MCP server</th><th scope="col">ThinkUI</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Source</th>
+                <td>The files in your own Figma account</td>
+                <td>Interfaces shipped by other products</td></tr>
+            <tr><th scope="row">Answers</th>
+                <td>"How is this frame built, and how do I code it?"</td>
+                <td>"How do good products solve this screen?"</td></tr>
+            <tr><th scope="row">Best moment</th>
+                <td>A design exists and needs to become code</td>
+                <td>No design exists yet, and the agent would otherwise guess</td></tr>
+            <tr><th scope="row">Sees competitors</th>
+                <td>No</td>
+                <td>Yes — that is the whole library</td></tr>
+            <tr><th scope="row">Writes to a canvas</th>
+                <td>Yes, on paid plans with a Full seat</td>
+                <td>No. It returns evidence, not edits</td></tr>
+            <tr><th scope="row">Assets</th>
+                <td>Your components and variables</td>
+                <td>MIT components, icons and materials; screenshots under their own licences</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top:18px">Most teams should run both. Figma is the source of truth for what
+        you have already decided; ThinkUI is the outside evidence for what you have not. If you want the longer
+        version, it has its own page: <a href="/figma-mcp-alternative">ThinkUI as a Figma MCP alternative</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Connect</span>
+        <h2>One URL, one header.</h2>
+        <p class="lede">There is no package to install and no daemon to keep alive. Your key comes from
+          <a href="/account">your account page</a> after you sign up.</p>
+      </div>
+      <div class="grid grid--2" style="gap:26px">
+        <div class="code">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">Claude Code</span>
+          </div>
+<pre>claude mcp add --transport http thinkui \
+  https://thinkui.xyz/mcp \
+  --header <span class="s">"Authorization: Bearer your-key"</span></pre>
+          <div class="code__note">Project-scoped alternative: the same entry in
+            <span class="mono">.mcp.json</span> at the repo root.</div>
+        </div>
+        <div class="code">
+          <div class="code__bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="name">.cursor/mcp.json · .vscode/mcp.json</span>
+          </div>
+<pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"thinkui"</span>: {
+      <span class="k">"url"</span>: <span class="s">"https://thinkui.xyz/mcp"</span>,
+      <span class="k">"headers"</span>: { <span class="k">"Authorization"</span>: <span class="s">"Bearer your-key"</span> }
+    }
+  }
+}</pre>
+          <div class="code__note">VS Code puts the entry under a <span class="mono">"servers"</span> key instead.
+            Restart the app after saving; clients read their config at start-up.</div>
+        </div>
+      </div>
+      <p style="margin-top:22px">Client-specific walkthroughs:
+        <a href="/claude-code-ui-design">Claude Code</a> ·
+        <a href="/cursor-ui-design">Cursor</a> ·
+        <a href="/docs">all clients</a>.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Limits</span>
+        <h2>What it will not do.</h2>
+      </div>
+      <div class="grid grid--3" style="gap:22px">
+        <div class="card">
+          <h3 style="margin-bottom:12px">Draw the interface</h3>
+          <p class="small">It returns evidence and assets; your agent writes the code. ThinkUI is not a canvas and
+            does not pretend to be one.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">Grant rights it does not have</h3>
+          <p class="small">Screenshots keep their own licences. Where a screen is study-only, the result says
+            <span class="mono">do not ship or republish</span> and names the owner.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">Fill gaps with guesses</h3>
+          <p class="small">A query the corpus cannot answer comes back empty, with a note about what it does hold.
+            That is the feature.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <h2>Questions this page gets.</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>What is an MCP server for UI design?</summary>
+          <div class="answer"><p>It is a Model Context Protocol server that gives a coding agent evidence about
+            interfaces: real screens, the flows they belong to, the components they use, typefaces and animated
+            icons. The agent calls it while it works, the same way it would call a search or a file tool.</p></div>
+        </details>
+        <details>
+          <summary>Is this the same as the Figma MCP server?</summary>
+          <div class="answer"><p>No. The Figma MCP server reads the files in your own Figma account and turns them
+            into code. A reference library like ThinkUI shows what other products shipped, so it answers a
+            different question: what should this screen look like when nobody has drawn it yet. The two are
+            complementary.</p></div>
+        </details>
+        <details>
+          <summary>Do I need an MCP client to use it?</summary>
+          <div class="answer"><p>Yes. ThinkUI connects to any client that supports remote MCP servers over
+            streamable HTTP, including Claude Code, Claude Desktop, Cursor, VS Code with Copilot, Windsurf, Zed and
+            Codex. The server is hosted, so there is nothing to install locally.</p></div>
+        </details>
+        <details>
+          <summary>What does a call actually return?</summary>
+          <div class="answer"><p>A result names the app and the flow a screen came from, what the screen
+            demonstrates, the patterns it uses, the components involved and its licence. Where the corpus holds a
+            screenshot it is attached; where the licence is study-only the result says so and forbids
+            republishing.</p></div>
+        </details>
+        <details>
+          <summary>Can my agent use the components commercially?</summary>
+          <div class="answer"><p>The components, animated icons and materials ThinkUI returns are MIT licensed.
+            Screenshots are not: each keeps its own licence, and only the permissively licensed share may be
+            shipped. Every result states which it is.</p></div>
+        </details>
+        <details>
+          <summary>Does a query that finds nothing return an approximation?</summary>
+          <div class="answer"><p>No. An empty query returns an empty result and says what the library does hold.
+            Approximating would turn an honest gap into an invented answer, which is the failure the server exists
+            to prevent.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="canvas closing">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="display">Stop the guess.</h2>
+      <p class="lede">Connect the server, then ask a design question you already know the answer to. The difference
+        is immediate.</p>
+      <div class="closing__actions">
+        <a class="btn btn--light btn--lg" href="/signup">Get access</a>
+        <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="/"><svg class="brand__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.99 26.00" width="90.99" height="26.00" role="img" aria-label="ThinkUI"><defs><linearGradient id="lg-foot-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0764f"/><stop offset="1" stop-color="#d4431d"/></linearGradient><linearGradient id="lg-foot-s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".2"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><title>ThinkUI</title><g transform="translate(0 0) scale(0.406250)"><rect width="64" height="64" rx="15" fill="url(#lg-foot-g)"/><rect width="64" height="64" rx="15" fill="url(#lg-foot-s)"/><rect x="1" y="1" width="62" height="62" rx="14.2" fill="none" stroke="#ffffff" stroke-opacity=".16" stroke-width="1.2"/><rect x="14.00" y="17.00" width="36.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="28.75" width="26.00" height="6.50" rx="3.25" fill="#ffffff"/><rect x="14.00" y="40.50" width="16.00" height="6.50" rx="3.25" fill="#ffffff"/></g><g transform="translate(34.6771 19.0938) scale(0.016785)"><path fill="#faf9f7" d="M211.8086954727769 0.0V-660.0H338.81083170324564V0.0ZM19.23781331628561 -552.4268827885389V-660.0H531.9055335558951V-552.4268827885389ZM594.9040309377015 0.0V-310.4764055609703L594.7611767016351 -705.9766075499356H722.1680050827563V-548.643482029438Q722.1680050827563 -528.072092693299 720.5846535842866 -503.8219989594072Q719.0013020858169 -479.57190522551537 715.7512635756284 -453.7384411022067Q712.5012250654399 -427.90497697889805 708.9178735669702 -401.8453623447567Q705.3345220685005 -375.7857477106154 701.2868826761842 -351.261990506202H719.5250345878303Q732.5725940540433 -411.5715317539871 754.858254570514 -452.66683451645076Q777.1439150869846 -493.76213727891445 812.584400722757 -514.881251744926Q848.0248863585293 -536.0003662109375 899.2155209481716 -536.0003662109375Q988.858471095562 -536.0003662109375 1033.0370788536966 -473.03601292334497Q1077.2156866118312 -410.07165963575244 1077.2156866118312 -282.3808782733977V0.0H950.2849774993956V-266.5472266897559Q950.2849774993956 -349.80858939513564 925.868528816849 -389.0226912740618Q901.4520801343024 -428.23679315298796 852.0476655513048 -428.23679315298796Q810.5480041541159 -428.23679315298796 782.3934827577323 -402.52265058271587Q754.2389613613486 -376.8085080124438 738.9534272737801 -331.7253309022635Q723.6678931862116 -286.64215379208326 721.0490344837308 -226.9755699597299V0.0ZM1180.1659168079495 0.0V-522.5241379514337H1306.3109203539789V0.0ZM1243.3574611134827 -598.7375895157456Q1204.8026305550416 -598.7375895157456 1184.6628959719876 -614.9010055632772Q1164.5231613889337 -631.0644216108087 1164.5231613889337 -662.1952872584786Q1164.5231613889337 -693.5981625848267 1184.757823819347 -709.847192980759Q1204.9924862497605 -726.0962233766913 1243.2645764331478 -726.0962233766913Q1282.3686685770435 -726.0962233766913 1302.5778446543804 -709.7984037846327Q1322.7870207317173 -693.500584192574 1322.7870207317173 -662.1734107714911Q1322.7870207317173 -631.3695702401823 1302.515935204147 -615.053579877964Q1282.2448496765767 -598.7375895157456 1243.3574611134827 -598.7375895157456ZM1415.9040309377015 0.0V-309.9760102927685L1415.7611767016351 -522.5241379514337H1522.500778928399L1518.3106195405126 -349.16675386577845H1534.8344450481236Q1546.8581557534635 -412.4525262787938 1570.1200299970806 -453.8454539012164Q1593.3819042406976 -495.23838152363896 1630.3104974664748 -515.6193738672882Q1667.239090692252 -536.0003662109375 1718.024921234697 -536.0003662109375Q1806.8583969809115 -536.0003662109375 1852.5370417963713 -473.5122499037534Q1898.2156866118312 -411.0241335965693 1898.2156866118312 -280.9047822654247V0.0H1771.2849774993956V-268.1187192052603Q1771.2849774993956 -350.73730033263564 1746.8208843376487 -389.3680042102933Q1722.356791175902 -427.99870808795094 1673.4047502800822 -427.99870808795094Q1631.5241713784635 -427.99870808795094 1602.5720905158669 -401.4275207519531Q1573.6200096532702 -374.8563334159553 1558.3582938089967 -328.7613525427878Q1543.096577964723 -282.6663716696203 1542.0490344837308 -223.02356394007802V0.0ZM2000.9040309377015 0.0V-706.5004272460938H2125.167992003262V-312.9293023981154Q2160.3105861134827 -332.78642927110195 2191.357862200588 -358.0958455428481Q2222.4051382876933 -383.40526181459427 2248.107184998691 -411.54800052009523Q2273.809231709689 -439.6907392255962 2292.868523729965 -468.1430736742914Q2311.9278157502413 -496.59540812298656 2323.165881924331 -522.6669921875H2468.144465852529Q2453.239904489368 -484.61931355670094 2428.109157010913 -446.86929103173316Q2402.9784095324576 -409.11926850676537 2369.0142437089235 -376.60735720582306Q2335.0500778853893 -344.09544590488076 2292.669025234878 -320.2859061099589Q2250.287972584367 -296.476366315037 2201.287554062903 -286.3096531443298V-272.8095703125Q2262.9785911887884 -281.5241146981716 2304.85972231254 -267.90520222857594Q2346.740853436291 -254.28628975898027 2374.5740908570588 -225.8458956759423Q2402.4073282778263 -197.40550159290433 2420.9427344836295 -159.79840741865337Q2439.4781406894326 -122.19131324440241 2454.2158290296793 -82.2628551647067L2480.001268658787 0.0H2341.7609470896423L2326.142258413136 -54.929042272269726Q2310.1190025620162 -102.7621227428317 2291.0480775292963 -139.4761635903269Q2271.9771524965763 -176.1902044378221 2242.084684090689 -197.16624378040433Q2212.1922156848013 -218.14228312298656 2162.7161821611226 -218.21371024101973L2125.167992003262 -218.2851373590529V0.0ZM2823.3807750865817 13.547655377537012Q2765.856756299734 13.547655377537012 2720.1066407691687 1.4761912021785975Q2674.3565252386034 -10.595272973179817 2640.2612399142236 -33.76199050247669Q2606.1659545898438 -56.92870803177357 2583.6183151975274 -89.89304896816611Q2561.070675805211 -122.85738990455866 2549.7135431207716 -164.7621845062822Q2538.356410436332 -206.66697910800576 2538.356410436332 -256.40508015826344V-660.0H2665.358546666801V-261.3813374824822Q2665.358546666801 -207.47691417485476 2682.929800853133 -171.42960103042424Q2700.5010550394654 -135.38228788599372 2735.464984714985 -117.56106857955456Q2770.4289143905044 -99.7398492731154 2822.8569553904235 -99.7398492731154Q2876.618309378624 -99.7398492731154 2911.415582560003 -117.4658392034471Q2946.2128557413816 -135.1918291337788 2963.6174534335732 -171.29865155555308Q2981.022051125765 -207.40547397732735 2981.022051125765 -261.3813374824822V-660.0H3107.4289405420423V-256.40508015826344Q3107.4289405420423 -127.71446155384183 3035.5717213917524 -57.08340308815241Q2963.7145022414625 13.547655377537012 2823.3807750865817 13.547655377537012ZM3226.4040018729866 0.0V-660.0H3354.9299577996135V0.0Z"/></g></svg></a>
+        <p class="footer__about">Interface references for coding agents, over MCP. Screens, flows, components, fonts and
+          icons your agent can build with.</p>
+      </div>
+      <div>
+        <h4>Start here</h4>
+        <ul>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/docs">Docs</a></li>
+          <li><a href="/examples">Examples</a></li>
+          <li><a href="/#how">How it works</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Guides</h4>
+        <ul>
+          <li><a href="/mcp-server-for-ui-design">MCP server for UI design</a></li>
+          <li><a href="/claude-code-ui-design">Claude Code UI design</a></li>
+          <li><a href="/cursor-ui-design">Cursor UI design</a></li>
+          <li><a href="/figma-mcp-alternative">vs Figma MCP</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Your account</h4>
+        <ul>
+          <li><a href="/login">Sign in</a></li>
+          <li><a href="/signup">Create account</a></li>
+          <li><a href="/account">Account &amp; keys</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The fine print</h4>
+        <ul>
+          <li><a href="/terms">Terms</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 ThinkUI</span>
+      <span class="sep">Built for agents that would rather cite than guess.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/app.js?v=816efdc23c" defer></script>
+</body>
+</html>
