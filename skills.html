@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/img/app-icons/favicon.ico" sizes="any">
+<link rel="icon" href="assets/img/app-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/app-icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/app-icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/img/app-icons/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0c0c0d">
+<meta name="apple-mobile-web-app-title" content="ThinkUI">
+<title>Agent skills for UI design: install the habit, not just the server</title>
+<meta name="description" content="Two small skills for coding agents: one teaches them to ask for evidence before designing, the other refuses to call a UI done until every state exists. Plain text, no code, one command.">
+<link rel="canonical" href="https://thinkui.xyz/skills">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="Agent skills for UI design">
+<meta property="og:description" content="One skill makes the agent ask for evidence before it designs. The other is the gate that runs before it says done.">
+<meta property="og:url" content="https://thinkui.xyz/skills">
+<meta property="og:image" content="https://thinkui.xyz/assets/img/og.png?v=cloud">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agent skills for UI design">
+<meta name="twitter:description" content="One skill makes the agent ask for evidence before it designs. The other is the gate that runs before it says done.">
+<meta name="twitter:image" content="https://thinkui.xyz/assets/img/og.png?v=cloud">
+
+<link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=2093aa4f5b">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Agent skills for UI design",
+      "description": "Two skills for coding agents: an evidence habit wired to the ThinkUI MCP server, and a finish gate for UI.",
+      "url": "https://thinkui.xyz/skills",
+      "author": { "@type": "Organization", "name": "ThinkUI" },
+      "publisher": { "@type": "Organization", "name": "ThinkUI", "url": "https://thinkui.xyz" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need a ThinkUI key to install the skills?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Installing is one command and the files are plain text. The anti-slop gate works with no account at all; only the evidence step needs a key, and when it is missing the skill says the step was skipped instead of inventing a reference." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which coding agents can use these skills?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Any agent that reads a SKILL.md from its skills directory: Claude Code, Cursor, Codex, OpenCode, Windsurf, Zed and the other clients the skills CLI supports. The server itself is standard MCP over streamable HTTP." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is inside the download?",
+          "acceptedAnswer": { "@type": "Answer", "text": "One markdown file. No executable code, no dependencies, no background process. You can read the whole skill in the repository or fetch the archive and check its sha256 against the published digest." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the anti-slop skill the same as the server?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The server holds 1,630 references from real products. The skill is the habit of asking it the right question and the gate that runs afterwards. Install the skill and the agent still calls the server for evidence." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body class="dark-top">
+<a class="skip" href="#main">Skip to content</a>
+<header class="header">
+  <div class="wrap header__inner">
+    <a class="brand" href="/"><svg class="brand__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96.31 26.0" width="96.31" height="26.0" role="img" aria-label="ThinkUI"><title>ThinkUI</title><g transform="translate(-3.600 -6.256) scale(0.55814)"><circle cx="24.30" cy="28" r="12.0" fill="#f0dcc8"/><circle cx="39.70" cy="25" r="9.0" fill="#f0dcc8"/><circle cx="47.40" cy="33" r="7.0" fill="#f0dcc8"/><circle cx="38.60" cy="40" r="9.0" fill="#f0dcc8"/><circle cx="24.30" cy="40" r="9.5" fill="#f0dcc8"/><circle cx="33.10" cy="33" r="10.5" fill="#f0dcc8"/><circle cx="9.45" cy="53.0" r="3.0" fill="#f0dcc8"/></g><g transform="translate(40.0 19.0938) scale(0.016785)"><path fill="#faf9f7" d="M211.8086954727769 0.0V-660.0H338.81083170324564V0.0ZM19.23781331628561 -552.4268827885389V-660.0H531.9055335558951V-552.4268827885389ZM594.9040309377015 0.0V-310.4764055609703L594.7611767016351 -705.9766075499356H722.1680050827563V-548.643482029438Q722.1680050827563 -528.072092693299 720.5846535842866 -503.8219989594072Q719.0013020858169 -479.57190522551537 715.7512635756284 -453.7384411022067Q712.5012250654399 -427.90497697889805 708.9178735669702 -401.8453623447567Q705.3345220685005 -375.7857477106154 701.2868826761842 -351.261990506202H719.5250345878303Q732.5725940540433 -411.5715317539871 754.858254570514 -452.66683451645076Q777.1439150869846 -493.76213727891445 812.584400722757 -514.881251744926Q848.0248863585293 -536.0003662109375 899.2155209481716 -536.0003662109375Q988.858471095562 -536.0003662109375 1033.0370788536966 -473.03601292334497Q1077.2156866118312 -410.07165963575244 1077.2156866118312 -282.3808782733977V0.0H950.2849774993956V-266.5472266897559Q950.2849774993956 -349.80858939513564 925.868528816849 -389.0226912740618Q901.4520801343024 -428.23679315298796 852.0476655513048 -428.23679315298796Q810.5480041541159 -428.23679315298796 782.3934827577323 -402.52265058271587Q754.2389613613486 -376.8085080124438 738.9534272737801 -331.7253309022635Q723.6678931862116 -286.64215379208326 721.0490344837308 -226.9755699597299V0.0ZM1180.1659168079495 0.0V-522.5241379514337H1306.3109203539789V0.0ZM1243.3574611134827 -598.7375895157456Q1204.8026305550416 -598.7375895157456 1184.6628959719876 -614.9010055632772Q1164.5231613889337 -631.0644216108087 1164.5231613889337 -662.1952872584786Q1164.5231613889337 -693.5981625848267 1184.757823819347 -709.847192980759Q1204.9924862497605 -726.0962233766913 1243.2645764331478 -726.0962233766913Q1282.3686685770435 -726.0962233766913 1302.5778446543804 -709.7984037846327Q1322.7870207317173 -693.500584192574 1322.7870207317173 -662.1734107714911Q1322.7870207317173 -631.3695702401823 1302.515935204147 -615.053579877964Q1282.2448496765767 -598.7375895157456 1243.3574611134827 -598.7375895157456ZM1415.9040309377015 0.0V-309.9760102927685L1415.7611767016351 -522.5241379514337H1522.500778928399L1518.3106195405126 -349.16675386577845H1534.8344450481236Q1546.8581557534635 -412.4525262787938 1570.1200299970806 -453.8454539012164Q1593.3819042406976 -495.23838152363896 1630.3104974664748 -515.6193738672882Q1667.239090692252 -536.0003662109375 1718.024921234697 -536.0003662109375Q1806.8583969809115 -536.0003662109375 1852.5370417963713 -473.5122499037534Q1898.2156866118312 -411.0241335965693 1898.2156866118312 -280.9047822654247V0.0H1771.2849774993956V-268.1187192052603Q1771.2849774993956 -350.73730033263564 1746.8208843376487 -389.3680042102933Q1722.356791175902 -427.99870808795094 1673.4047502800822 -427.99870808795094Q1631.5241713784635 -427.99870808795094 1602.5720905158669 -401.4275207519531Q1573.6200096532702 -374.8563334159553 1558.3582938089967 -328.7613525427878Q1543.096577964723 -282.6663716696203 1542.0490344837308 -223.02356394007802V0.0ZM2000.9040309377015 0.0V-706.5004272460938H2125.167992003262V-312.9293023981154Q2160.3105861134827 -332.78642927110195 2191.357862200588 -358.0958455428481Q2222.4051382876933 -383.40526181459427 2248.107184998691 -411.54800052009523Q2273.809231709689 -439.6907392255962 2292.868523729965 -468.1430736742914Q2311.9278157502413 -496.59540812298656 2323.165881924331 -522.6669921875H2468.144465852529Q2453.239904489368 -484.61931355670094 2428.109157010913 -446.86929103173316Q2402.9784095324576 -409.11926850676537 2369.0142437089235 -376.60735720582306Q2335.0500778853893 -344.09544590488076 2292.669025234878 -320.2859061099589Q2250.287972584367 -296.476366315037 2201.287554062903 -286.3096531443298V-272.8095703125Q2262.9785911887884 -281.5241146981716 2304.85972231254 -267.90520222857594Q2346.740853436291 -254.28628975898027 2374.5740908570588 -225.8458956759423Q2402.4073282778263 -197.40550159290433 2420.9427344836295 -159.79840741865337Q2439.4781406894326 -122.19131324440241 2454.2158290296793 -82.2628551647067L2480.001268658787 0.0H2341.7609470896423L2326.142258413136 -54.929042272269726Q2310.1190025620162 -102.7621227428317 2291.0480775292963 -139.4761635903269Q2271.9771524965763 -176.1902044378221 2242.084684090689 -197.16624378040433Q2212.1922156848013 -218.14228312298656 2162.7161821611226 -218.21371024101973L2125.167992003262 -218.2851373590529V0.0ZM2823.3807750865817 13.547655377537012Q2765.856756299734 13.547655377537012 2720.1066407691687 1.4761912021785975Q2674.3565252386034 -10.595272973179817 2640.2612399142236 -33.76199050247669Q2606.1659545898438 -56.92870803177357 2583.6183151975274 -89.89304896816611Q2561.070675805211 -122.85738990455866 2549.7135431207716 -164.7621845062822Q2538.356410436332 -206.66697910800576 2538.356410436332 -256.40508015826344V-660.0H2665.358546666801V-261.3813374824822Q2665.358546666801 -207.47691417485476 2682.929800853133 -171.42960103042424Q2700.5010550394654 -135.38228788599372 2735.464984714985 -117.56106857955456Q2770.4289143905044 -99.7398492731154 2822.8569553904235 -99.7398492731154Q2876.618309378624 -99.7398492731154 2911.415582560003 -117.4658392034471Q2946.2128557413816 -135.1918291337788 2963.6174534335732 -171.29865155555308Q2981.022051125765 -207.40547397732735 2981.022051125765 -261.3813374824822V-660.0H3107.4289405420423V-256.40508015826344Q3107.4289405420423 -127.71446155384183 3035.5717213917524 -57.08340308815241Q2963.7145022414625 13.547655377537012 2823.3807750865817 13.547655377537012ZM3226.4040018729866 0.0V-660.0H3354.9299577996135V0.0Z"/></g></svg></a>
+    <nav class="nav" aria-label="Main" id="site-nav">
+      <a href="/examples">Examples</a>
+      <a href="/docs">Docs</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/#how">How it works</a>
+      <!-- Inside the nav on purpose: on a phone the sheet IS the nav, so the actions have
+           to travel with it. As a header sibling they wrapped inside a 64px bar and pushed
+           "Sign in" off the top edge at 320px. -->
+      <div class="nav__cta">
+        <a class="btn btn--text" href="/login">Sign in</a>
+        <a class="btn btn--primary" href="/signup">Get access</a>
+      </div>
+    </nav>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><span></span></button>
+  </div>
+</header>
+<main id="main">
+
+  <section class="canvas band">
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Agent skills</span>
+      <h1 class="display">The server is the evidence. The skills are the habit.</h1>
+      <p class="lede">A coding agent repeats what it did last time, which is why every generated app
+        looks the same. Two small files change the default: one teaches it to ask before it draws,
+        the other refuses to call a screen done until something has been decided.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Why a skill at all</span>
+        <h2>MCP gives the agent eyes. A skill tells it when to open them.</h2>
+      </div>
+      <p>Connecting a server does nothing on its own. The agent still opens with whatever it has seen
+        most often, and what it has seen most often is a hero, three feature cards and a testimonial
+        nobody gave. That is not a knowledge problem, it is a habit problem.</p>
+      <p>A skill is a habit written down: a short file in the agent's skills directory that fires on
+        specific situations and carries the steps you would otherwise repeat in every prompt. Ours
+        carry two things — when to look for evidence, and the checks that have to pass before the
+        agent is allowed to say the UI is finished.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">The two</span>
+        <h2>Ask first. Then pass the gate.</h2>
+      </div>
+      <div class="grid grid--3" style="gap:22px">
+        <div class="card">
+          <h3 style="margin-bottom:12px">thinkui — the evidence habit</h3>
+          <p class="small">Tells the agent to settle the decision in front of it with a query shaped
+            like the problem: how a paywall frames the trial, how a dense row shows a remaining
+            balance. One decision per call, read what each reference demonstrates, stop when the
+            question is answered.</p>
+          <p class="small" style="margin-top:10px"><a href="/docs">Connect the server first</a>, then
+            the skill has something to ask.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">thinkui-anti-slop — the gate</h3>
+          <p class="small">The part everyone skips. Four states designed before the happy path, real
+            content instead of placeholders, one element that wins, tokens before raw values, then a
+            render you have actually looked at — and six checks before anyone says done.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">Plain text, no code</h3>
+          <p class="small">Each skill is a single <code>SKILL.md</code>. No dependencies, no install
+            script, no background process. Read it in the repository, or verify the archive against
+            the sha256 published in <a href="/.well-known/skills/index.json">the index</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Install</span>
+        <h2>One command each, no key needed to install.</h2>
+      </div>
+      <div class="code">
+        <div class="code__bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="name">terminal · both skills</span>
+          <button class="code__copy" type="button" data-copy aria-label="Copy commands">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+<pre>npx skills add https://thinkui.xyz --skill thinkui -y
+npx skills add https://thinkui.xyz --skill thinkui-anti-slop -y</pre>
+        <div class="code__note">The same files install from the public repository —
+          <code>npx skills add Dionisselami/thinkui --skill thinkui-anti-slop -y</code> — and agents
+          that discover skills by URL find both in
+          <a href="/.well-known/skills/index.json">/.well-known/skills/index.json</a>.</div>
+      </div>
+      <p style="margin-top:22px">The gate runs on judgement alone. The evidence step needs a key:
+        <a href="/pricing">see what a plan includes</a>.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">The gate</span>
+        <h2>Six questions, answered in one line each.</h2>
+        <p class="lede">A "no" is not a reason to lower the bar. It is the remaining work, and the
+          agent has to say so instead of describing the process.</p>
+      </div>
+      <div class="cmp__wrap">
+        <table class="cmp">
+          <caption>What the agent has to show before it calls the UI done.</caption>
+          <thead>
+            <tr><th scope="col">Check</th><th scope="col">The question</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Specific</th><td>Would this screen make sense for a competitor's product unchanged?</td></tr>
+            <tr><th scope="row">Evidence</th><td>Which decision did a reference settle, and what did it change?</td></tr>
+            <tr><th scope="row">States</th><td>Empty, loading, error and overflow — seen with real content?</td></tr>
+            <tr><th scope="row">Content</th><td>Any placeholder names or fake round numbers left in the markup?</td></tr>
+            <tr><th scope="row">Hierarchy</th><td>Name the one element that wins. Could a stranger name it too?</td></tr>
+            <tr><th scope="row">Honest limits</th><td>What was not rendered, not tested, or not fixed?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Honestly</span>
+        <h2>What these skills will not do.</h2>
+      </div>
+      <p>They will not make an agent a designer, and they do not contain layouts to copy. A reference
+        is evidence for a decision, not a template — reproducing someone's screen in another product
+        is the same slop in better clothes. What they change is narrower and more useful: the agent
+        asks before it draws, and it tells you what it did not verify instead of presenting a
+        confident summary.</p>
+      <p>They also do not require the server to be useful. Without a key the gate still runs; the
+        skill says the evidence step was skipped rather than inventing a screenshot it never saw.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <h2>Questions this page gets.</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>Do I need a ThinkUI key to install the skills?</summary>
+          <div class="answer"><p>No. Installing is one command and the files are plain text. The
+            anti-slop gate works with no account at all; only the evidence step needs a key, and when
+            it is missing the skill says the step was skipped instead of inventing a reference.</p></div>
+        </details>
+        <details>
+          <summary>Which coding agents can use these skills?</summary>
+          <div class="answer"><p>Any agent that reads a <code>SKILL.md</code> from its skills
+            directory: Claude Code, Cursor, Codex, OpenCode, Windsurf, Zed and the other clients the
+            skills CLI supports. The server itself is standard MCP over streamable HTTP.</p></div>
+        </details>
+        <details>
+          <summary>What is inside the download?</summary>
+          <div class="answer"><p>One markdown file. No executable code, no dependencies, no background
+            process. You can read the whole skill in the repository or fetch the archive and check its
+            sha256 against the published digest.</p></div>
+        </details>
+        <details>
+          <summary>Is the anti-slop skill the same as the server?</summary>
+          <div class="answer"><p>No. The server holds 1,630 references from real
+            products. The skill is the habit of asking it the right question and the gate that runs
+            afterwards. Install the skill and the agent still calls the server for evidence.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="canvas closing">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="display">Install the habit. Keep the evidence one call away.</h2>
+      <p class="lede">The gate is free to install. The corpus is what makes it specific.</p>
+      <div class="closing__actions">
+        <a class="btn btn--light btn--lg" href="/signup">Get access</a>
+        <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="/"><svg class="brand__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96.31 26.0" width="96.31" height="26.0" role="img" aria-label="ThinkUI"><title>ThinkUI</title><g transform="translate(-3.600 -6.256) scale(0.55814)"><circle cx="24.30" cy="28" r="12.0" fill="#f0dcc8"/><circle cx="39.70" cy="25" r="9.0" fill="#f0dcc8"/><circle cx="47.40" cy="33" r="7.0" fill="#f0dcc8"/><circle cx="38.60" cy="40" r="9.0" fill="#f0dcc8"/><circle cx="24.30" cy="40" r="9.5" fill="#f0dcc8"/><circle cx="33.10" cy="33" r="10.5" fill="#f0dcc8"/><circle cx="9.45" cy="53.0" r="3.0" fill="#f0dcc8"/></g><g transform="translate(40.0 19.0938) scale(0.016785)"><path fill="#faf9f7" d="M211.8086954727769 0.0V-660.0H338.81083170324564V0.0ZM19.23781331628561 -552.4268827885389V-660.0H531.9055335558951V-552.4268827885389ZM594.9040309377015 0.0V-310.4764055609703L594.7611767016351 -705.9766075499356H722.1680050827563V-548.643482029438Q722.1680050827563 -528.072092693299 720.5846535842866 -503.8219989594072Q719.0013020858169 -479.57190522551537 715.7512635756284 -453.7384411022067Q712.5012250654399 -427.90497697889805 708.9178735669702 -401.8453623447567Q705.3345220685005 -375.7857477106154 701.2868826761842 -351.261990506202H719.5250345878303Q732.5725940540433 -411.5715317539871 754.858254570514 -452.66683451645076Q777.1439150869846 -493.76213727891445 812.584400722757 -514.881251744926Q848.0248863585293 -536.0003662109375 899.2155209481716 -536.0003662109375Q988.858471095562 -536.0003662109375 1033.0370788536966 -473.03601292334497Q1077.2156866118312 -410.07165963575244 1077.2156866118312 -282.3808782733977V0.0H950.2849774993956V-266.5472266897559Q950.2849774993956 -349.80858939513564 925.868528816849 -389.0226912740618Q901.4520801343024 -428.23679315298796 852.0476655513048 -428.23679315298796Q810.5480041541159 -428.23679315298796 782.3934827577323 -402.52265058271587Q754.2389613613486 -376.8085080124438 738.9534272737801 -331.7253309022635Q723.6678931862116 -286.64215379208326 721.0490344837308 -226.9755699597299V0.0ZM1180.1659168079495 0.0V-522.5241379514337H1306.3109203539789V0.0ZM1243.3574611134827 -598.7375895157456Q1204.8026305550416 -598.7375895157456 1184.6628959719876 -614.9010055632772Q1164.5231613889337 -631.0644216108087 1164.5231613889337 -662.1952872584786Q1164.5231613889337 -693.5981625848267 1184.757823819347 -709.847192980759Q1204.9924862497605 -726.0962233766913 1243.2645764331478 -726.0962233766913Q1282.3686685770435 -726.0962233766913 1302.5778446543804 -709.7984037846327Q1322.7870207317173 -693.500584192574 1322.7870207317173 -662.1734107714911Q1322.7870207317173 -631.3695702401823 1302.515935204147 -615.053579877964Q1282.2448496765767 -598.7375895157456 1243.3574611134827 -598.7375895157456ZM1415.9040309377015 0.0V-309.9760102927685L1415.7611767016351 -522.5241379514337H1522.500778928399L1518.3106195405126 -349.16675386577845H1534.8344450481236Q1546.8581557534635 -412.4525262787938 1570.1200299970806 -453.8454539012164Q1593.3819042406976 -495.23838152363896 1630.3104974664748 -515.6193738672882Q1667.239090692252 -536.0003662109375 1718.024921234697 -536.0003662109375Q1806.8583969809115 -536.0003662109375 1852.5370417963713 -473.5122499037534Q1898.2156866118312 -411.0241335965693 1898.2156866118312 -280.9047822654247V0.0H1771.2849774993956V-268.1187192052603Q1771.2849774993956 -350.73730033263564 1746.8208843376487 -389.3680042102933Q1722.356791175902 -427.99870808795094 1673.4047502800822 -427.99870808795094Q1631.5241713784635 -427.99870808795094 1602.5720905158669 -401.4275207519531Q1573.6200096532702 -374.8563334159553 1558.3582938089967 -328.7613525427878Q1543.096577964723 -282.6663716696203 1542.0490344837308 -223.02356394007802V0.0ZM2000.9040309377015 0.0V-706.5004272460938H2125.167992003262V-312.9293023981154Q2160.3105861134827 -332.78642927110195 2191.357862200588 -358.0958455428481Q2222.4051382876933 -383.40526181459427 2248.107184998691 -411.54800052009523Q2273.809231709689 -439.6907392255962 2292.868523729965 -468.1430736742914Q2311.9278157502413 -496.59540812298656 2323.165881924331 -522.6669921875H2468.144465852529Q2453.239904489368 -484.61931355670094 2428.109157010913 -446.86929103173316Q2402.9784095324576 -409.11926850676537 2369.0142437089235 -376.60735720582306Q2335.0500778853893 -344.09544590488076 2292.669025234878 -320.2859061099589Q2250.287972584367 -296.476366315037 2201.287554062903 -286.3096531443298V-272.8095703125Q2262.9785911887884 -281.5241146981716 2304.85972231254 -267.90520222857594Q2346.740853436291 -254.28628975898027 2374.5740908570588 -225.8458956759423Q2402.4073282778263 -197.40550159290433 2420.9427344836295 -159.79840741865337Q2439.4781406894326 -122.19131324440241 2454.2158290296793 -82.2628551647067L2480.001268658787 0.0H2341.7609470896423L2326.142258413136 -54.929042272269726Q2310.1190025620162 -102.7621227428317 2291.0480775292963 -139.4761635903269Q2271.9771524965763 -176.1902044378221 2242.084684090689 -197.16624378040433Q2212.1922156848013 -218.14228312298656 2162.7161821611226 -218.21371024101973L2125.167992003262 -218.2851373590529V0.0ZM2823.3807750865817 13.547655377537012Q2765.856756299734 13.547655377537012 2720.1066407691687 1.4761912021785975Q2674.3565252386034 -10.595272973179817 2640.2612399142236 -33.76199050247669Q2606.1659545898438 -56.92870803177357 2583.6183151975274 -89.89304896816611Q2561.070675805211 -122.85738990455866 2549.7135431207716 -164.7621845062822Q2538.356410436332 -206.66697910800576 2538.356410436332 -256.40508015826344V-660.0H2665.358546666801V-261.3813374824822Q2665.358546666801 -207.47691417485476 2682.929800853133 -171.42960103042424Q2700.5010550394654 -135.38228788599372 2735.464984714985 -117.56106857955456Q2770.4289143905044 -99.7398492731154 2822.8569553904235 -99.7398492731154Q2876.618309378624 -99.7398492731154 2911.415582560003 -117.4658392034471Q2946.2128557413816 -135.1918291337788 2963.6174534335732 -171.29865155555308Q2981.022051125765 -207.40547397732735 2981.022051125765 -261.3813374824822V-660.0H3107.4289405420423V-256.40508015826344Q3107.4289405420423 -127.71446155384183 3035.5717213917524 -57.08340308815241Q2963.7145022414625 13.547655377537012 2823.3807750865817 13.547655377537012ZM3226.4040018729866 0.0V-660.0H3354.9299577996135V0.0Z"/></g></svg></a>
+        <p class="footer__about">Interface references for coding agents, over MCP. Screens, flows, components, fonts and
+          icons your agent can build with.</p>
+      </div>
+      <div>
+        <h4>Start here</h4>
+        <ul>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/docs">Docs</a></li>
+          <li><a href="/examples">Examples</a></li>
+          <li><a href="/#how">How it works</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Guides</h4>
+        <ul>
+          <li><a href="/mcp-server-for-ui-design">MCP server for UI design</a></li>
+          <li><a href="/claude-code-ui-design">Claude Code UI design</a></li>
+          <li><a href="/cursor-ui-design">Cursor UI design</a></li>
+          <li><a href="/figma-mcp-alternative">vs Figma MCP</a></li>
+          <li><a href="/skills">Agent skills</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Your account</h4>
+        <ul>
+          <li><a href="/login">Sign in</a></li>
+          <li><a href="/signup">Create account</a></li>
+          <li><a href="/account">Account &amp; keys</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The fine print</h4>
+        <ul>
+          <li><a href="/terms">Terms</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 ThinkUI</span>
+      <span class="sep">Built for agents that would rather cite than guess.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/app.js?v=816efdc23c" defer></script>
+<script src="assets/js/analytics.js?v=8eb1039edd" defer></script>
+</body>
+</html>

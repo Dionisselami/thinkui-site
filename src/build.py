@@ -59,6 +59,7 @@ PAGES = [
     ("claude-code-ui-design.html",     "Claude Code UI design: real references over MCP",       True),
     ("cursor-ui-design.html",          "Cursor UI design: give the agent real screens",         True),
     ("figma-mcp-alternative.html",     "Figma MCP alternative: references beyond your files",   True),
+    ("skills.html",                    "Agent skills for UI design: install the habit",          True),
 ]
 
 # pages that must never be indexed (auth surfaces) vs. the 404 (noindex too)

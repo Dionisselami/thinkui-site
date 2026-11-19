@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ICONS}}
+<title>Agent skills for UI design: install the habit, not just the server</title>
+<meta name="description" content="Two small skills for coding agents: one teaches them to ask for evidence before designing, the other refuses to call a UI done until every state exists. Plain text, no code, one command.">
+<link rel="canonical" href="{{CANONICAL}}">
+<meta name="robots" content="{{ROBOTS}}">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ThinkUI">
+<meta property="og:title" content="Agent skills for UI design">
+<meta property="og:description" content="One skill makes the agent ask for evidence before it designs. The other is the gate that runs before it says done.">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="{{SITE_URL}}/assets/img/og.png?v=cloud">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agent skills for UI design">
+<meta name="twitter:description" content="One skill makes the agent ask for evidence before it designs. The other is the gate that runs before it says done.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/img/og.png?v=cloud">
+
+<link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Agent skills for UI design",
+      "description": "Two skills for coding agents: an evidence habit wired to the ThinkUI MCP server, and a finish gate for UI.",
+      "url": "{{SITE_URL}}/skills",
+      "author": { "@type": "Organization", "name": "ThinkUI" },
+      "publisher": { "@type": "Organization", "name": "ThinkUI", "url": "{{SITE_URL}}" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need a ThinkUI key to install the skills?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Installing is one command and the files are plain text. The anti-slop gate works with no account at all; only the evidence step needs a key, and when it is missing the skill says the step was skipped instead of inventing a reference." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which coding agents can use these skills?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Any agent that reads a SKILL.md from its skills directory: Claude Code, Cursor, Codex, OpenCode, Windsurf, Zed and the other clients the skills CLI supports. The server itself is standard MCP over streamable HTTP." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is inside the download?",
+          "acceptedAnswer": { "@type": "Answer", "text": "One markdown file. No executable code, no dependencies, no background process. You can read the whole skill in the repository or fetch the archive and check its sha256 against the published digest." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the anti-slop skill the same as the server?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The server holds {{REFERENCE_COUNT}} references from real products. The skill is the habit of asking it the right question and the gate that runs afterwards. Install the skill and the agent still calls the server for evidence." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body class="dark-top">
+<a class="skip" href="#main">Skip to content</a>
+{{>nav}}
+<main id="main">
+
+  <section class="canvas band">
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Agent skills</span>
+      <h1 class="display">The server is the evidence. The skills are the habit.</h1>
+      <p class="lede">A coding agent repeats what it did last time, which is why every generated app
+        looks the same. Two small files change the default: one teaches it to ask before it draws,
+        the other refuses to call a screen done until something has been decided.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Why a skill at all</span>
+        <h2>MCP gives the agent eyes. A skill tells it when to open them.</h2>
+      </div>
+      <p>Connecting a server does nothing on its own. The agent still opens with whatever it has seen
+        most often, and what it has seen most often is a hero, three feature cards and a testimonial
+        nobody gave. That is not a knowledge problem, it is a habit problem.</p>
+      <p>A skill is a habit written down: a short file in the agent's skills directory that fires on
+        specific situations and carries the steps you would otherwise repeat in every prompt. Ours
+        carry two things — when to look for evidence, and the checks that have to pass before the
+        agent is allowed to say the UI is finished.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">The two</span>
+        <h2>Ask first. Then pass the gate.</h2>
+      </div>
+      <div class="grid grid--3" style="gap:22px">
+        <div class="card">
+          <h3 style="margin-bottom:12px">thinkui — the evidence habit</h3>
+          <p class="small">Tells the agent to settle the decision in front of it with a query shaped
+            like the problem: how a paywall frames the trial, how a dense row shows a remaining
+            balance. One decision per call, read what each reference demonstrates, stop when the
+            question is answered.</p>
+          <p class="small" style="margin-top:10px"><a href="/docs">Connect the server first</a>, then
+            the skill has something to ask.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">thinkui-anti-slop — the gate</h3>
+          <p class="small">The part everyone skips. Four states designed before the happy path, real
+            content instead of placeholders, one element that wins, tokens before raw values, then a
+            render you have actually looked at — and six checks before anyone says done.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px">Plain text, no code</h3>
+          <p class="small">Each skill is a single <code>SKILL.md</code>. No dependencies, no install
+            script, no background process. Read it in the repository, or verify the archive against
+            the sha256 published in <a href="/.well-known/skills/index.json">the index</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Install</span>
+        <h2>One command each, no key needed to install.</h2>
+      </div>
+      <div class="code">
+        <div class="code__bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="name">terminal · both skills</span>
+          <button class="code__copy" type="button" data-copy aria-label="Copy commands">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+<pre>npx skills add https://thinkui.xyz --skill thinkui -y
+npx skills add https://thinkui.xyz --skill thinkui-anti-slop -y</pre>
+        <div class="code__note">The same files install from the public repository —
+          <code>npx skills add Dionisselami/thinkui --skill thinkui-anti-slop -y</code> — and agents
+          that discover skills by URL find both in
+          <a href="/.well-known/skills/index.json">/.well-known/skills/index.json</a>.</div>
+      </div>
+      <p style="margin-top:22px">The gate runs on judgement alone. The evidence step needs a key:
+        <a href="/pricing">see what a plan includes</a>.</p>
+    </div>
+  </section>
+
+  <section class="section--soft">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">The gate</span>
+        <h2>Six questions, answered in one line each.</h2>
+        <p class="lede">A "no" is not a reason to lower the bar. It is the remaining work, and the
+          agent has to say so instead of describing the process.</p>
+      </div>
+      <div class="cmp__wrap">
+        <table class="cmp">
+          <caption>What the agent has to show before it calls the UI done.</caption>
+          <thead>
+            <tr><th scope="col">Check</th><th scope="col">The question</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Specific</th><td>Would this screen make sense for a competitor's product unchanged?</td></tr>
+            <tr><th scope="row">Evidence</th><td>Which decision did a reference settle, and what did it change?</td></tr>
+            <tr><th scope="row">States</th><td>Empty, loading, error and overflow — seen with real content?</td></tr>
+            <tr><th scope="row">Content</th><td>Any placeholder names or fake round numbers left in the markup?</td></tr>
+            <tr><th scope="row">Hierarchy</th><td>Name the one element that wins. Could a stranger name it too?</td></tr>
+            <tr><th scope="row">Honest limits</th><td>What was not rendered, not tested, or not fixed?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Honestly</span>
+        <h2>What these skills will not do.</h2>
+      </div>
+      <p>They will not make an agent a designer, and they do not contain layouts to copy. A reference
+        is evidence for a decision, not a template — reproducing someone's screen in another product
+        is the same slop in better clothes. What they change is narrower and more useful: the agent
+        asks before it draws, and it tells you what it did not verify instead of presenting a
+        confident summary.</p>
+      <p>They also do not require the server to be useful. Without a key the gate still runs; the
+        skill says the evidence step was skipped rather than inventing a screenshot it never saw.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <h2>Questions this page gets.</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>Do I need a ThinkUI key to install the skills?</summary>
+          <div class="answer"><p>No. Installing is one command and the files are plain text. The
+            anti-slop gate works with no account at all; only the evidence step needs a key, and when
+            it is missing the skill says the step was skipped instead of inventing a reference.</p></div>
+        </details>
+        <details>
+          <summary>Which coding agents can use these skills?</summary>
+          <div class="answer"><p>Any agent that reads a <code>SKILL.md</code> from its skills
+            directory: Claude Code, Cursor, Codex, OpenCode, Windsurf, Zed and the other clients the
+            skills CLI supports. The server itself is standard MCP over streamable HTTP.</p></div>
+        </details>
+        <details>
+          <summary>What is inside the download?</summary>
+          <div class="answer"><p>One markdown file. No executable code, no dependencies, no background
+            process. You can read the whole skill in the repository or fetch the archive and check its
+            sha256 against the published digest.</p></div>
+        </details>
+        <details>
+          <summary>Is the anti-slop skill the same as the server?</summary>
+          <div class="answer"><p>No. The server holds {{REFERENCE_COUNT}} references from real
+            products. The skill is the habit of asking it the right question and the gate that runs
+            afterwards. Install the skill and the agent still calls the server for evidence.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="canvas closing">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="display">Install the habit. Keep the evidence one call away.</h2>
+      <p class="lede">The gate is free to install. The corpus is what makes it specific.</p>
+      <div class="closing__actions">
+        <a class="btn btn--light btn--lg" href="/signup">Get access</a>
+        <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
+      </div>
+    </div>
+  </section>
+</main>
+{{>footer}}
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>
