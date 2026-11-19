@@ -504,7 +504,14 @@ def build_pages():
         if not os.path.exists(src):
             print("  missing src/%s — skipped" % page)
             continue
-        text = clean_links(version_assets(render(page, open(src, encoding="utf-8").read())))
+        text = render(page, open(src, encoding="utf-8").read())
+        # Every document gets the page-view beacon, here rather than in each template: a
+        # head that misses it is invisible in a dashboard with no data in it. It posts to
+        # our own /api/pv (no cookie, no third-party request) so it is inert until the
+        # service has a PostHog key.
+        if "</body>" in text and "analytics.js" not in text:
+            text = text.replace("</body>", '<script src="assets/js/analytics.js" defer></script>\n</body>')
+        text = clean_links(version_assets(text))
         out = os.path.join(SITE, page)
         open(out, "w", encoding="utf-8").write(text)
         if page == "index.html":
