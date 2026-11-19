@@ -42,7 +42,7 @@ Prices are quoted from https://thinkui.xyz/pricing.
 
 ## Library (generated at build time)
 
-- 1,639 interface references across 97 flows and 111 categories
+- 1,630 interface references across 97 flows and 111 categories
 - 1,483 screenshots across products; 417 are permissively licensed, the rest are
   research and comparison references that may not be republished
 - 3,802 ready-made UI elements (HTML + CSS, MIT)
