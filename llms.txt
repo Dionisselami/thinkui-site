@@ -16,8 +16,10 @@
 - Clients: ChatGPT connectors and Claude web connectors (OAuth), Claude Code, Claude
   Desktop, Cursor, VS Code with Copilot (agent mode), Windsurf, Zed, Codex, and any
   client that supports remote MCP servers.
-- Skill: `npx skills add https://thinkui.xyz --skill thinkui -y` installs the companion SKILL.md
-  that tells an agent when to call the tools.
+- Skills: `npx skills add https://thinkui.xyz --skill thinkui -y` installs the companion SKILL.md that
+  tells an agent when to call the tools. The UI finish gate installs on its own:
+  `npx skills add Dionisselami/thinkui-anti-slop -y` (or `--skill thinkui-anti-slop` from
+  https://thinkui.xyz). Both are discoverable at https://thinkui.xyz/.well-known/skills/index.json
 
 ## Tools
 

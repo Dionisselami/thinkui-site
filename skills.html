@@ -172,9 +172,10 @@
         </div>
 <pre>npx skills add https://thinkui.xyz --skill thinkui -y
 npx skills add https://thinkui.xyz --skill thinkui-anti-slop -y</pre>
-        <div class="code__note">The same files install from the public repository —
-          <code>npx skills add Dionisselami/thinkui --skill thinkui-anti-slop -y</code> — and agents
-          that discover skills by URL find both in
+        <div class="code__note">Each skill also lives in its own public repository, which is the
+          shorter install: <code>npx skills add Dionisselami/thinkui-anti-slop -y</code> for the
+          gate, <code>npx skills add Dionisselami/thinkui --skill thinkui -y</code> for the evidence
+          habit. Agents that discover skills by URL find both in
           <a href="/.well-known/skills/index.json">/.well-known/skills/index.json</a>.</div>
       </div>
       <p style="margin-top:22px">The gate runs on judgement alone. The evidence step needs a key:

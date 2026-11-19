@@ -668,8 +668,10 @@ def build_llms():
 - Clients: ChatGPT connectors and Claude web connectors (OAuth), Claude Code, Claude
   Desktop, Cursor, VS Code with Copilot (agent mode), Windsurf, Zed, Codex, and any
   client that supports remote MCP servers.
-- Skill: `npx skills add {url} --skill thinkui -y` installs the companion SKILL.md
-  that tells an agent when to call the tools.
+- Skills: `npx skills add {url} --skill thinkui -y` installs the companion SKILL.md that
+  tells an agent when to call the tools. The UI finish gate installs on its own:
+  `npx skills add Dionisselami/thinkui-anti-slop -y` (or `--skill thinkui-anti-slop` from
+  {url}). Both are discoverable at {url}/.well-known/skills/index.json
 
 ## Tools
 
