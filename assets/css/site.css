@@ -294,8 +294,17 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
 .hero .lede { margin: 0 auto; max-width: 54ch; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--s3); margin-top: var(--s6); }
 .hero__micro {
-  margin-top: var(--s5); font: 500 12px/1.6 var(--mono); letter-spacing: .08em;
+  /* Shrink to the words. Below 900px the flanking cards close in, so the line
+     wraps in the gap between them; on a phone it drops below those cards. */
+  margin: var(--s5) auto 0; width: fit-content; max-width: 28rem;
+  font: 500 12px/1.6 var(--mono); letter-spacing: .08em;
   color: var(--text-soft); text-transform: uppercase;
+}
+@media (max-width: 900px) {
+  .hero__micro { max-width: 17.5rem; }
+}
+@media (max-width: 640px) {
+  .hero__micro { max-width: 18rem; margin-top: 4.75rem; }
 }
 .hero__micro span { color: var(--cream-3); padding: 0 6px; }
 
