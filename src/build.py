@@ -355,39 +355,73 @@ def wall_count() -> str:
 
 
 
-def _corpus_stats():
-    """The local corpus, if it is importable at build time (else None)."""
-    mcp_dir = os.environ.get("THINKUI_MCP_DIR") or os.path.join(
-        os.path.dirname(os.path.dirname(HERE)), "appvault-mcp")
-    try:
-        if mcp_dir not in sys.path:
-            sys.path.insert(0, mcp_dir)
-        import corpus as thinkui_corpus  # noqa: PLC0415
-        return thinkui_corpus.get_corpus().stats()
-    except Exception as exc:  # noqa: BLE001 — the site must build without the corpus
-        print("[build] corpus unavailable (%s: %s)" % (type(exc).__name__, exc))
-        return None
+# Filled by load_corpus_stats() before any page is rendered. Every number the site
+# states about the library is parsed from this one line, then site_stats.py rewrites
+# the built pages from it again and refuses to finish if a claim is no longer there.
+_STATS_TEXT = None
+_STATS = None
 
 
-def corpus_stats_text() -> str:
-    """Quote the server's own corpus_stats(), generated so the page cannot go stale.
+def load_corpus_stats():
+    """The server's corpus_stats() line, or src/corpus_stats.txt when it is not importable.
 
-    The examples page used to carry a hand-pasted sample from when the corpus held
-    650 references; by the time it was 1,639 that page was teaching readers a number
-    the server would contradict. Import the server, call the tool, wrap for width.
+    The snapshot is only the fallback. When the MCP server is on the path, its own
+    corpus_stats() wins, so a landing page cannot keep a number the server no longer
+    returns. Missing both is a hard failure: a guessed count is how the pages drifted.
     """
-    import textwrap
+    global _STATS_TEXT, _STATS
+    import site_stats  # noqa: PLC0415 — sits next to this file
+
+    text = None
     mcp_dir = os.environ.get("THINKUI_MCP_DIR") or os.path.join(
         os.path.dirname(os.path.dirname(HERE)), "appvault-mcp")
     try:
         if mcp_dir not in sys.path:
             sys.path.insert(0, mcp_dir)
         import server as thinkui_server  # noqa: PLC0415 — optional build-time dependency
-        text = thinkui_server.corpus_stats()
-    except Exception as exc:  # noqa: BLE001 — the site must still build without the corpus
+        text = " ".join(thinkui_server.corpus_stats().split())
+        print("[build] corpus_stats() from the MCP server")
+    except Exception as exc:  # noqa: BLE001 — fall through to the checked-in line
         print("[build] corpus_stats() unavailable (%s: %s)" % (type(exc).__name__, exc))
-        return "corpus_stats() — run it against your ThinkUI key for live counts."
-    return "\n".join(textwrap.wrap(" ".join(text.split()), 78))
+    if not text:
+        snap = os.path.join(HERE, "corpus_stats.txt")
+        try:
+            text = " ".join(open(snap, encoding="utf-8").read().split())
+        except OSError:
+            text = ""
+        if text:
+            print("[build] corpus_stats from src/corpus_stats.txt")
+    if not text:
+        raise SystemExit("corpus stats unavailable — import the MCP server "
+                         "(THINKUI_MCP_DIR) or provide src/corpus_stats.txt")
+    parsed = site_stats.parse(text)
+    _STATS_TEXT = text
+    _STATS = {
+        "references": parsed["refs"],
+        "images": parsed["shots"],
+        "images_licensed": parsed["permissive"],
+        "ui_elements": parsed["elements"],
+        "animated_icons": parsed["icons"],
+        "materials": parsed["materials"],
+        "flows": parsed["flows"],
+        "categories": parsed["cats"],
+        "icon_sets": parsed["sets"],
+    }
+    return _STATS_TEXT
+
+
+def _corpus_stats():
+    """Counts parsed from the corpus_stats() line (never a hand-typed library size)."""
+    if _STATS is None:
+        load_corpus_stats()
+    return _STATS
+
+
+def corpus_stats_text() -> str:
+    """The corpus_stats() line itself. site_stats.py wraps it onto the examples page."""
+    if _STATS_TEXT is None:
+        load_corpus_stats()
+    return _STATS_TEXT
 
 
 def tokens(page: str) -> dict:
@@ -445,7 +479,29 @@ def render(page: str, text: str) -> str:
     left = re.findall(r"\{\{[>A-Z_]+\}\}", text)
     if left:
         raise SystemExit("%s: unresolved token(s) %s" % (page, ", ".join(sorted(set(left)))))
-    return text
+    return inject_glass(text)
+
+
+# The liquid-glass rim lens. The stylesheet points backdrop-filter at url(#lg-lens);
+# without this filter in the document the nav and the plans have nothing to refract.
+# One copy, injected on every page, so a new template cannot ship without it.
+GLASS = (
+    '<svg class="lg-svg" aria-hidden="true" focusable="false"><filter id="lg-lens" '
+    'x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">'
+    '<feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" seed="3" result="n"/>'
+    '<feDisplacementMap in="SourceGraphic" in2="n" scale="22" xChannelSelector="R" '
+    'yChannelSelector="G"/></filter></svg>\n'
+    '<script>if (window.chrome) document.documentElement.classList.add("lg-lens");</script>\n'
+)
+
+
+def inject_glass(text: str) -> str:
+    if 'id="lg-lens"' in text:
+        return text
+    m = re.search(r"<body[^>]*>\n", text)
+    if not m:
+        raise SystemExit("page has no <body> to attach the liquid-glass filter to")
+    return text[:m.end()] + GLASS + text[m.end():]
 
 
 def asset_version(rel: str) -> str:
@@ -649,6 +705,7 @@ def build_llms():
     mats = n("materials")
     flows = n("flows")
     cats = n("categories")
+    sets = n("icon_sets")
 
     text = """# ThinkUI
 
@@ -700,7 +757,7 @@ Prices are quoted from {url}/pricing.
 - {imgs} screenshots across products; {lic} are permissively licensed, the rest are
   research and comparison references that may not be republished
 - {els} ready-made UI elements (HTML + CSS, MIT)
-- {icons} animated icons in 6 sets (SVG, MIT)
+- {icons} animated icons in {sets} sets (SVG, MIT)
 - {mats} materials: typefaces, icon sets and design systems (open licences)
 
 ## Key pages
@@ -728,7 +785,7 @@ Prices are quoted from {url}/pricing.
 
 support@thinkui.xyz
 """.format(url=url, refs=refs, imgs=imgs, lic=lic, els=els, icons=icons,
-           mats=mats, flows=flows, cats=cats)
+           mats=mats, flows=flows, cats=cats, sets=sets)
     open(os.path.join(SITE, "llms.txt"), "w", encoding="utf-8", newline="\n").write(text)
     return len(text.splitlines())
 
@@ -777,6 +834,42 @@ def build_wellknown_mcp():
         json.dump(doc, fh, indent=2)
         fh.write("\n")
     return path
+
+
+def build_root_icons():
+    """Browsers request /favicon.ico and /apple-touch-icon.png at the origin root.
+
+    The files the pages actually link are under assets/img/app-icons/. These three are
+    the same bytes at the URLs a browser asks for on its own, including the
+    precomposed name older Safari still requests.
+    """
+    icons = os.path.join(SITE, "assets", "img", "app-icons")
+    pairs = (
+        ("favicon.ico", "favicon.ico"),
+        ("apple-touch-icon.png", "apple-touch-icon.png"),
+        ("apple-touch-icon.png", "apple-touch-icon-precomposed.png"),
+    )
+    for src, dst in pairs:
+        data = open(os.path.join(icons, src), "rb").read()
+        open(os.path.join(SITE, dst), "wb").write(data)
+    return len(pairs)
+
+
+def build_agent_skills_index():
+    """/.well-known/agent-skills/index.json — the same index as /.well-known/skills/.
+
+    Clients look the index up under both paths. One file is the source; this copies
+    it so the two URLs cannot drift. The zip archives next to it are content-addressed
+    and are not rewritten here.
+    """
+    src = os.path.join(SITE, ".well-known", "skills", "index.json")
+    dst_dir = os.path.join(SITE, ".well-known", "agent-skills")
+    os.makedirs(dst_dir, exist_ok=True)
+    text = open(src, encoding="utf-8").read().replace("\r\n", "\n")
+    if not text.endswith("\n"):
+        text += "\n"
+    open(os.path.join(dst_dir, "index.json"), "w", encoding="utf-8", newline="\n").write(text)
+    return text.count('"name"')
 
 
 def build_og():
@@ -888,6 +981,7 @@ def main():
         SITE_URL = args.url
 
     print("building %s" % SITE_URL.rstrip("/"))
+    load_corpus_stats()
     made = build_pages()
     for page, size in made:
         print("  %-14s %6.1f KB" % (page, size / 1024))
@@ -898,7 +992,14 @@ def main():
     print("  indexnow key   /%s.txt" % build_indexnow())
     build_wellknown_mcp()
     print("  well-known     /.well-known/mcp.json")
+    print("  agent-skills   %d skills" % build_agent_skills_index())
+    print("  root icons     %d files" % build_root_icons())
     build_og()
+    # Last, on purpose. The pages above may carry whatever number the template held;
+    # this pass rewrites every library claim from the corpus_stats() line and exits
+    # if one of those claims is no longer in the file.
+    import site_stats  # noqa: PLC0415
+    site_stats.main(SITE, _STATS_TEXT)
     return 0
 
 

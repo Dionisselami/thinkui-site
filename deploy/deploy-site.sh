@@ -28,7 +28,11 @@ cd "$REPO"
 # build.py and forgotten here ships a 404 - which is exactly what happened to /examples.
 # `.well-known` carries the skills.sh discovery index and the content-addressed skill
 # archive; without it thinkui.xyz is not an installable skill source.
-tar czf - --exclude='_*.html' *.html *.txt sitemap.xml site.webmanifest assets .well-known \
+# favicon.ico and the apple-touch icons sit at the root: browsers request those
+# URLs whether or not a page links them. The build copies them out of app-icons.
+tar czf - --exclude='_*.html' *.html *.txt sitemap.xml site.webmanifest \
+  favicon.ico apple-touch-icon.png apple-touch-icon-precomposed.png \
+  assets .well-known \
   | ssh "$HOST" "sudo tar xzf - -C $SITE_DIR && sudo chown -R www-data:www-data $SITE_DIR"
 
 step "3/4 vhost"
