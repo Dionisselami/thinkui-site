@@ -26,15 +26,13 @@ import urllib.parse
 import webbrowser
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-PAGES = {"", "index", "pricing", "docs", "login", "signup", "404", "terms", "privacy"}
-# Files a browser asks for at the origin root even though the pages point at the
-# copies under assets/img. Serving the real file beats answering 404 to a request
-# the site itself provoked.
-ROOT_FILES = {
-    "/favicon.ico": "assets/img/favicon.ico",
-    "/apple-touch-icon.png": "assets/img/apple-touch-icon.png",
-    "/apple-touch-icon-precomposed.png": "assets/img/apple-touch-icon.png",
+PAGES = {
+    "", "index", "pricing", "docs", "examples", "login", "signup", "404",
+    "terms", "privacy", "skills", "mcp-server-for-ui-design",
+    "claude-code-ui-design", "cursor-ui-design", "figma-mcp-alternative",
 }
+# The build copies the app icons to these root names, which is what a browser
+# requests on its own. Nothing else maps them.
 
 # Routes that existed before the redesign. They no longer have pages of their
 # own, so they redirect rather than 404 — a dead link should land somewhere
@@ -92,8 +90,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     # ---------- routing ----------
     def translate_path(self, path):
         parsed = urllib.parse.urlparse(path).path
-        if parsed in ROOT_FILES:
-            return os.path.join(ROOT, *ROOT_FILES[parsed].split("/"))
         clean = urllib.parse.unquote(parsed).strip("/")
         parts = [p for p in clean.split("/") if p]
 
@@ -107,6 +103,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def send_head(self):
         parsed = urllib.parse.urlparse(self.path).path
         parts = [p for p in urllib.parse.unquote(parsed).strip("/").split("/") if p]
+        # The homepage section used to have its own URL.
+        if parts == ["how-it-works"]:
+            self.send_response(301)
+            self.send_header("Location", "/#how")
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return None
+
         # a retired route, or a retired route with a slug/id under it
         if parts and parts[0] in LEGACY:
             dest = LEGACY[parts[0]]
