@@ -1,0 +1,31 @@
+/* Sign-in additions (2026-11-22): the plan choice on /signup and the in-app browser
+   notice on /signup and /login. Loaded only by those two pages. */
+.planpick { border: 0; margin: 0 0 var(--s5); padding: 0; display: grid; gap: var(--s2); }
+.planpick legend { padding: 0; margin-bottom: var(--s2); font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-mute); }
+.planpick__opt {
+  position: relative; display: flex; align-items: center; gap: var(--s3); min-height: 52px;
+  padding: 10px 14px; border-radius: var(--r-md); border: 1px solid var(--line-2);
+  background: rgba(255, 255, 255, .03); cursor: pointer;
+  transition: border-color var(--d-2) var(--ease), background var(--d-2) var(--ease);
+}
+.planpick__opt:hover { border-color: var(--line-3); }
+.planpick__opt input { width: 18px; height: 18px; flex: none; margin: 0; accent-color: var(--cream); }
+.planpick__opt:has(input:checked) { border-color: var(--cream); background: rgba(240, 220, 200, .07); }
+.planpick__opt input:focus-visible { outline: 2px solid var(--cream); outline-offset: 2px; }
+.planpick__name { font-weight: 600; color: var(--text); }
+.planpick__meta { margin-left: auto; text-align: right; font-size: 13px; line-height: 1.35; color: var(--text-soft); }
+.planpick__meta b { display: block; font-weight: 600; color: var(--text); }
+
+.inapp {
+  margin: 0 0 var(--s5); padding: var(--s4); border-radius: var(--r-md);
+  border: 1px solid var(--cream); background: rgba(240, 220, 200, .08); color: var(--text);
+}
+.inapp[hidden] { display: none; }
+.inapp__title { font-size: 16px; font-weight: 650; line-height: 1.35; }
+.inapp__text { margin-top: var(--s2); font-size: 14px; line-height: 1.5; color: var(--text-soft); }
+.inapp__actions { display: grid; gap: var(--s2); margin-top: var(--s4); }
+.inapp__skip {
+  display: inline-block; margin-top: var(--s3); padding: 6px 0; background: none; border: 0;
+  font-size: 13.5px; color: var(--text-soft); text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+.inapp__done { margin-top: var(--s2); font-size: 13px; color: var(--ok); min-height: 1em; }
