@@ -26,16 +26,23 @@
 
     var burger = header.querySelector(".burger");
     if (burger) {
-      burger.addEventListener("click", function () {
-        var open = header.classList.toggle("is-open");
+      var setMenu = function (open) {
+        header.classList.toggle("is-open", open);
         burger.setAttribute("aria-expanded", open ? "true" : "false");
+      };
+      burger.addEventListener("click", function () {
+        setMenu(!header.classList.contains("is-open"));
       });
       // a tap on a link should close the sheet, not leave it over the page
       header.addEventListener("click", function (ev) {
         if (ev.target.closest && ev.target.closest(".nav a") && header.classList.contains("is-open")) {
-          header.classList.remove("is-open");
-          burger.setAttribute("aria-expanded", "false");
+          setMenu(false);
         }
+      });
+      doc.addEventListener("keydown", function (ev) {
+        if (ev.key !== "Escape" || !header.classList.contains("is-open")) { return; }
+        setMenu(false);
+        burger.focus();
       });
     }
   }
@@ -204,13 +211,13 @@
   }
 
   /* The library: chips filter the wall by the tag the build wrote on each card, and
-     "Show more" reveals the rest. Without JS every card is visible and the chips are
-     inert buttons — a smaller library on screen, never a hidden one. */
+     "Show more" reveals the rest. Without JS every card remains visible. */
   function initLibrary() {
     var wall = doc.querySelector("[data-wall]");
     if (!wall) { return; }
     var cards = [].slice.call(wall.querySelectorAll(".wall__card"));
     if (!cards.length) { return; }
+    var toolbar = doc.querySelector(".wall__tools .chips");
     var chips = [].slice.call(doc.querySelectorAll("[data-filter]"));
     var countEl = doc.querySelector("[data-wall-count]");
     var more = doc.querySelector("[data-more]");
@@ -226,11 +233,12 @@
         card.classList.toggle("is-hidden", !show);
         if (show) { visible += 1; }
       });
-      if (countEl) {
-        countEl.innerHTML = filter === "all"
-          ? "Showing " + visible + " of " + cards.length + " screens"
-          : visible + " of " + cards.length + " screens";
-      }
+      chips.forEach(function (chip) {
+        var selected = chip.getAttribute("data-filter") === filter;
+        chip.classList.toggle("is-active", selected);
+        chip.setAttribute("aria-pressed", String(selected));
+      });
+      if (countEl) { countEl.textContent = "Showing " + visible + " of " + cards.length + " screens"; }
       if (more) {
         var left = cards.length - visible;
         more.hidden = filter !== "all" || left <= 0;
@@ -242,7 +250,6 @@
       chip.addEventListener("click", function () {
         filter = chip.getAttribute("data-filter");
         shown = STEP;
-        chips.forEach(function (c) { c.classList.toggle("is-active", c === chip); });
         apply();
       });
     });
@@ -250,6 +257,7 @@
       more.addEventListener("click", function () { shown += cards.length; apply(); });
     }
     apply();
+    if (toolbar) { toolbar.hidden = false; }
   }
 
   function boot() {

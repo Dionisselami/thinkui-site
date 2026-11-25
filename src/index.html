@@ -25,6 +25,8 @@
 
 <link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/hero-fog.css">
+<link rel="stylesheet" href="assets/css/liquid-glass.css">
 
 <script type="application/ld+json">
 {
@@ -82,7 +84,7 @@
 }
 </script>
 </head>
-<body>
+<body class="glass-home">
 <a class="skip" href="#main">Skip to content</a>
 
 {{>nav}}
@@ -90,9 +92,9 @@
 <main id="main">
 
   <!-- ============================================================ hero -->
-  <section class="hero">
-    <div class="hero__stage" aria-hidden="true">
-{{HERO_TILES}}
+  <section class="hero hero--fog">
+    <div class="hero__fog" aria-hidden="true">
+      <div class="hero__fog-stage"></div>
     </div>
     <div class="wrap">
       <div class="hero__inner">
@@ -107,30 +109,38 @@
           </a>
           <a class="btn btn--ghost btn--lg" href="examples.html">See what the tools return</a>
         </div>
-        <p class="hero__micro">12 tool calls free <span>&middot;</span> no card needed</p>
+        <p class="hero__micro"><span class="seg">12 tool calls free</span><span class="dot" aria-hidden="true">&middot;</span><span class="seg">no card needed</span></p>
       </div>
     </div>
+    <button class="hero__fog-toggle" type="button" aria-label="Pause background animation" aria-pressed="false" hidden>
+      <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+        <path class="hero__fog-pause" d="M4 3h2.5v10H4zm5.5 0H12v10H9.5z"/>
+        <path class="hero__fog-play" d="M5 2.8 13 8l-8 5.2z"/>
+      </svg>
+    </button>
   </section>
 
   <!-- ========================================================== library -->
   <section class="wall-section" id="library">
     <div class="wrap">
       <div class="wall__head">
-        <p class="eyebrow">In the library</p>
+        <p class="wall__label">In the library</p>
         <h2>The interfaces your agent has only ever guessed at.</h2>
         <p class="lede">Screens captured from live products, each named after the product it came
           from and the day it was captured. The server returns the same provenance with every answer.</p>
       </div>
-      <div class="chips" role="group" aria-label="Filter screens by kind">
+      <div class="wall__tools">
+        <div class="chips" role="group" aria-label="Filter screens by kind" hidden>
 {{WALL_CHIPS}}
+        </div>
+        <p class="wall__count" data-wall-count role="status">{{WALL_COUNT}}</p>
       </div>
-      <p class="wall__count" data-wall-count>{{WALL_COUNT}}</p>
     </div>
-    <div class="wall" data-wall>
+    <div class="wall" id="library-screens" data-wall>
 {{WALL}}
     </div>
     <div class="wrap wall__foot">
-      <button class="btn btn--ghost" type="button" data-more>Show more screens</button>
+      <button class="btn btn--ghost" type="button" aria-controls="library-screens" data-more hidden>Show more screens</button>
       <p class="price-line"><b>From $7.99/mo</b>
         <span>&middot;</span> 20% off <span>&middot;</span> <a href="signup.html?plan=free">or try free, no card</a></p>
     </div>
@@ -168,7 +178,7 @@
       </div>
 
       <div class="grid grid--3">
-        <article class="card card--lift card--glow" data-reveal style="--rd:0ms">
+        <article class="card" data-reveal style="--rd:0ms">
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></div>
           <h3>Answers with evidence</h3>
           <p>Ask “how does a paywall frame its trial?” and get the screens, the flow they belong to, what components
@@ -176,7 +186,7 @@
           <div class="card__foot">find_ui_references</div>
         </article>
 
-        <article class="card card--lift card--glow" data-reveal style="--rd:60ms">
+        <article class="card" data-reveal style="--rd:60ms">
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h13"/></svg></div>
           <h3>Components you can paste</h3>
           <p>Buttons, loaders, cards, forms, inputs, switches and tooltips. The first call returns
@@ -185,7 +195,7 @@
           <div class="card__foot">find_ui_elements</div>
         </article>
 
-        <article class="card card--lift card--glow" data-reveal style="--rd:120ms">
+        <article class="card" data-reveal style="--rd:120ms">
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="3.4"/></svg></div>
           <h3>Motion that actually moves</h3>
           <p>Animated icons arrive as working SVG with the animation included, no JavaScript runtime, no icon font, nothing to
@@ -193,7 +203,7 @@
           <div class="card__foot">find_animated_icons</div>
         </article>
 
-        <article class="card card--lift card--glow" data-reveal style="--rd:180ms">
+        <article class="card" data-reveal style="--rd:180ms">
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 4h9l4 4v12H6z"/><path d="M15 4v4h4"/></svg></div>
           <h3>Type and systems</h3>
           <p>The right typeface for a brief, an icon set that is still maintained, the design system a product like yours
@@ -201,7 +211,7 @@
           <div class="card__foot">find_ui_materials</div>
         </article>
 
-        <article class="card card--lift card--glow" data-reveal style="--rd:240ms">
+        <article class="card" data-reveal style="--rd:240ms">
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 4 3.5 19h17z"/><path d="M12 10v4M12 16.5v.5"/></svg></div>
           <h3>It tells you when it has nothing</h3>
           <p>Ask find_ui_elements for a navigation bar and you get no result plus the categories
@@ -210,7 +220,7 @@
           <div class="card__foot">no invented results</div>
         </article>
 
-        <article class="card card--lift card--glow" data-reveal style="--rd:300ms">
+        <article class="card" data-reveal style="--rd:300ms">
           <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg></div>
           <h3>Fits your setup</h3>
           <p>A hosted server your agent reaches over HTTPS. Add one block to its config and the tools appear in every
@@ -265,7 +275,6 @@
 
         <div class="code">
           <div class="code__bar">
-            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="name">mcp.json</span>
             <button class="code__copy" type="button" data-copy aria-label="Copy configuration">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
@@ -420,6 +429,7 @@
 
 {{>footer}}
 <script src="assets/js/app.js" defer></script>
-<script src="assets/js/field.js" defer></script>
+<script src="assets/js/hero-fog.js" defer></script>
+<script src="assets/js/liquid-glass.js" defer></script>
 </body>
 </html>

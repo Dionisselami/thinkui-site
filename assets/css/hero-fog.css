@@ -1,0 +1,38 @@
+/* Fog sits behind the homepage copy; the same rendered look is available without WebGL. */
+.hero--fog { isolation: isolate; }
+.hero--fog::before { display: none; }
+.hero--fog::after { height: min(180px, 33%); }
+.hero__fog, .hero__fog-stage { position: absolute; inset: 0; pointer-events: none; }
+.hero__fog {
+  z-index: 1; overflow: hidden;
+  background: #1e0d0d url('../img/hero/vanta-fog-0523.webp') center / cover no-repeat;
+}
+.hero__fog::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(ellipse 83% 95% at 50% 42%, rgb(20 20 20 / .77) 18%, rgb(20 20 20 / .67) 49%, rgb(20 20 20 / .26) 84%, rgb(20 20 20 / .12)),
+    linear-gradient(180deg, rgb(20 20 20 / .30), transparent 36%, transparent 65%, rgb(20 20 20 / .38));
+}
+.hero__fog-toggle:not([hidden]) {
+  position: absolute; right: var(--gut); bottom: 12px; z-index: 4;
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border: 1px solid var(--line-2); border-radius: var(--r-pill);
+  background: var(--bg-deep); color: var(--text-soft); cursor: pointer;
+}
+.hero__fog-toggle:hover { color: var(--cream-2); border-color: var(--cream-edge); }
+.hero__fog-toggle:not([aria-pressed="true"]) .hero__fog-play,
+.hero__fog-toggle[aria-pressed="true"] .hero__fog-pause { display: none; }
+
+@media (max-width: 860px) {
+  .hero--fog { padding-bottom: 64px; }
+  .hero--fog .hero__inner::before { background: none; }
+  .hero__fog::after {
+    background: linear-gradient(180deg, rgb(20 20 20 / .22), rgb(20 20 20 / .56) 13%, rgb(20 20 20 / .66) 48%, rgb(20 20 20 / .62) 72%, rgb(20 20 20 / .20));
+  }
+}
+@media print, (forced-colors: active) {
+  .hero__fog, .hero__fog-toggle:not([hidden]) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__fog-stage, .hero__fog-toggle:not([hidden]) { display: none; }
+}

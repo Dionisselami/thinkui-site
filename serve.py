@@ -28,7 +28,7 @@ import webbrowser
 ROOT = os.path.dirname(os.path.abspath(__file__))
 PAGES = {
     "", "index", "pricing", "docs", "examples", "login", "signup", "404",
-    "terms", "privacy", "skills", "mcp-server-for-ui-design",
+    "terms", "privacy", "sources", "skills", "mcp-server-for-ui-design",
     "claude-code-ui-design", "cursor-ui-design", "figma-mcp-alternative",
 }
 # The build copies the app icons to these root names, which is what a browser
@@ -44,7 +44,6 @@ LEGACY = {
     "elements": "index.html",
     "icons": "index.html",
     "mcp": "docs.html",
-    "sources": "index.html",
     "design": "index.html",
     "explore": "index.html",
     "flows": "index.html",

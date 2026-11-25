@@ -1,0 +1,331 @@
+/* ThinkUI homepage materials: optical glass, warm frost, and quieter smoked surfaces. */
+.glass-home {
+  --header-h: 68px;
+  --glass-overlap: calc(var(--header-h) + 1px);
+  --glass-gutter: clamp(8px, 1.25vw, 18px);
+  --glass-frost: linear-gradient(174deg, rgb(255 245 234 / .89), rgb(253 230 220 / .81) 56%, rgb(249 218 211 / .73));
+  --glass-frost-hover: linear-gradient(174deg, rgb(255 249 241 / .93), rgb(255 234 223 / .86) 56%, rgb(252 224 217 / .79));
+  --glass-quiet-tone: #211d23;
+  --glass-quiet-coat: linear-gradient(162deg, rgb(255 240 248 / .085), rgb(248 225 245 / .023) 55%, rgb(220 176 217 / .035)), var(--glass-quiet-tone);
+  --glass-quiet-rim: rgb(244 226 240 / .19);
+  --glass-quiet-edge: inset 0 1px 0 rgb(255 244 251 / .15), inset 0 -1px 0 rgb(228 183 221 / .07);
+  --glass-seam: rgb(236 218 232 / .14);
+  --glass-control-tone: #2b242d;
+  --glass-control-coat: linear-gradient(171deg, rgb(255 244 249 / .16), rgb(255 231 247 / .04) 64%, rgb(228 187 217 / .065)), var(--glass-control-tone);
+  --glass-control-rim: rgb(248 228 241 / .31);
+  --glass-control-edge: inset 0 1px 0 rgb(255 247 252 / .27), inset 0 -1px 0 rgb(255 216 244 / .095);
+  --glass-clear-edge: inset 0 1px 0 rgb(255 252 252 / .52), inset 0 -1px 0 rgb(255 227 248 / .22), 0 5px 20px rgb(0 0 0 / .21);
+  --glass-muted: #c1b3ba;
+}
+/* The shared stylesheet still supplies the material for the other routes.
+   Do not stack its masks, highlights or filters on top of the homepage lens. */
+.glass-home .header__inner::before,
+.glass-home :is(.header__inner, .hero__micro, .plan, .hero__actions .btn--ghost, .closing__actions .btn--ghost)::after,
+.glass-home :is(.btn--primary, .btn--light, .plan, .pricing, .footer)::before { content: none; }
+.glass-home .hero__micro {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
+  gap: 0 10px; width: auto; max-width: 34ch; margin: var(--s5) auto 0; padding: 0;
+  background: none; color: var(--text-soft); box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.glass-home .hero__micro .seg { padding: 0; color: inherit; white-space: nowrap; }
+.glass-home .hero__micro .dot { padding: 0; }
+.glass-home #main { margin-top: calc(-1 * var(--glass-overlap)); }
+.glass-home .hero--fog {
+  min-height: calc(min(90svh, 880px) + var(--glass-overlap));
+  padding-top: calc(clamp(84px, 12vh, 140px) + var(--glass-overlap));
+}
+/* The shared fadeUp animates wrapper opacity. Chromium retains it as a backdrop
+   root after the fade, so the button can't see the Fog through that wrapper. */
+.glass-home .hero__inner > .hero__actions { animation: none; }
+.glass-home .header, .glass-home .header.is-stuck {
+  padding-block: 6px; pointer-events: none;
+  background: transparent; border-bottom-color: transparent;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.glass-home .header__inner {
+  position: relative; isolation: auto; pointer-events: auto; padding: 0 var(--gut);
+  width: calc(100% - 2 * var(--glass-gutter));
+  height: calc(var(--header-h) - 12px);
+}
+.glass-home .header__inner, .glass-home .hero__actions .btn--ghost {
+  --glass-tone: rgb(24 20 25 / .70);
+  --glass-coat: radial-gradient(ellipse 75% 95% at 19% -18%, rgb(255 250 252 / .20), transparent 72%),
+    linear-gradient(165deg, rgb(255 247 250 / .06), transparent 36%, transparent 72%, rgb(255 232 249 / .055)), var(--glass-tone);
+  border: 1px solid rgb(245 231 240 / .29);
+  border-radius: var(--r-pill);
+  color: var(--text);
+  background: #221f24;
+  box-shadow: var(--glass-clear-edge);
+}
+.glass-home .hero__actions .btn--ghost { --glass-tone: rgb(30 22 30 / .32); }
+.glass-home .header.is-stuck .header__inner { --glass-tone: rgb(23 20 24 / .80); box-shadow: var(--glass-clear-edge); }
+.glass-home .nav__cta .btn { min-height: 44px; padding-inline: 20px; font-size: 15px; }
+.glass-home .nav__cta .btn--text { padding-inline: 10px; }
+.glass-home .nav > a, .glass-home .nav__cta .btn--text { color: var(--text); }
+/* A narrow reflection catches the light; the color comes from the backdrop itself. */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  /* Only the filled cream actions get the tinted frost. Its denser fill
+     separates them from the clear secondary pill and protects the dark ink. */
+  .glass-home :is(.nav__cta .btn--primary, .hero__actions .btn--primary, .closing__actions .btn--light) {
+    -webkit-backdrop-filter: saturate(1.22) blur(11px);
+    backdrop-filter: saturate(1.22) blur(11px);
+    background: var(--glass-frost);
+    border-color: rgb(255 245 240 / .46);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / .63), inset 0 -2px 4px rgb(116 70 73 / .19), var(--glow);
+  }
+  .glass-home :is(.nav__cta .btn--primary, .hero__actions .btn--primary, .closing__actions .btn--light):hover {
+    background: var(--glass-frost-hover);
+    border-color: rgb(255 250 245 / .58);
+  }
+  .glass-home .header__inner, .glass-home .hero__actions .btn--ghost {
+    -webkit-backdrop-filter: saturate(1.48) blur(10px);
+    backdrop-filter: saturate(1.48) blur(10px);
+    background: var(--glass-coat);
+  }
+  /* The long straight middle needs only a frost. Sample three channels in
+     two small curved ends instead of on every pixel of the desktop bar. */
+  .glass-home .header__inner[data-glass-segments] {
+    --glass-cap: 76px;
+    isolation: isolate; background: transparent;
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+  .glass-home .header__inner[data-glass-segments]::before,
+  .glass-home .header__inner[data-glass-segments]::after,
+  .glass-home .glass-cap { position: absolute; pointer-events: none; }
+  .glass-home .header__inner[data-glass-segments]::before {
+    content: ""; z-index: -2; inset: 0 var(--glass-cap);
+    border-radius: 0; background: none;
+    -webkit-backdrop-filter: saturate(1.5) blur(1.5px); backdrop-filter: saturate(1.5) blur(1.5px);
+  }
+  .glass-home .header__inner[data-glass-segments]::after {
+    content: ""; z-index: -1; inset: 0;
+    border-radius: inherit; background: var(--glass-coat); padding: 0;
+    -webkit-mask: none; mask: none;
+  }
+  .glass-home .glass-cap {
+    inset-block: 0; z-index: -2; width: var(--glass-cap);
+    backdrop-filter: saturate(1.5) blur(1.5px);
+  }
+  .glass-home .glass-cap--left { left: 0; border-radius: var(--r-pill) 0 0 var(--r-pill); }
+  .glass-home .glass-cap--right { right: 0; border-radius: 0 var(--r-pill) var(--r-pill) 0; }
+  .glass-home .glass-cap[data-glass-optics], .glass-home .hero__actions .btn--ghost[data-glass-optics] {
+    backdrop-filter: var(--glass-optics) saturate(1.50) blur(.55px);
+  }
+}
+.glass-home .hero__actions .btn--ghost:hover {
+  border-color: rgb(245 231 240 / .45);
+  box-shadow: inset 0 1px 0 rgb(255 252 252 / .63), inset 0 -1px 0 rgb(255 227 248 / .29), 0 5px 20px rgb(0 0 0 / .24);
+}
+.glass-home :is(.hero__actions .btn--ghost, .burger):focus-visible { border-radius: var(--r-pill); }
+
+@media (max-width: 860px) {
+  .glass-home .hero--fog { min-height: 0; padding-top: calc(clamp(64px, 9vh, 96px) + var(--glass-overlap)); }
+  .glass-home .header__inner { padding-inline: max(8px, calc(var(--gut) - var(--glass-gutter))); }
+  .glass-home .burger { width: 44px; min-width: 44px; height: 44px; flex-basis: 44px; border-color: var(--line-2); background: none; box-shadow: none; }
+  .glass-home .header.is-open .nav {
+    top: calc(100% + 8px); border: 1px solid var(--glass-quiet-rim); border-radius: 22px;
+    background: var(--glass-quiet-coat); box-shadow: var(--glass-quiet-edge);
+    max-height: calc(100svh - var(--header-h) - 14px); overflow: auto;
+  }
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .glass-home .header.is-open .nav {
+      --glass-quiet-tone: rgb(34 25 36 / .83);
+      -webkit-backdrop-filter: saturate(1.35) blur(12px); backdrop-filter: saturate(1.35) blur(12px);
+    }
+  }
+}
+@media (prefers-reduced-transparency: reduce), print {
+  .glass-home :is(.nav__cta .btn--primary, .hero__actions .btn--primary, .closing__actions .btn--light) {
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+    background: linear-gradient(180deg, var(--cream-2), var(--cream));
+  }
+  .glass-home :is(.nav__cta .btn--primary, .hero__actions .btn--primary, .closing__actions .btn--light):hover {
+    background: linear-gradient(180deg, var(--cream-2), var(--cream));
+  }
+}
+@media (forced-colors: active) {
+  .glass-home :is(.nav__cta .btn--primary, .hero__actions .btn--primary, .closing__actions .btn--light),
+  .glass-home :is(.nav__cta .btn--primary, .hero__actions .btn--primary, .closing__actions .btn--light):hover {
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+    background: ButtonFace; color: ButtonText; border-color: ButtonText; box-shadow: none;
+  }
+}
+@media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+  .glass-home .header__inner, .glass-home .header__inner[data-glass-segments],
+  .glass-home .hero__actions .btn--ghost, .glass-home .hero__actions .btn--ghost[data-glass-optics] {
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+    background: #221f24; border-color: var(--line-3); box-shadow: none;
+  }
+  .glass-home .header__inner[data-glass-segments]::before,
+  .glass-home .header__inner[data-glass-segments]::after, .glass-home .glass-cap { display: none; }
+}
+@media print {
+  .glass-home { --glass-overlap: 0px; }
+  .glass-home .header__inner, .glass-home .header__inner[data-glass-segments],
+  .glass-home .hero__actions .btn--ghost, .glass-home .hero__actions .btn--ghost[data-glass-optics] {
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+    background: transparent; box-shadow: none;
+  }
+  .glass-home .header__inner[data-glass-segments]::before,
+  .glass-home .header__inner[data-glass-segments]::after, .glass-home .glass-cap { display: none; }
+}
+
+/* Below the hero: one material around the content, not a filter over it. */
+.glass-home .wall-section {
+  padding-block-start: clamp(14px, 2.6vw, 36px);
+  background: radial-gradient(ellipse 900px 510px at 22% 100px, rgb(138 76 123 / .19), transparent 78%);
+}
+.glass-home .wall__label {
+  margin-bottom: var(--s3);
+  font: 600 14px/1.35 var(--sans);
+  color: var(--cream-2);
+}
+.glass-home .wall__tools {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--s3) var(--s5); margin-block-end: var(--s4);
+}
+.glass-home :is(.wall__tools .chips, .wall__card, .proof, .card, .step, .code, .plan:not(.plan--best), .faq) {
+  background: var(--glass-quiet-coat); border: 1px solid var(--glass-quiet-rim);
+  box-shadow: var(--glass-quiet-edge);
+}
+.glass-home .wall__tools .chips {
+  border-radius: var(--r-xl); flex-wrap: wrap; gap: 2px;
+  min-width: 0; max-width: 100%; margin: 0; padding: 6px; overflow: visible;
+}
+.glass-home .wall__tools .chips[hidden] { display: none; }
+.glass-home .wall__tools .chip {
+  flex: none; min-height: 44px; padding-inline: 12px;
+  border-color: transparent; background: transparent; color: var(--text);
+  border-radius: var(--r-pill);
+}
+.glass-home .wall__tools .chip .chip__label { font: inherit; color: inherit; min-width: 0; }
+.glass-home .wall__tools .chip .chip__count {
+  flex: none;
+  color: var(--glass-muted); font: 550 12px/1 var(--sans); font-variant-numeric: tabular-nums;
+}
+@media (hover: hover) {
+  .glass-home .wall__tools .chip:not(.is-active):hover {
+    background: var(--glass-control-coat); border-color: var(--glass-quiet-rim);
+  }
+}
+.glass-home .wall__tools .chip.is-active {
+  background: var(--glass-frost) #332933; color: var(--cream-ink);
+  border-color: rgb(255 245 240 / .48);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .55), inset 0 -1px 0 rgb(116 70 73 / .18);
+}
+.glass-home .wall__tools .chip.is-active .chip__count { color: #463936; }
+.glass-home .wall__count {
+  margin: 0; color: var(--glass-muted); font: 500 13px/1.4 var(--sans);
+  letter-spacing: normal; text-transform: none; font-variant-numeric: tabular-nums;
+}
+
+/* Keep the captures edge to edge, at the same scale. Only the rim and caption are ours. */
+.glass-home .wall__card:not(.is-hidden) { display: flex; flex-direction: column; }
+.glass-home .wall__card:hover { translate: none; }
+.glass-home .wall__card img { flex: none; }
+.glass-home .wall__card:hover img { scale: none; }
+.glass-home .wall__meta {
+  flex: 1; border-top-color: var(--glass-seam);
+  box-shadow: inset 0 1px 0 rgb(255 245 251 / .06);
+}
+.glass-home .wall__meta b { white-space: normal; overflow-wrap: anywhere; }
+.glass-home .wall__meta span {
+  display: block; overflow: visible; overflow-wrap: anywhere;
+  color: var(--glass-muted); font: 500 11.5px/1.4 var(--sans); font-variant-numeric: tabular-nums;
+}
+.glass-home .wall__meta .wall__capture { display: inline-block; white-space: nowrap; }
+.glass-home .wall__meta .wall__capture-label { display: inline; }
+.glass-home .wall__meta .wall__capture::before { content: "·"; margin-inline-end: .3em; }
+.glass-home .wall__note { color: var(--glass-muted); }
+
+.glass-home .proof, .glass-home .faq { border-radius: var(--r-lg); }
+.glass-home .proof > div { padding-inline: var(--s4); min-width: 0; }
+.glass-home .proof span, .glass-home .card__foot, .glass-home .code__bar .name, .glass-home .code__note { color: var(--glass-muted); }
+.glass-home .card__icon { border: 0; background: none; width: 24px; height: 24px; justify-items: start; }
+.glass-home :is(.code__bar, .card__foot, .code__note, .faq details) { border-color: var(--glass-seam); }
+.glass-home .code { min-width: 0; }
+.glass-home .code__bar { background: transparent; }
+.glass-home .faq { padding-inline: clamp(14px, 2vw, 26px); }
+.glass-home .faq details:last-child { border-bottom: none; }
+.glass-home .faq summary:hover { color: var(--cream-2); }
+
+.glass-home :is(.wall__foot .btn, .closing__actions .btn--ghost, .plan .btn, .code__copy),
+.glass-home .faq summary::after, .glass-home .step::before {
+  background: var(--glass-control-coat); border-color: var(--glass-control-rim);
+  box-shadow: var(--glass-control-edge);
+}
+.glass-home :is(.wall__foot .btn, .closing__actions .btn--ghost, .plan .btn, .code__copy):hover,
+.glass-home .faq details[open] summary::after { --glass-control-tone: #41333f; --glass-control-rim: rgb(248 228 241 / .40); }
+.glass-home .code__copy { min-height: 44px; }
+.glass-home .code__copy.is-done { border-color: var(--cream-edge); color: var(--cream); }
+.glass-home .plan { -webkit-backdrop-filter: none; backdrop-filter: none; }
+.glass-home .plan:not(.plan--best) :is(.plan__name, .plan__price span) { color: var(--glass-muted); }
+.glass-home .plan--best {
+  background: var(--glass-frost) #725c58; border-color: rgb(255 245 240 / .60);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .58), inset 0 -1px 0 rgb(116 70 73 / .20);
+}
+.glass-home .plan--best .plan__tag { background: rgb(43 39 37 / .10); color: rgb(43 39 37 / .86); box-shadow: none; }
+.glass-home .plan--best .btn { --glass-control-tone: #30262c; color: var(--cream-2); }
+.glass-home .plan--best .btn:hover { --glass-control-tone: #241e23; color: #fff; }
+.glass-home .closing {
+  background: radial-gradient(ellipse at 50% 38%, rgb(141 74 115 / .24), transparent 65%), var(--bg-deep);
+}
+.glass-home .footer { background: linear-gradient(180deg, #1d191f, var(--bg-deep) 210px); border-top: 1px solid var(--glass-seam); box-shadow: none; }
+.glass-home :is(.wall__tools .chip, .wall__foot .btn, .closing__actions .btn--ghost, .plan .btn, .code__copy):focus-visible { border-radius: var(--r-pill); }
+
+/* Blur only the few controls that sit directly above the page; no per-card filters. */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass-home .wall__tools .chips {
+    --glass-quiet-tone: rgb(34 25 36 / .72);
+    -webkit-backdrop-filter: saturate(1.35) blur(12px); backdrop-filter: saturate(1.35) blur(12px);
+  }
+  .glass-home .closing__actions .btn--ghost {
+    --glass-control-tone: rgb(36 26 39 / .56);
+    -webkit-backdrop-filter: saturate(1.42) blur(10px); backdrop-filter: saturate(1.42) blur(10px);
+  }
+  .glass-home .closing__actions .btn--ghost:hover { --glass-control-tone: rgb(62 42 61 / .66); }
+}
+@media (max-width: 850px) {
+  .glass-home .wall__tools { display: grid; }
+  .glass-home .wall__tools .chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .glass-home .wall__tools .chip { justify-content: space-between; text-align: start; line-height: 1.16; }
+}
+@media (max-width: 560px) {
+  .glass-home .hero__micro { column-gap: 14px; }
+  .glass-home .hero__micro .dot { display: none; }
+  .glass-home .wall__tools .chips { padding: 5px; border-radius: var(--r-lg); }
+  .glass-home .wall__tools .chip { padding-inline: 9px; gap: 5px; }
+  .glass-home .wall__meta .wall__capture { display: block; }
+  .glass-home .wall__meta .wall__capture::before { content: none; }
+}
+@media (max-width: 480px) {
+  .glass-home .wall__tools .chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 350px) {
+  .glass-home .wall__meta .wall__capture-label {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);
+  }
+}
+@media (prefers-reduced-transparency: reduce), (forced-colors: active), print {
+  .glass-home {
+    --glass-quiet-coat: #211d23; --glass-control-coat: #302832;
+    --glass-quiet-edge: none; --glass-control-edge: none;
+  }
+  .glass-home :is(.wall__tools .chips, .header.is-open .nav, .closing__actions .btn--ghost) {
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+  .glass-home .header.is-stuck .header__inner { box-shadow: none; }
+  .glass-home :is(.wall-section, .closing, .footer) { background: var(--bg-deep); }
+  .glass-home .wall__tools .chip.is-active, .glass-home .plan--best { background: var(--cream); box-shadow: none; }
+}
+@media (forced-colors: active), print {
+  .glass-home {
+    --glass-quiet-coat: Canvas; --glass-quiet-rim: CanvasText; --glass-seam: CanvasText;
+    --glass-control-coat: ButtonFace; --glass-control-rim: ButtonText; --glass-muted: CanvasText;
+  }
+  .glass-home :is(.wall-section, .closing, .footer, .plan--best) { background: Canvas; color: CanvasText; }
+  .glass-home .wall__tools .chip.is-active { background: ButtonFace; color: ButtonText; border: 2px solid Highlight; }
+  .glass-home .wall__tools .chip.is-active .chip__count { color: ButtonText; }
+  .glass-home .plan .btn { color: ButtonText; }
+}

@@ -36,7 +36,7 @@ def is_server_route(ref: str) -> bool:
 
 PAGES = [
     "index.html", "pricing.html", "docs.html", "login.html",
-    "signup.html", "404.html", "terms.html", "privacy.html", "examples.html",
+    "signup.html", "404.html", "terms.html", "privacy.html", "examples.html", "sources.html",
 ]
 
 # words that must not appear on the product surface
@@ -45,8 +45,8 @@ BANNED_WORDS = ["licence", "licenses", "license", "publishable", "study-only",
                 "redistributable", "open-source licence", "attribution"]
 BANNED_TOKENS = [r"\bMIT\b", r"\bApache-2\.0\b", r"\bAGPL\b", r"\bOFL\b", r"\bCC BY\b"]
 # the raw shelves the product no longer shows
-SHELVES = ["screens.html", "materials.html", "elements.html", "icons.html", "sources.html",
-           "/screens", "/materials", "/elements", "/icons", "/sources"]
+SHELVES = {"screens.html", "materials.html", "elements.html", "icons.html",
+           "screens", "materials", "elements", "icons"}
 
 fails: list[str] = []
 warns: list[str] = []
@@ -132,9 +132,16 @@ for page in PAGES:
     for tok in BANNED_TOKENS:
         if re.search(tok, h):
             warns.append("%s: mentions %s" % (page, tok))
-    for shelf in SHELVES:
-        if shelf in h:
-            fails.append("%s: links back to a retired shelf (%s)" % (page, shelf))
+    # Credits can name external repositories like twbs/icons. Only local link
+    # targets can point back to a retired ThinkUI route.
+    site_host = urllib.parse.urlsplit(canon or "").hostname
+    for href in set(re.findall(r'href="([^"]+)"', h)):
+        url = urllib.parse.urlsplit(href)
+        if url.scheme not in {"", "http", "https"} or (url.netloc and url.hostname != site_host):
+            continue
+        shelf = url.path.strip("/").split("/", 1)[0]
+        if shelf in SHELVES:
+            fails.append("%s: links back to a retired shelf (%s)" % (page, href))
 
     print("  %-14s title %2d  desc %3d  h1 %d  refs %2d  %s"
           % (page, len(title or ""), len(desc or ""), len(h1s), len(refs), robots))

@@ -51,6 +51,7 @@ PAGES = [
     ("404.html",      "Page not found — ThinkUI",                                      False),
     ("terms.html",    "Terms of service — ThinkUI",                                    True),
     ("privacy.html",  "Privacy — ThinkUI",                                             True),
+    ("sources.html",  "Sources and attribution — ThinkUI",                             True),
     # Discovery cluster: one page per query a buyer actually types. Each links back to
     # /pricing, /docs and to its siblings, and the footer links all of them from every
     # page, so a crawler that has already indexed the homepage reaches them on its next
@@ -285,14 +286,18 @@ def screen_wall() -> str:
     out = []
     for r in rows:
         tag = r.get("tag") or wall_tag(r.get("flow", ""))
+        date = esc(r["captured"]) if r.get("captured") else ""
+        licence = esc(r.get("licence", ""))
+        source = (' <span class="wall__capture"><span class="wall__capture-label">captured </span>'
+                  '<time datetime="%s">%s</time></span>' % (date, date) if date
+                  else " &middot; " + licence if licence else "")
         out.append(
             '<figure class="wall__card" data-tags="%s">'
             '<img src="%s" alt="%s, %s screen" width="%d" height="%d" loading="lazy" decoding="async">'
-            '<figcaption class="wall__meta"><b>%s</b><span>%s &middot; %s</span></figcaption>'
+            '<figcaption class="wall__meta"><b>%s</b><span>%s%s</span></figcaption>'
             '</figure>' % (esc(tag), esc(r["file"]), esc(r["app"]), esc(r["flow"]),
                            r.get("w", 460), r.get("h", 900),
-                           esc(r["app"]), esc(r["flow"]),
-                           ("captured " + esc(r["captured"])) if r.get("captured") else esc(r.get("licence", ""))))
+                           esc(r["app"]), esc(r["flow"]), source))
     return chr(10).join(out)
 
 
@@ -303,11 +308,15 @@ def wall_chips() -> str:
         return ""
     from collections import Counter
     counts = Counter(r.get("tag") or wall_tag(r.get("flow", "")) for r in rows)
-    out = ['<button class="chip is-active" type="button" data-filter="all">All <span>%d</span></button>' % len(rows)]
+    out = ['<button class="chip is-active" type="button" aria-pressed="true" '
+           'aria-controls="library-screens" data-filter="all">'
+           '<span class="chip__label">All</span> <span class="chip__count">%d</span></button>' % len(rows)]
     labels = dict(WALL_TAGS)
     for key, n in counts.most_common():
         if n:
-            out.append('<button class="chip" type="button" data-filter="%s">%s <span>%d</span></button>'
+            out.append('<button class="chip" type="button" aria-pressed="false" '
+                       'aria-controls="library-screens" data-filter="%s">'
+                       '<span class="chip__label">%s</span> <span class="chip__count">%d</span></button>'
                        % (key, labels.get(key, key.title()), n))
     return chr(10).join(out)
 
@@ -479,7 +488,8 @@ def render(page: str, text: str) -> str:
     left = re.findall(r"\{\{[>A-Z_]+\}\}", text)
     if left:
         raise SystemExit("%s: unresolved token(s) %s" % (page, ", ".join(sorted(set(left)))))
-    return inject_glass(text)
+    # The homepage installs its own lens; other pages keep the shared inline lens.
+    return text if page == "index.html" else inject_glass(text)
 
 
 # The liquid-glass rim lens. The stylesheet points backdrop-filter at url(#lg-lens);
