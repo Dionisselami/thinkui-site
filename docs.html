@@ -84,7 +84,7 @@
       <div class="head">
         <span class="eyebrow">Step 1</span>
         <h2>Get your key.</h2>
-        <p class="lede">Create an account, pick a plan, then copy the key from <a href="/account">your account page</a> (sign in with Google or GitHub). A key is one of two ways in: clients that can present OAuth connect with
+        <p class="lede">Create an account &mdash; start free with 12 tool calls and no card, or pick a plan &mdash; then copy the key from <a href="/account">your account page</a> (sign in with Google or GitHub). A key is one of two ways in: clients that can present OAuth connect with
           a sign-in and a consent screen instead, and the key is what the rest use. Either way it goes in one place: the <span class="mono">Authorization</span> header of the server entry, written as
           <span class="mono">Bearer your-key</span>.</p>
       </div>
@@ -306,6 +306,14 @@
             <span class="mono">Bearer your-key</span> with your own key in place of
             <span class="mono">your-key</span>. A missing or wrong key comes back as JSON-RPC rather than a blank
             failure, and the message says which it is.</p></div>
+        </details>
+        <details>
+          <summary>A tool says my free calls are used up.</summary>
+          <div class="answer"><p>A free account gets 12 tool calls in total, and they do not reset. Connecting
+            and listing the tools do not count; each tool your agent runs does. The last three calls end with a
+            line saying how many are left, and after the twelfth the tool answers with a short message and a link
+            to <a href="/pricing">pricing</a> instead of results. Choose a plan and the same key or connection
+            keeps working, with no limit. Free calls are also capped at 5 a minute.</p></div>
         </details>
         <details>
           <summary>Do I need Node or Python installed?</summary>
