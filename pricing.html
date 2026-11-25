@@ -12,25 +12,25 @@
 <meta name="theme-color" content="#0c0c0d">
 <meta name="apple-mobile-web-app-title" content="ThinkUI">
 <title>Pricing — ThinkUI MCP server for coding agents</title>
-<meta name="description" content="ThinkUI pricing: Starter $7.99 a month, Pro $15.99, or $152 once — 20% off every plan.">
+<meta name="description" content="Try ThinkUI with 12 free tool calls, no card. Paid plans with unlimited calls: Starter $7.99/mo, Pro $15.99/mo, or Lifetime $152 once.">
 <link rel="canonical" href="https://thinkui.xyz/pricing">
 <meta name="robots" content="index, follow, max-image-preview:large">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ThinkUI">
 <meta property="og:title" content="Pricing — ThinkUI MCP server for coding agents">
-<meta property="og:description" content="ThinkUI pricing: Starter $7.99/mo, Pro $15.99/mo, or $152 once — 20% off every plan.">
+<meta property="og:description" content="Try ThinkUI with 12 free tool calls, no card. Paid plans with unlimited calls: Starter $7.99/mo, Pro $15.99/mo, or Lifetime $152 once.">
 <meta property="og:url" content="https://thinkui.xyz/pricing">
 <meta property="og:image" content="https://thinkui.xyz/assets/img/og.png?v=cloud">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Pricing — ThinkUI MCP server for coding agents">
-<meta name="twitter:description" content="ThinkUI pricing: Starter $7.99/mo, Pro $15.99/mo, or $152 once — 20% off every plan.">
+<meta name="twitter:description" content="Try ThinkUI with 12 free tool calls, no card. Paid plans with unlimited calls: Starter $7.99/mo, Pro $15.99/mo, or Lifetime $152 once.">
 <meta name="twitter:image" content="https://thinkui.xyz/assets/img/og.png?v=cloud">
 
 <link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=2382d24d37">
+<link rel="stylesheet" href="assets/css/site.css?v=c026d7fc92">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,24 +39,13 @@
   "description": "An MCP server that returns real interface references for coding agents.",
   "brand": { "@type": "Brand", "name": "ThinkUI" },
   "offers": [
-    { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD", "description": "12 tool calls in total, no card", "availability": "https://schema.org/InStock", "url": "https://thinkui.xyz/signup.html?plan=free" },
-    { "@type": "Offer", "name": "Starter", "price": "7.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thinkui.xyz/signup.html?plan=starter" },
-    { "@type": "Offer", "name": "Pro", "price": "15.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thinkui.xyz/signup.html?plan=pro" },
-    { "@type": "Offer", "name": "Lifetime", "price": "152", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thinkui.xyz/signup.html?plan=lifetime" }
+    { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD", "description": "12 tool calls in total, no card", "availability": "https://schema.org/InStock", "url": "https://thinkui.xyz/signup?plan=free" },
+    { "@type": "Offer", "name": "Starter", "price": "7.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thinkui.xyz/signup?plan=starter" },
+    { "@type": "Offer", "name": "Pro", "price": "15.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thinkui.xyz/signup?plan=pro" },
+    { "@type": "Offer", "name": "Lifetime", "price": "152", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thinkui.xyz/signup?plan=lifetime" }
   ]
 }
 </script>
-<style>
-/* Free plan: one full-width row under the paid plans, same glass card. */
-.plan--free { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) auto; align-items: center; gap: var(--s4) var(--s6); }
-.plan--free .plan__info { display: flex; flex-direction: column; gap: var(--s3); }
-.plan--free ul { border-top: 0; padding-top: 0; border-left: 1px solid var(--line); padding-left: var(--s5); }
-.plan--free .btn { margin-top: 0; white-space: nowrap; }
-@media (max-width: 900px) {
-  .plan--free { grid-template-columns: 1fr; align-items: stretch; }
-  .plan--free ul { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: var(--s4); }
-}
-</style>
 </head>
 <body class="dark-top">
 <svg class="lg-svg" aria-hidden="true" focusable="false"><filter id="lg-lens" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="22" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
@@ -75,7 +64,7 @@
            "Sign in" off the top edge at 320px. -->
       <div class="nav__cta">
         <a class="btn btn--text" href="/login">Sign in</a>
-        <a class="btn btn--primary" href="/signup">Get started</a>
+        <a class="btn btn--primary" href="/signup?plan=free">Try free, no card</a>
       </div>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><span></span></button>
@@ -83,22 +72,31 @@
 </header>
 <main id="main">
 
-  <section class="canvas band">
+  <section class="canvas band pricing-intro">
     <div class="veil" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="wrap">
-      <h1 class="display">One server. Three levels of use.</h1>
-      <p class="lede">Every plan runs the same five tools against the same library. What changes is how
-        much you can ask and whether you are shipping it commercially. Not sure yet? Start free:
-        12 tool calls, no card.</p>
-      <p class="sale-note"><span class="sale-pill">20% off</span> Every plan is 20% off right now. The prices below are the sale prices, applied at checkout.</p>
-      <p class="small" style="margin-top:12px">Starter and Pro: billed monthly. Cancel in one click from your account.</p>
+      <h1 class="display">One server. Four plans.</h1>
+      <p class="lede">12 free tool calls, no card. All four plans use the same five tools and library.</p>
+      <p class="sale-note"><span class="sale-pill">20% off paid plans</span> <a href="#compare-plans">Compare plans</a></p>
     </div>
   </section>
 
-  <section>
+  <section class="pricing-options">
     <div class="wrap">
       <div class="pricing">
+        <article class="plan plan--free" id="free">
+          <span class="plan__name">Free</span>
+          <p class="plan__price"><b>$0</b><span>no card</span></p>
+          <p class="plan__note">Try ThinkUI on your own project before you pay.</p>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>12 tool calls in total</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>All five tools, same library</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Keep your key if you upgrade</li>
+          </ul>
+          <a class="btn btn--block" href="/signup?plan=free">Try free, no card</a>
+        </article>
+
         <article class="plan">
           <span class="plan__name">Starter</span>
           <p class="plan__price"><b>$7.99</b><span>per month</span><s>was $9.99</s></p>
@@ -107,7 +105,6 @@
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Unlimited tool calls</li>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>All five tools</li>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Components, icons and materials</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>MIT components, icons, materials</li>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Email support</li>
           </ul>
           <a class="btn btn--block" href="/signup?plan=starter">Get Starter</a>
@@ -121,9 +118,8 @@
           <ul>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Unlimited tool calls</li>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Everything in Starter</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Priority support</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Priority email support</li>
             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Priority when new sources are added</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Email support</li>
           </ul>
           <a class="btn btn--primary btn--block" href="/signup?plan=pro">Get Pro</a>
         </article>
@@ -140,26 +136,10 @@
           </ul>
           <a class="btn btn--block" href="/signup?plan=lifetime">Get Lifetime</a>
         </article>
-
-        <article class="plan plan--free" id="free">
-          <div class="plan__info">
-            <span class="plan__name">Free</span>
-            <p class="plan__price"><b>$0</b><span>12 tool calls, no card</span></p>
-            <p class="plan__note">Try every tool on your own project before you pay. One free allowance per person, and it does not reset.</p>
-          </div>
-          <ul>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>12 tool calls in total</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>All five tools, same library</li>
-            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>No card, upgrade any time</li>
-          </ul>
-          <a class="btn" href="/signup?plan=free">Try free &mdash; no card</a>
-        </article>
       </div>
       <p class="small" style="margin-top:24px; text-align:center">
-        Starter is $7.99 a month and Pro is $15.99, both 20% off. Lifetime is $152 once.
-        A free account gets a key and 12 tool calls in total, no card; a plan makes them unlimited
-        and the same key keeps working.
-        Monthly plans cancel from the billing portal in your account; Lifetime is
+        The free allowance is once per person and does not reset. Your key stays the same when you upgrade.
+        You can cancel monthly plans from the billing portal in your account; Lifetime is
         paid once and never renews. Components and icons are MIT. Each screenshot keeps its own
         licence — 428 of 1,565 are permissively licensed, the rest are study-only and marked
         <em>do not ship</em> in the result that returns them.
@@ -167,32 +147,33 @@
     </div>
   </section>
 
-  <section class="section--soft">
+  <section class="section--soft pricing-compare">
     <div class="wrap">
       <div class="head">
-        <h2>What differs between plans.</h2>
+        <h2 id="compare-plans">Compare plans</h2>
       </div>
-      <div class="cmp__wrap">
-        <table class="cmp">
-          <caption>ThinkUI plans compared. The server, its library and its tools are identical on every plan. A free account can try them first: 12 tool calls, no card.</caption>
+      <p class="pricing-compare__hint small">Scroll sideways to compare all four plans.</p>
+      <div class="cmp__wrap" role="region" aria-labelledby="compare-plans" tabindex="0">
+        <table class="cmp cmp--record">
+          <caption>Features by plan</caption>
           <thead>
             <tr>
               <th scope="col">Feature</th>
+              <th scope="col">Free</th>
               <th scope="col">Starter</th>
               <th scope="col">Pro</th>
               <th scope="col">Lifetime</th>
             </tr>
           </thead>
           <tbody>
-            <tr><th scope="row">Tool calls</th><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
-            <tr><th scope="row">All five tools</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-            <tr><th scope="row">Components, icons, materials</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-            <tr><th scope="row">Screenshots attached to a result</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-            <tr><th scope="row">Support</th><td>Email</td><td>Priority</td><td>Priority</td></tr>
-            <tr><th scope="row">Shipping MIT components in client work</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-            <tr><th scope="row">Republishing a screenshot</th><td>Licence permitting only</td><td>Licence permitting only</td><td>Licence permitting only</td></tr>
-            <tr><th scope="row">Billing</th><td>Monthly</td><td>Monthly</td><td>Once, no renewal</td></tr>
-            <tr><th scope="row">Support</th><td>Email</td><td>Email, priority</td><td>Email, priority</td></tr>
+            <tr><th scope="row">Tool calls</th><td>12 in total</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+            <tr><th scope="row">All five tools</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><th scope="row">Components, icons, materials</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><th scope="row">Screenshot attachments</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><th scope="row">MIT components in client work</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><th scope="row">Republishing screenshots</th><td>Licence permitting only</td><td>Licence permitting only</td><td>Licence permitting only</td><td>Licence permitting only</td></tr>
+            <tr><th scope="row">Billing</th><td>None</td><td>Monthly</td><td>Monthly</td><td>Once, no renewal</td></tr>
+            <tr><th scope="row">Support</th><td><span aria-hidden="true">&mdash;</span><span class="sr">No dedicated support listed</span></td><td>Email</td><td>Priority email</td><td>Priority email</td></tr>
           </tbody>
         </table>
       </div>
@@ -233,7 +214,7 @@
       <h2 class="display">Try it free, or pick a plan.</h2>
       <p class="lede">Connect the server to your agent and ask it something you would otherwise answer by opening ten apps.</p>
       <div class="closing__actions">
-        <a class="btn btn--light btn--lg" href="/signup?plan=free">Try free &mdash; no card</a>
+        <a class="btn btn--light btn--lg" href="/signup?plan=free">Try free, no card</a>
         <a class="btn btn--ghost btn--lg" href="/docs">Read the quickstart</a>
       </div>
     </div>

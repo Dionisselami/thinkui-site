@@ -604,10 +604,10 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
 .wall__note { margin-top: var(--s5); max-width: 74ch; font-size: 13px; color: var(--text-mute); }
 
 /* ------------------------------------------------------------- 10 pricing */
-.pricing { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); align-items: stretch; }
+.pricing { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s4); align-items: stretch; }
 .plan {
   position: relative; display: flex; flex-direction: column; gap: var(--s4);
-  padding: var(--s6); background: linear-gradient(180deg, #1e1e1e, #1a1a1a);
+  padding: clamp(var(--s5), 2.2vw, var(--s6)); background: linear-gradient(180deg, #1e1e1e, #1a1a1a);
   border: 1px solid rgba(255, 255, 255, .12); border-radius: var(--r-xl);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
 }
@@ -629,7 +629,8 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
 .plan--best .plan__price s { color: rgba(43, 39, 37, .78); text-decoration-color: rgba(43, 39, 37, .5); }
 .sale-pill { display: inline-flex; align-items: center; padding: 5px 11px; border-radius: var(--r-pill); background: var(--cream); color: var(--cream-ink); font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
 .sale-note { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 16px 0 0; color: var(--text-soft); font-size: 14.5px; }
-.plan__price b { font: 500 48px/1 var(--display); letter-spacing: -0.04em; }
+.pricing-intro .sale-note a { display: inline-flex; align-items: center; min-height: 40px; color: var(--cream); text-decoration: underline; text-underline-offset: 3px; }
+.plan__price b { font: 500 clamp(40px, 3.65vw, 48px)/1 var(--display); letter-spacing: -0.04em; }
 .plan__price span { font-size: 14px; color: var(--text-mute); white-space: nowrap; }
 @media (max-width: 560px) {
   /* the price row is wider than a phone card: keep the old price on its own line and
@@ -832,6 +833,7 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
 /* ----------------------------------------------------------- 16 responsive */
 @media (max-width: 1100px) {
   .wall { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pricing { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero__stage { opacity: .7; }
   .proof { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .proof > div:nth-child(4) { border-left: 0; padding-left: 0; }
@@ -840,7 +842,7 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
 }
 @media (max-width: 1000px) {
   .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .grid--3, .steps, .pricing { grid-template-columns: 1fr; }
+  .grid--3, .steps { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 940px) {
@@ -879,6 +881,11 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
   .tile { width: calc(var(--w, 240px) * .62); }
   .hero__stage { opacity: .3; filter: saturate(.85) blur(1px); }
 }
+@media (max-width: 660px) {
+  .pricing { grid-template-columns: minmax(0, 1fr); }
+  .pricing-intro { padding-block: var(--s5); }
+  .pricing-options { padding-top: var(--s4); }
+}
 @media (max-width: 560px) {
   h2 { max-width: none; }
   .grid--2, .grid--4 { grid-template-columns: 1fr; }
@@ -910,6 +917,23 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
   .code pre { white-space: pre-wrap; overflow-wrap: anywhere; }
   .prose code { word-break: break-word; }
   .hero__actions .btn { width: 100%; }
+}
+
+/* Four plan columns stay a real table. Keep the feature in view when panning. */
+.pricing-compare .cmp { min-width: 680px; table-layout: fixed; }
+.pricing-compare thead th:first-child { width: 26%; }
+.pricing-compare__hint { display: none; }
+@media (max-width: 740px) {
+  .pricing-compare .head { margin-bottom: var(--s3); }
+  .pricing-compare__hint { display: block; margin-bottom: var(--s4); }
+  .pricing-compare thead th:first-child { width: 140px; }
+  .pricing-compare .cmp th, .pricing-compare .cmp td { padding: var(--s3); }
+  .pricing-compare .cmp caption { padding-inline: var(--s3); }
+  .pricing-compare .cmp tbody th { font: 550 14px/1.4 var(--sans); color: var(--text); letter-spacing: normal; text-transform: none; }
+  .pricing-compare .cmp th:first-child {
+    position: sticky; left: 0; z-index: 1; background: var(--panel);
+    box-shadow: 1px 0 0 var(--line);
+  }
 }
 
 /* ======================================================= 17 liquid glass

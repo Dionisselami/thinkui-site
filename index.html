@@ -31,7 +31,7 @@
 <meta name="twitter:image" content="https://thinkui.xyz/assets/img/og.png?v=cloud">
 
 <link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=2382d24d37">
+<link rel="stylesheet" href="assets/css/site.css?v=c026d7fc92">
 <link rel="stylesheet" href="assets/css/hero-fog.css?v=2c5d28ad94">
 <link rel="stylesheet" href="assets/css/liquid-glass.css?v=2bd3c50c45">
 
@@ -63,6 +63,14 @@
       "description": "An MCP server that returns real interface references, screens, flows, UI components, fonts and animated icons, for coding agents to design and build with.",
       "url": "https://thinkui.xyz/",
       "offers": [
+        {
+          "@type": "Offer",
+          "name": "Free",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "12 tool calls in total, no card",
+          "url": "https://thinkui.xyz/signup?plan=free"
+        },
         {
           "@type": "Offer",
           "name": "Starter",
@@ -158,7 +166,7 @@
            "Sign in" off the top edge at 320px. -->
       <div class="nav__cta">
         <a class="btn btn--text" href="/login">Sign in</a>
-        <a class="btn btn--primary" href="/signup">Get started</a>
+        <a class="btn btn--primary" href="/signup?plan=free">Try free, no card</a>
       </div>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><span></span></button>
@@ -179,11 +187,11 @@
           Ask how a paywall frames a trial; get the screens other products shipped, with the
           project and the source attached.</p>
         <div class="hero__actions">
-          <a class="btn btn--primary btn--lg" href="/signup">
-            Get started
+          <a class="btn btn--primary btn--lg" href="/signup?plan=free">
+            Try free, no card
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
           </a>
-          <a class="btn btn--ghost btn--lg" href="/examples">See what the tools return</a>
+          <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
         </div>
         <p class="hero__micro"><span class="seg">12 tool calls free</span><span class="dot" aria-hidden="true">&middot;</span><span class="seg">no card needed</span></p>
       </div>
@@ -412,10 +420,22 @@
         <h2>Same server, same five tools on every plan.</h2>
         <p class="lede">Pick the plan that fits the work. Monthly plans change or cancel from your account at any time,
           and lifetime is a single payment.</p>
-        <p class="sale-note"><span class="sale-pill">20% off</span> Every plan is 20% off right now. The prices below are the sale prices, applied at checkout.</p>
+        <p class="sale-note"><span class="sale-pill">20% off</span> Paid plans only. Prices shown include the discount.</p>
       </div>
 
       <div class="pricing" data-reveal>
+        <article class="plan plan--free" id="free">
+          <span class="plan__name">Free</span>
+          <p class="plan__price"><b>$0</b><span>no card</span></p>
+          <p class="plan__note">Try ThinkUI on your own project before you pay.</p>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>12 tool calls in total</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>All five tools, same library</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Keep your key if you upgrade</li>
+          </ul>
+          <a class="btn btn--block" href="/signup?plan=free">Try free, no card</a>
+        </article>
+
         <article class="plan">
           <span class="plan__name">Starter</span>
           <p class="plan__price"><b>$7.99</b><span>per month</span><s>was $9.99</s></p>
@@ -525,11 +545,11 @@
       <h2 class="display">Stop describing interfaces to your agent. Show it some.</h2>
       <p class="lede">Connect ThinkUI and give it something real to work from.</p>
       <div class="closing__actions">
-        <a class="btn btn--light btn--lg" href="/signup">Get started</a>
+        <a class="btn btn--light btn--lg" href="/signup?plan=free">Try free, no card</a>
         <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
       </div>
       <p class="small" style="color:var(--on-ink-mute); margin-top:22px">
-        Starter is $7.99 a month and Pro is $15.99 — 20% off. Lifetime is $152 once.
+        12 free calls, no card. Starter from $7.99/mo.
       </p>
     </div>
   </section>

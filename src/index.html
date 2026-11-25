@@ -55,6 +55,8 @@
       "description": "An MCP server that returns real interface references, screens, flows, UI components, fonts and animated icons, for coding agents to design and build with.",
       "url": "{{SITE_URL}}/",
       "offers": [
+        { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD",
+          "description": "12 tool calls in total, no card", "url": "{{SITE_URL}}/signup?plan=free" },
         { "@type": "Offer", "name": "Starter", "price": "7.99", "priceCurrency": "USD",
           "description": "$7.99 a month. Unlimited tool calls. Components and icons are MIT; each screenshot keeps its own licence and many are study-only." },
         { "@type": "Offer", "name": "Pro", "price": "15.99", "priceCurrency": "USD",
@@ -103,11 +105,11 @@
           Ask how a paywall frames a trial; get the screens other products shipped, with the
           project and the source attached.</p>
         <div class="hero__actions">
-          <a class="btn btn--primary btn--lg" href="signup.html">
-            Get started
+          <a class="btn btn--primary btn--lg" href="/signup?plan=free">
+            Try free, no card
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
           </a>
-          <a class="btn btn--ghost btn--lg" href="examples.html">See what the tools return</a>
+          <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
         </div>
         <p class="hero__micro"><span class="seg">12 tool calls free</span><span class="dot" aria-hidden="true">&middot;</span><span class="seg">no card needed</span></p>
       </div>
@@ -304,10 +306,12 @@
         <h2>Same server, same five tools on every plan.</h2>
         <p class="lede">Pick the plan that fits the work. Monthly plans change or cancel from your account at any time,
           and lifetime is a single payment.</p>
-        <p class="sale-note"><span class="sale-pill">20% off</span> Every plan is 20% off right now. The prices below are the sale prices, applied at checkout.</p>
+        <p class="sale-note"><span class="sale-pill">20% off</span> Paid plans only. Prices shown include the discount.</p>
       </div>
 
       <div class="pricing" data-reveal>
+{{>plan_free}}
+
         <article class="plan">
           <span class="plan__name">Starter</span>
           <p class="plan__price"><b>$7.99</b><span>per month</span><s>was $9.99</s></p>
@@ -417,11 +421,11 @@
       <h2 class="display">Stop describing interfaces to your agent. Show it some.</h2>
       <p class="lede">Connect ThinkUI and give it something real to work from.</p>
       <div class="closing__actions">
-        <a class="btn btn--light btn--lg" href="signup.html">Get started</a>
-        <a class="btn btn--ghost btn--lg" href="pricing.html">See pricing</a>
+        <a class="btn btn--light btn--lg" href="/signup?plan=free">Try free, no card</a>
+        <a class="btn btn--ghost btn--lg" href="/pricing">See pricing</a>
       </div>
       <p class="small" style="color:var(--on-ink-mute); margin-top:22px">
-        Starter is $7.99 a month and Pro is $15.99 — 20% off. Lifetime is $152 once.
+        12 free calls, no card. Starter from $7.99/mo.
       </p>
     </div>
   </section>

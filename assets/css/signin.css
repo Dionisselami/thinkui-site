@@ -1,5 +1,20 @@
 /* Sign-in additions (2026-11-22): the plan choice on /signup and the in-app browser
    notice on /signup and /login. Loaded only by those two pages. */
+.split--signup { grid-template-areas: "aside main"; }
+.split--signup .split__main { grid-area: main; min-width: 0; }
+.split--signup .split__aside { grid-area: aside; }
+
+/* Put the account controls first as soon as the split stacks. */
+@media (max-width: 940px) {
+  .split--signup { grid-template-areas: "main" "aside"; }
+  .split--signup .split__main { padding-block: var(--s5) var(--s6); }
+  .split--signup .split__aside { border-top: 1px solid var(--line); border-bottom: 0; }
+}
+@media (max-width: 560px) {
+  .split--signup .auth__card { padding: var(--s5) var(--s4); }
+  .split--signup .auth__head { margin-bottom: var(--s4); }
+}
+
 .planpick { border: 0; margin: 0 0 var(--s5); padding: 0; display: grid; gap: var(--s2); }
 .planpick legend { padding: 0; margin-bottom: var(--s2); font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-mute); }
 .planpick__opt {
