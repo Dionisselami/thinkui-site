@@ -51,6 +51,7 @@ PAGES = [
     ("404.html",      "Page not found — ThinkUI",                                      False),
     ("terms.html",    "Terms of service — ThinkUI",                                    True),
     ("privacy.html",  "Privacy — ThinkUI",                                             True),
+    ("sources.html",  "Sources and attribution — ThinkUI",                             True),
     # Discovery cluster: one page per query a buyer actually types. Each links back to
     # /pricing, /docs and to its siblings, and the footer links all of them from every
     # page, so a crawler that has already indexed the homepage reaches them on its next
@@ -369,6 +370,32 @@ def _corpus_stats():
         return None
 
 
+def _stats_sentence(stats: dict) -> str:
+    """The sentence server.corpus_stats() prints, rebuilt from corpus.stats().
+
+    The server import needs the MCP package's own dependency tree, which a docs build
+    on a laptop can be missing. Falling back to "run it against your key" turned a page
+    that exists to quote the library into a page that quotes nothing, so the same
+    numbers are composed from the corpus the site already imports for its counts.
+    """
+    if not stats:
+        return ""
+    k = stats.get("kinds") or {}
+    return ("%s references across %s flows and %s categories; %s materials; %s animated "
+            "icons across %s sets (real SVG assets, MIT); %s ready-made UI elements "
+            "(HTML+CSS, MIT); %s screenshots across %s products - %s permissively "
+            "licensed, %s shown as research and comparison references, %s schematic "
+            "renders kept as structure records but never attached. Reference kinds: "
+            "component=%s, flow=%s, screen=%s.") % (
+        stats.get("references", "?"), stats.get("flows", "?"), stats.get("categories", "?"),
+        stats.get("materials", "?"), stats.get("animated_icons", "?"),
+        stats.get("animated_sets", "?"), stats.get("ui_elements", "?"),
+        stats.get("images", "?"), stats.get("apps_with_images", "?"),
+        stats.get("images_licensed", "?"), stats.get("images_research", "?"),
+        stats.get("images_schematic", "?"),
+        k.get("component", "?"), k.get("flow", "?"), k.get("screen", "?"))
+
+
 def corpus_stats_text() -> str:
     """Quote the server's own corpus_stats(), generated so the page cannot go stale.
 
@@ -386,7 +413,9 @@ def corpus_stats_text() -> str:
         text = thinkui_server.corpus_stats()
     except Exception as exc:  # noqa: BLE001 — the site must still build without the corpus
         print("[build] corpus_stats() unavailable (%s: %s)" % (type(exc).__name__, exc))
-        return "corpus_stats() — run it against your ThinkUI key for live counts."
+        rebuilt = _stats_sentence(_corpus_stats() or {})
+        return "\n".join(textwrap.wrap(rebuilt, 78)) if rebuilt else \
+            "corpus_stats() — run it against your ThinkUI key for live counts."
     return "\n".join(textwrap.wrap(" ".join(text.split()), 78))
 
 
@@ -404,6 +433,8 @@ def tokens(page: str) -> dict:
         "CORPUS_STATS_BRIEF": brief,
         "REFERENCE_COUNT": format(refs, ",") if refs else "thousands of",
         "REFERENCE_COUNT_NUM": str(refs) if refs else "0",
+        "IMAGES_LICENSED": format(stats["images_licensed"], ",") if stats.get("images_licensed") else "0",
+        "IMAGES_TOTAL": format(stats["images"], ",") if stats.get("images") else "0",
         "CANONICAL": "%s/%s" % (SITE_URL.rstrip("/"), ""
                                 if page == "index.html"
                                 else (page[:-5] if page.endswith(".html") and page != "404.html"

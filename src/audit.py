@@ -45,8 +45,8 @@ BANNED_WORDS = ["licence", "licenses", "license", "publishable", "study-only",
                 "redistributable", "open-source licence", "attribution"]
 BANNED_TOKENS = [r"\bMIT\b", r"\bApache-2\.0\b", r"\bAGPL\b", r"\bOFL\b", r"\bCC BY\b"]
 # the raw shelves the product no longer shows
-SHELVES = ["screens.html", "materials.html", "elements.html", "icons.html", "sources.html",
-           "/screens", "/materials", "/elements", "/icons", "/sources"]
+SHELVES = ["screens.html", "materials.html", "elements.html", "icons.html",
+           "/screens", "/materials", "/elements", "/icons"]
 
 fails: list[str] = []
 warns: list[str] = []
