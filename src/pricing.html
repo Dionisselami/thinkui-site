@@ -32,12 +32,24 @@
   "description": "An MCP server that returns real interface references for coding agents.",
   "brand": { "@type": "Brand", "name": "ThinkUI" },
   "offers": [
+    { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD", "description": "12 tool calls in total, no card", "availability": "https://schema.org/InStock", "url": "{{SITE_URL}}/signup.html?plan=free" },
     { "@type": "Offer", "name": "Starter", "price": "7.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "{{SITE_URL}}/signup.html?plan=starter" },
     { "@type": "Offer", "name": "Pro", "price": "15.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "{{SITE_URL}}/signup.html?plan=pro" },
     { "@type": "Offer", "name": "Lifetime", "price": "152", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "{{SITE_URL}}/signup.html?plan=lifetime" }
   ]
 }
 </script>
+<style>
+/* Free plan: one full-width row under the paid plans, same glass card. */
+.plan--free { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) auto; align-items: center; gap: var(--s4) var(--s6); }
+.plan--free .plan__info { display: flex; flex-direction: column; gap: var(--s3); }
+.plan--free ul { border-top: 0; padding-top: 0; border-left: 1px solid var(--line); padding-left: var(--s5); }
+.plan--free .btn { margin-top: 0; white-space: nowrap; }
+@media (max-width: 900px) {
+  .plan--free { grid-template-columns: 1fr; align-items: stretch; }
+  .plan--free ul { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: var(--s4); }
+}
+</style>
 </head>
 <body class="dark-top">
 <a class="skip" href="#main">Skip to content</a>
@@ -50,7 +62,8 @@
     <div class="wrap">
       <h1 class="display">One server. Three levels of use.</h1>
       <p class="lede">Every plan runs the same five tools against the same library. What changes is how
-        much you can ask and whether you are shipping it commercially.</p>
+        much you can ask and whether you are shipping it commercially. Not sure yet? Start free:
+        12 tool calls, no card.</p>
       <p class="sale-note"><span class="sale-pill">20% off</span> Every plan is 20% off right now. The prices below are the sale prices, applied at checkout.</p>
       <p class="small" style="margin-top:12px">Starter and Pro: billed monthly. Cancel in one click from your account.</p>
     </div>
@@ -100,10 +113,25 @@
           </ul>
           <a class="btn btn--block" href="signup.html?plan=lifetime">Get Lifetime</a>
         </article>
+
+        <article class="plan plan--free" id="free">
+          <div class="plan__info">
+            <span class="plan__name">Free</span>
+            <p class="plan__price"><b>$0</b><span>12 tool calls, no card</span></p>
+            <p class="plan__note">Try every tool on your own project before you pay. One free allowance per person, and it does not reset.</p>
+          </div>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>12 tool calls in total</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>All five tools, same library</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>No card, upgrade any time</li>
+          </ul>
+          <a class="btn" href="signup.html?plan=free">Try free &mdash; no card</a>
+        </article>
       </div>
       <p class="small" style="margin-top:24px; text-align:center">
         Starter is $7.99 a month and Pro is $15.99, both 20% off. Lifetime is $152 once.
-        A key is issued with the plan, and the key is what calls the tools.
+        A free account gets a key and 12 tool calls in total, no card; a plan makes them unlimited
+        and the same key keeps working.
         Monthly plans cancel from the billing portal in your account; Lifetime is
         paid once and never renews. Components and icons are MIT. Each screenshot keeps its own
         licence — 428 of 1,565 are permissively licensed, the rest are study-only and marked
@@ -119,7 +147,7 @@
       </div>
       <div class="cmp__wrap">
         <table class="cmp">
-          <caption>ThinkUI plans compared. The server, its library and its tools are identical on every plan.</caption>
+          <caption>ThinkUI plans compared. The server, its library and its tools are identical on every plan. A free account can try them first: 12 tool calls, no card.</caption>
           <thead>
             <tr>
               <th scope="col">Feature</th>
@@ -152,12 +180,12 @@
       <div class="faq">
         <details open>
           <summary>Do I have to subscribe?</summary>
-          <div class="answer"><p>Starter is $7.99 a month and Pro is $15.99 — both 20% off, both cancel in one click. A card is required at checkout. Lifetime is $152 once.</p></div>
+          <div class="answer"><p>Not to try it. A free account gets 12 tool calls in total, on every tool, with no card. After that, Starter is $7.99 a month and Pro is $15.99 — both 20% off, both cancel in one click. A card is required at checkout. Lifetime is $152 once.</p></div>
         </details>
         <details>
           <summary>What counts as a tool call?</summary>
           <div class="answer"><p>One request from your agent to the server, one search, one component fetch, one icon
-            lookup. Reading the results does not cost anything extra. Each request your client makes to the server counts once, whatever it comes back with.</p></div>
+            lookup. Connecting, listing the tools and reading the results do not count. Each tool your agent runs counts once, whatever it comes back with. Paid plans are unlimited; the free 12 are counted this way.</p></div>
         </details>
         <details>
           <summary>Can I use it for client work?</summary>
@@ -175,10 +203,10 @@
   <section class="canvas closing">
     <div class="grain" aria-hidden="true"></div>
     <div class="wrap">
-      <h2 class="display">Pick a plan and connect the server.</h2>
+      <h2 class="display">Try it free, or pick a plan.</h2>
       <p class="lede">Connect the server to your agent and ask it something you would otherwise answer by opening ten apps.</p>
       <div class="closing__actions">
-        <a class="btn btn--light btn--lg" href="signup.html">Create an account</a>
+        <a class="btn btn--light btn--lg" href="signup.html?plan=free">Try free &mdash; no card</a>
         <a class="btn btn--ghost btn--lg" href="docs.html">Read the quickstart</a>
       </div>
     </div>

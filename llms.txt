@@ -35,6 +35,7 @@
 
 | plan | price | billing | what the buyer gets |
 |---|---|---|---|
+| Free | $0 | no card, no renewal | 12 tool calls in total (lifetime, per person), all five tools |
 | Starter | $9.99 | monthly, cancel anytime | unlimited tool calls, all five tools, components/icons/materials, email support |
 | Pro | $19.99 | monthly, cancel anytime | everything in Starter plus priority support and priority when new sources are added |
 | Lifetime | $190 | one-time, never renews | everything in Pro, permanent access |

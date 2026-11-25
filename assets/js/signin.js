@@ -13,7 +13,10 @@
 (function () {
   "use strict";
   var doc = document;
-  var PLANS = ["starter", "pro", "lifetime"];
+  /* "free" pre-selects the Free option (?plan=free from a "Try free" button). The
+     account service only opens a checkout for the paid plans, so a free sign-up
+     lands on /account with its key form. */
+  var PLANS = ["starter", "pro", "lifetime", "free"];
 
   function validPlan(p) { p = (p || "").toLowerCase(); return PLANS.indexOf(p) === -1 ? "" : p; }
 
