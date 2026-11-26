@@ -36,6 +36,9 @@ tar czf - --exclude='_*.html' *.html *.txt sitemap.xml site.webmanifest \
   | ssh "$HOST" "sudo tar xzf - -C $SITE_DIR && sudo chown -R www-data:www-data $SITE_DIR"
 
 step "3/4 vhost"
+# the security headers live in a snippet the vhost includes, so ship it first
+ssh "$HOST" "cat > /tmp/thinkui-sec.conf" < "$REPO/deploy/nginx-sec.conf"
+ssh "$HOST" "sudo install -m 644 -o root -g root /tmp/thinkui-sec.conf /etc/nginx/snippets/thinkui-sec.conf"
 ssh "$HOST" "cat > /tmp/thinkui.conf" < "$REPO/deploy/nginx-thinkui.conf"
 ssh "$HOST" "set -e
   sudo mv /tmp/thinkui.conf /etc/nginx/sites-available/thinkui
