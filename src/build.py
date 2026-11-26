@@ -581,7 +581,8 @@ def build_pages():
         # service has a PostHog key.
         if "</body>" in text and "analytics.js" not in text:
             text = text.replace("</body>", '<script src="assets/js/analytics.js" defer></script>\n'
-                                          '<script src="assets/js/buy-inline.js" defer></script>\n</body>')
+                                          '<script src="assets/js/buy-inline.js" defer></script>\n'
+                                          '<script src="assets/js/session.js" defer></script>\n</body>')
         text = clean_links(version_assets(text))
         out = os.path.join(SITE, page)
         open(out, "w", encoding="utf-8").write(text)

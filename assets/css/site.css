@@ -1277,3 +1277,18 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
    crisp, its corner showed as a dark notch on that bar. */
 .tile { z-index: 1; }
 .tile:is(:nth-child(1), :nth-child(2), :nth-child(4), :nth-child(5)) { z-index: 2; }
+
+/* Signed-in header: session.js swaps "Sign in" for the account service's answer. The
+   avatar is the Google/GitHub photo, falling back to an initial when there is none. */
+.nav__acct { display: inline-flex; align-items: center; gap: 8px; }
+.nav__avatar {
+  width: 24px; height: 24px; border-radius: 50%; object-fit: cover;
+  display: inline-block; flex: 0 0 auto;
+  box-shadow: 0 0 0 1px var(--line-2, rgba(255, 255, 255, 0.16));
+}
+.nav__avatar--initial {
+  display: inline-grid; place-items: center;
+  background: #f0dcc8; color: #141414;
+  font-size: 12px; font-weight: 700; line-height: 1; text-transform: uppercase;
+}
+@media (max-width: 560px) { .nav__acct { gap: 6px; } }
