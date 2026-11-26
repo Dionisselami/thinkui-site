@@ -104,6 +104,9 @@ def inline_logo(name: str, uid: str) -> str:
 ICONS = """<link rel="icon" href="assets/img/app-icons/favicon.ico" sizes="any">
 <link rel="icon" href="assets/img/app-icons/favicon.svg" type="image/svg+xml">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/app-icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/img/app-icons/favicon-96.png">
+<link rel="icon" type="image/png" sizes="144x144" href="assets/img/app-icons/favicon-144.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/img/app-icons/favicon-192.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/img/app-icons/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/img/app-icons/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
