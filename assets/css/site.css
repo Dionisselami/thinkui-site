@@ -1292,3 +1292,21 @@ h3 { font-size: var(--fs-title); letter-spacing: -0.02em; line-height: 1.28; }
   font-size: 12px; font-weight: 700; line-height: 1; text-transform: uppercase;
 }
 @media (max-width: 560px) { .nav__acct { gap: 6px; } }
+
+/* Black Friday strip: injected by sale.js only while the deadline is in the future,
+   so it needs no build-time flag and leaves the page untouched once the sale ends. */
+.bf-strip {
+  display: block; text-align: center; text-decoration: none;
+  background: #f0dcc8; color: #141414;
+  padding: 9px 18px; font-size: 13.5px; line-height: 1.4; font-weight: 500;
+  border-bottom: 1px solid rgba(20, 20, 20, 0.14);
+}
+.bf-strip b {
+  font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 12px; margin-right: 8px;
+}
+.bf-strip s { opacity: 0.5; margin-right: 2px; }
+.bf-strip strong { font-weight: 800; }
+.bf-strip span { font-weight: 700; margin-left: 6px; text-decoration: underline; }
+.bf-strip:hover { background: #ecd3ba; }
+@media (max-width: 560px) { .bf-strip { font-size: 12.5px; padding: 8px 14px; } }

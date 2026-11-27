@@ -6,6 +6,9 @@
 <link rel="icon" href="assets/img/app-icons/favicon.ico" sizes="any">
 <link rel="icon" href="assets/img/app-icons/favicon.svg" type="image/svg+xml">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/app-icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/img/app-icons/favicon-96.png">
+<link rel="icon" type="image/png" sizes="144x144" href="assets/img/app-icons/favicon-144.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/img/app-icons/favicon-192.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/img/app-icons/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/img/app-icons/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
@@ -26,7 +29,7 @@
 <meta name="twitter:description" content="Start a 3-day free trial of ThinkUI: card at checkout, first charge on day 3. Starter $7.99/mo, Pro $15.99/mo, both 20% off. Lifetime $152 once.">
 <meta name="twitter:image" content="https://thinkui.xyz/assets/img/og.png?v=cloud">
 <link rel="preload" href="assets/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=70182052a3">
+<link rel="stylesheet" href="assets/css/site.css?v=2bd5210217">
 <link rel="stylesheet" href="assets/css/signin.css?v=6134a8e1ef">
 </head>
 <body>
@@ -64,7 +67,7 @@
           <legend>Choose your plan</legend>
           <label class="planpick__opt"><input type="radio" name="plan" value="starter" checked> <span class="planpick__name">Starter</span> <span class="planpick__meta"><b>3-day free trial</b>then $7.99/mo</span></label>
           <label class="planpick__opt"><input type="radio" name="plan" value="pro"> <span class="planpick__name">Pro</span> <span class="planpick__meta"><b>3-day free trial</b>then $15.99/mo</span></label>
-          <label class="planpick__opt"><input type="radio" name="plan" value="lifetime"> <span class="planpick__name">Lifetime</span> <span class="planpick__meta"><b>$152 once</b>no renewal</span></label>
+          <label class="planpick__opt"><input type="radio" name="plan" value="lifetime"> <span class="planpick__name">Lifetime</span> <span class="planpick__meta"><b data-bf-price-once>$152 once</b>no renewal</span></label>
         </fieldset>
         <div class="oauth">
           <a class="btn btn--block" href="/api/auth/google">
@@ -83,7 +86,7 @@
     <aside class="split__aside">
       <div class="split__body">
         <p class="split__title">Start free, or start a plan.</p>
-        <p class="lede">Starter and Pro open with a 3-day free trial &mdash; card at checkout, first charge on day 3, cancel before then and pay nothing &mdash; then $7.99 and $15.99 a month, both 20% off. Lifetime is $152 once.</p>
+        <p class="lede">Starter and Pro open with a 3-day free trial &mdash; card at checkout, first charge on day 3, cancel before then and pay nothing &mdash; then $7.99 and $15.99 a month, both 20% off. Lifetime is <span data-bf-price>$152</span> once.</p>
         <ul class="split__list">
           <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> All five tools on every plan</li>
           <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg> Every account gets a key to paste into any MCP client</li>
@@ -98,5 +101,7 @@
 <script src="assets/js/signin.js?v=e62a628530" defer></script>
 <script src="assets/js/analytics.js?v=8eb1039edd" defer></script>
 <script src="assets/js/buy-inline.js?v=c1f98d11f3" defer></script>
+<script src="assets/js/session.js?v=0fc183fa6f" defer></script>
+<script src="assets/js/sale.js?v=9737def82f" defer></script>
 </body>
 </html>
